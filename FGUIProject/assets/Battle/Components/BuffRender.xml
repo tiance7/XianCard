@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="40,40">
+  <displayList>
+    <loader id="n0_sdmt" name="img" xy="0,0" size="40,40" fill="scaleFree"/>
+    <text id="n1_sdmt" name="txtValue" xy="25,15" size="15,25" fontSize="18" color="#00ff00" strokeColor="#000000" text="1">
+      <relation target="" sidePair="right-right"/>
+    </text>
+  </displayList>
+</component>

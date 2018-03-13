@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="57,51">
+  <displayList>
+    <text id="n0_s4o7" name="n0" xy="8,0" size="41,25" fontSize="18" color="#00ff00" strokeColor="#000000" text="牌堆"/>
+    <text id="n1_s4o7" name="txtDeckNum" xy="21,27" size="15,25" fontSize="18" color="#00ff00" strokeColor="#000000" text="0">
+      <relation target="" sidePair="center-center"/>
+    </text>
+  </displayList>
+</component>

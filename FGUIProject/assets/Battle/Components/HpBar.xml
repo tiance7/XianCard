@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="120,20" extention="ProgressBar">
+  <controller name="ctrlArmor" exported="true" pages="0,no,1,has" selected="1"/>
+  <displayList>
+    <graph id="n6_s0y6" name="n6" xy="0,0" size="120,20" type="rect">
+      <relation target="" sidePair="width-width"/>
+    </graph>
+    <graph id="n4_s0y6" name="bar" xy="0,0" size="120,20" type="rect" fillColor="#ff0066ff">
+      <gearColor controller="ctrlArmor" pages="1" values="#0066ff" default="#33ff00"/>
+      <relation target="" sidePair="width-width"/>
+    </graph>
+    <text id="n5_s0y6" name="title" xy="25,-2" size="70,25" fontSize="18" color="#ffffff" strokeColor="#000000" text="100/100">
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <image id="n7_w0fa" name="n7" src="w0fac" xy="-51,-14" scale="0.4,0.4">
+      <gearDisplay controller="ctrlArmor" pages="1"/>
+    </image>
+    <text id="n8_w0fa" name="txtArmor" xy="-47,-4" size="41,29" fontSize="22" color="#ffffff" align="center" autoSize="none" text="0">
+      <gearDisplay controller="ctrlArmor" pages="1"/>
+    </text>
+  </displayList>
+  <ProgressBar titleType="valueAndmax"/>
+</component>

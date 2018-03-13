@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="279,429">
+  <controller name="ctrlState" exported="true" pages="0,canUse,1,noCost,2,flyToUsed" selected="2"/>
+  <displayList>
+    <image id="n0_s4o7" name="n0" src="s4o72" xy="0,0" pivot="0.5,0.5"/>
+    <graph id="n6_odk6" name="n6" xy="-17,-11" size="62,62" touchable="false" type="eclipse" lineColor="#ff66ff00" fillColor="#ff66ff00">
+      <gearDisplay controller="ctrlState" pages="0"/>
+    </graph>
+    <graph id="n1_s4o7" name="n1" xy="-11,-5" size="50,50" touchable="false" type="eclipse">
+      <gearDisplay controller="ctrlState" pages="0,1"/>
+    </graph>
+    <text id="n2_s4o7" name="txtCost" xy="3,1" size="22,39" fontSize="30" text="1">
+      <gearDisplay controller="ctrlState" pages="0,1"/>
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n3_s4o7" name="txtType" xy="115,251" size="49,29" fontSize="22" color="#00ff00" strokeColor="#000000" text="攻击">
+      <gearDisplay controller="ctrlState" pages="0,1"/>
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <text id="n4_s4o7" name="txtDesc" xy="39,283" size="202,39" fontSize="30" color="#ffff00" autoSize="height" strokeColor="#000000" text="造成5点伤害">
+      <gearDisplay controller="ctrlState" pages="0,1"/>
+    </text>
+    <text id="n5_jsey" name="txtName" xy="107,30" size="65,39" fontSize="30" color="#ffffff" strokeColor="#000000" text="痛击">
+      <gearDisplay controller="ctrlState" pages="0,1"/>
+      <relation target="" sidePair="center-center"/>
+    </text>
+  </displayList>
+  <transition name="tFlyToUsed">
+    <item time="0" type="Rotation" target="n0_s4o7" tween="true" startValue="0" endValue="1800" duration="20" ease="Linear"/>
+    <item time="0" type="Scale" target="n0_s4o7" tween="true" startValue="1,1" endValue="0,0" duration="20" ease="Linear"/>
+  </transition>
+</component>

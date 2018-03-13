@@ -1,0 +1,15 @@
+{
+	"codeGeneration":{
+		"classNamePrefix":"",
+		"codePath":"D:\\unityProject\\XianCard\\Assets\\Scripts\\UI",
+		"codeType":"",
+		"getMemberByName":true,
+		"ignoreNoname":true,
+		"memberNamePrefix":"",
+		"packageName":"UI"
+	},
+	"compressDesc":true,
+	"fileExtension":"",
+	"packageCount":2,
+	"path":"D:\\unityProject\\XianCard\\Assets\\Resources\\UI"
+}

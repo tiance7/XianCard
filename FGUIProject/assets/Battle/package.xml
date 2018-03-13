@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="n5b6g3ga" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="s4o70" name="BattleFrame.xml" path="/Frames/" exported="true"/>
+    <component id="s4o71" name="CardCom.xml" path="/Components/" exported="true"/>
+    <image id="s4o72" name="card_bg.jpg" path="/Assets/"/>
+    <component id="s4o73" name="CardDeckCom.xml" path="/Components/" exported="true"/>
+    <component id="s4o74" name="UsedCardCom.xml" path="/Components/" exported="true"/>
+    <component id="s4o75" name="HandCardCom.xml" path="/Components/" exported="true"/>
+    <image id="s0y67" name="jianxian.png" path="/Assets/"/>
+    <component id="s0y68" name="HpBar.xml" path="/Components/" exported="true"/>
+    <component id="s0y69" name="Fighter.xml" path="/Components/" exported="true"/>
+    <image id="s0y6a" name="guaiwu.jpg" path="/Assets/Enemy/" exported="true"/>
+    <component id="s0y6b" name="BtnEndTurn.xml" path="/Components/"/>
+    <image id="w0fac" name="armor.jpg" path="/Assets/"/>
+    <image id="84g1d" name="sword_icon.png" path="/Assets/"/>
+    <component id="sdmte" name="BuffRender.xml" path="/Components/" exported="true"/>
+    <image id="sdmtf" name="buff_wuling.jpg" path="/Assets/Buff/" exported="true"/>
+    <image id="8hixg" name="buff_jinjia.jpg" path="/Assets/Buff/" exported="true"/>
+    <image id="8hixh" name="buff_dimai.jpg" path="/Assets/Buff/" exported="true"/>
+    <image id="est9i" name="sword.png" path="/Assets/fx/"/>
+    <component id="est9j" name="FxSword.xml" path="/Frames/" exported="true"/>
+  </resources>
+  <publish name="Battle" genCode="true"/>
+</packageDescription>

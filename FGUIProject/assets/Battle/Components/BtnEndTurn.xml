@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="180,55" extention="Button">
+  <controller name="button" pages="0,up,1,down,2,disabled,3,selectedDisabled" selected="3"/>
+  <displayList>
+    <graph id="n6_s0y6" name="n6" xy="0,0" size="180,55" type="rect" fillColor="#ffcccccc">
+      <gearColor controller="button" pages="2,3" values="#cccccc|#cccccc" default="#ffffff"/>
+    </graph>
+    <text id="n7_s0y6" name="n7" xy="27,8" size="125,39" fontSize="30" text="敌方回合">
+      <gearText controller="button" pages="2,3" values="敌方回合|敌方回合" default="结束回合"/>
+      <relation target="" sidePair="center-center"/>
+    </text>
+  </displayList>
+  <Button downEffect="dark" downEffectValue="0.80"/>
+</component>

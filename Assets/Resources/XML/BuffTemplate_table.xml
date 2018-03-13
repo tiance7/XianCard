@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LocalDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<LocalData>
+		<g_BuffTemplate>
+			<entry>
+				<nId>1</nId>
+				<nType>1</nType>
+				<nTrigger>1</nTrigger>
+				<iBout>-1</iBout>
+				<szImg>buff_wuling</szImg>
+			</entry>
+			<entry>
+				<nId>2</nId>
+				<nType>2</nType>
+				<nTrigger>2</nTrigger>
+				<iEffectA>3</iEffectA>
+				<iBout>-1</iBout>
+				<szImg>buff_jinjia</szImg>
+			</entry>
+			<entry>
+				<nId>3</nId>
+				<nType>2</nType>
+				<nTrigger>2</nTrigger>
+				<iEffectA>4</iEffectA>
+				<iBout>-1</iBout>
+				<szImg>buff_jinjia</szImg>
+			</entry>
+			<entry>
+				<nId>4</nId>
+				<nType>3</nType>
+				<iBout>-1</iBout>
+				<szImg>buff_dimai</szImg>
+			</entry>
+		</g_BuffTemplate>
+	</LocalData>
+</LocalDatas>
