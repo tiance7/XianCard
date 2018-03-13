@@ -8,6 +8,7 @@ namespace UI.Battle
 	{
 		public static void BindAll()
 		{
+			UIObjectFactory.SetPackageItemExtension(FxSword.URL, typeof(FxSword));
 			UIObjectFactory.SetPackageItemExtension(HpBar.URL, typeof(HpBar));
 			UIObjectFactory.SetPackageItemExtension(Fighter.URL, typeof(Fighter));
 			UIObjectFactory.SetPackageItemExtension(BattleFrame.URL, typeof(BattleFrame));

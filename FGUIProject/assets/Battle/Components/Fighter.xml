@@ -13,4 +13,7 @@
     </group>
     <list id="n8_sdmt" name="lstBuff" xy="0,211" size="200,40" layout="row" defaultItem="ui://n5b6g3gasdmte"/>
   </displayList>
+  <transition name="tOnHit">
+    <item time="0" type="Shake" target="n3_s0y6" value="3,0.2"/>
+  </transition>
 </component>

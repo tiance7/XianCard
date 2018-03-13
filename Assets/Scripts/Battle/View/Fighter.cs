@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using FairyGUI;
 using UnityEngine;
+using DG.Tweening;
 
 namespace UI.Battle
 {
@@ -49,6 +50,18 @@ namespace UI.Battle
         public void UpdateHp(int newHp)
         {
             pgsHp.TweenValue(newHp, 0.5f);
+
+            tOnHit.Play();
+
+            FxSword fxSword = FxSword.CreateInstance();
+            fxSword.x = (this.width - fxSword.width) / 2;
+            fxSword.y = (this.height - fxSword.height) / 2;
+            AddChild(fxSword);
+            fxSword.img.fillAmount = 0;
+            DOTween.To(() => fxSword.img.fillAmount, x => fxSword.img.fillAmount = x, 1, 0.2f)
+            .SetUpdate(true)
+            .SetTarget(fxSword.img)
+            .OnComplete(()=> { fxSword.Dispose(); });
         }
 
         internal void UpdateAction(BoutAction boutAction)

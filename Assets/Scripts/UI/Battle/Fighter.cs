@@ -12,6 +12,7 @@ namespace UI.Battle
 		public HpBar pgsHp;
 		public GTextField txtAttack;
 		public GList lstBuff;
+		public Transition tOnHit;
 
 		public const string URL = "ui://n5b6g3gas0y69";
 
@@ -33,6 +34,7 @@ namespace UI.Battle
 			pgsHp = (HpBar)this.GetChild("pgsHp");
 			txtAttack = (GTextField)this.GetChild("txtAttack");
 			lstBuff = (GList)this.GetChild("lstBuff");
+			tOnHit = this.GetTransition("tOnHit");
 		}
 	}
 }

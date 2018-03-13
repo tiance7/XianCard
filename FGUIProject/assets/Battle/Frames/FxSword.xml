@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="666,525">
   <displayList>
-    <image id="n0_est9" name="n0" src="est9i" xy="0,0"/>
+    <image id="n0_est9" name="img" src="est9i" xy="0,0" blend="add" fillMethod="hz"/>
   </displayList>
 </component>
