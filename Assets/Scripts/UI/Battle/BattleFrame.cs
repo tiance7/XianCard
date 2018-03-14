@@ -14,6 +14,7 @@ namespace UI.Battle
 		public GButton btnEndTurn;
 		public GTextField txtCost;
 		public GComponent frmHand;
+		public BoutCom comBout;
 
 		public const string URL = "ui://n5b6g3gas4o70";
 
@@ -37,6 +38,7 @@ namespace UI.Battle
 			btnEndTurn = (GButton)this.GetChild("btnEndTurn");
 			txtCost = (GTextField)this.GetChild("txtCost");
 			frmHand = (GComponent)this.GetChild("frmHand");
+			comBout = (BoutCom)this.GetChild("comBout");
 		}
 	}
 }

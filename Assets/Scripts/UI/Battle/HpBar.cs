@@ -9,6 +9,7 @@ namespace UI.Battle
 	{
 		public Controller ctrlArmor;
 		public GTextField txtArmor;
+		public Transition tGetArmor;
 
 		public const string URL = "ui://n5b6g3gas0y68";
 
@@ -27,6 +28,7 @@ namespace UI.Battle
 
 			ctrlArmor = this.GetController("ctrlArmor");
 			txtArmor = (GTextField)this.GetChild("txtArmor");
+			tGetArmor = this.GetTransition("tGetArmor");
 		}
 	}
 }

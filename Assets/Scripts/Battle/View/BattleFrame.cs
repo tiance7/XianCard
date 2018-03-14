@@ -69,6 +69,8 @@ namespace UI.Battle
             HpArmorControl armorControl = armor > 0 ? HpArmorControl.HAS : HpArmorControl.NO;
             ftSelf.pgsHp.ctrlArmor.SetSelectedIndex((int)armorControl);
             ftSelf.pgsHp.txtArmor.text = armor.ToString();
+            if (armor > 0)
+                ftSelf.pgsHp.tGetArmor.Play();
         }
 
         private void InitEnemy()
@@ -401,6 +403,19 @@ namespace UI.Battle
         private void OnBoutUpdate(object obj)
         {
             btnEndTurn.enabled = _battleModel.bout == Bout.SELF;
+            switch (_battleModel.bout)
+            {
+                case Bout.SELF:
+                    comBout.txxBout.text = GameText.BATTLE_1;
+                    break;
+                case Bout.ENEMY:
+                    comBout.txxBout.text = GameText.BATTLE_2;
+                    break;
+                default:
+                    Debug.LogError("unhandle bout type:" + _battleModel.bout);
+                    break;
+            }
+            comBout.tBout.Play();
         }
 
         private void OnSelfHpUpdate(object obj)
@@ -417,11 +432,11 @@ namespace UI.Battle
         {
             RefreshBuff();
         }
+    }
 
-        enum HpArmorControl
-        {
-            NO,
-            HAS
-        }
+    enum HpArmorControl
+    {
+        NO,
+        HAS
     }
 }

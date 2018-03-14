@@ -8,4 +8,7 @@ public class GameText
     public const string TYPE_ATTACK = "攻击";
     public const string TYPE_SKILL = "技能";
     public const string TYPE_FOMATION = "阵法";
+
+    public const string BATTLE_1 = "我方回合";
+    public const string BATTLE_2 = "敌方回合";
 }

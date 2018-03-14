@@ -3,10 +3,11 @@
   <displayList>
     <component id="n0_s4o7" name="comCardDeck" src="s4o73" xy="22,813"/>
     <component id="n1_s4o7" name="frmUsedCard" src="s4o74" xy="1313,839"/>
-    <component id="n3_s0y6" name="ftSelf" src="s0y69" xy="322,260"/>
-    <component id="n5_s0y6" name="ftEnemy" src="s0y69" xy="963,254"/>
+    <component id="n3_s0y6" name="ftSelf" src="s0y69" xy="322,260" controller="ctrlAction,0"/>
+    <component id="n5_s0y6" name="ftEnemy" src="s0y69" xy="963,254" controller="ctrlAction,0"/>
     <component id="n6_s0y6" name="btnEndTurn" src="s0y6b" xy="1187,617"/>
     <text id="n7_odk6" name="txtCost" xy="27,740" size="47,39" fontSize="30" color="#ffcc00" strokeColor="#000000" text="3/3"/>
     <component id="n2_s4o7" name="frmHand" src="s4o75" xy="320,694"/>
+    <component id="n8_mq4y" name="comBout" src="mq4yk" xy="0,335" touchable="false"/>
   </displayList>
 </component>
