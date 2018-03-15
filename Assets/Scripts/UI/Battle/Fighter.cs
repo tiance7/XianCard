@@ -11,8 +11,12 @@ namespace UI.Battle
 		public GLoader imgAvatar;
 		public HpBar pgsHp;
 		public GTextField txtAttack;
+		public GGroup grpAttack;
 		public GList lstBuff;
 		public Transition tOnHit;
+		public Transition tAttackLeft;
+		public Transition tAttackLeftBack;
+		public Transition tActionFade;
 
 		public const string URL = "ui://n5b6g3gas0y69";
 
@@ -33,8 +37,12 @@ namespace UI.Battle
 			imgAvatar = (GLoader)this.GetChild("imgAvatar");
 			pgsHp = (HpBar)this.GetChild("pgsHp");
 			txtAttack = (GTextField)this.GetChild("txtAttack");
+			grpAttack = (GGroup)this.GetChild("grpAttack");
 			lstBuff = (GList)this.GetChild("lstBuff");
 			tOnHit = this.GetTransition("tOnHit");
+			tAttackLeft = this.GetTransition("tAttackLeft");
+			tAttackLeftBack = this.GetTransition("tAttackLeftBack");
+			tActionFade = this.GetTransition("tActionFade");
 		}
 	}
 }

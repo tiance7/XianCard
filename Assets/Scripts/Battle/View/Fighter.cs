@@ -50,9 +50,16 @@ namespace UI.Battle
         public void UpdateHp(int newHp)
         {
             pgsHp.TweenValue(newHp, 0.5f);
+        }
 
+        /// <summary>
+        /// 显示受击特效
+        /// </summary>
+        internal void ShowHitEffect()
+        {
             tOnHit.Play();
 
+            //todo 根据技能决定特效
             FxSword fxSword = FxSword.CreateInstance();
             fxSword.x = (this.width - fxSword.width) / 2;
             fxSword.y = (this.height - fxSword.height) / 2;
@@ -61,7 +68,7 @@ namespace UI.Battle
             DOTween.To(() => fxSword.img.fillAmount, x => fxSword.img.fillAmount = x, 1, 0.2f)
             .SetUpdate(true)
             .SetTarget(fxSword.img)
-            .OnComplete(()=> { fxSword.Dispose(); });
+            .OnComplete(() => { fxSword.Dispose(); });
         }
 
         internal void UpdateAction(BoutAction boutAction)
@@ -80,7 +87,23 @@ namespace UI.Battle
 
         private void SetAction(ActionControl actionControl)
         {
+            grpAttack.alpha = 1;
             ctrlAction.SetSelectedIndex((int)actionControl);
+        }
+
+        /// <summary>
+        /// 进行攻击
+        /// </summary>
+        internal void DoAttack(Action onHitCallback)
+        {
+            tActionFade.Play(() => 
+            {
+                tAttackLeft.Play(() =>
+                {
+                    onHitCallback();
+                    tAttackLeftBack.Play();
+                });
+            });
         }
 
         enum ActionControl
@@ -88,5 +111,6 @@ namespace UI.Battle
             NONE,
             ATTACK
         }
+
     }
 }

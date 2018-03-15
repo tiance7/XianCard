@@ -27,6 +27,8 @@ public class BattleManager : IDisposable
         _battleModel.AddListener(BattleEvent.ENEMY_INIT, OnEnemyInit);
         _battleModel.AddListener(BattleEvent.BOUT_UPDATE, OnBoutUpdate);
         _battleModel.AddListener(BattleEvent.ENEMY_DEAD, OnEnemyDead);
+
+        Message.AddListener(MsgType.ATTACK_HIT, OnAttackHit);
     }
 
     private void ReleaseControl()
@@ -40,6 +42,8 @@ public class BattleManager : IDisposable
         _battleModel.RemoveListener(BattleEvent.ENEMY_INIT, OnEnemyInit);
         _battleModel.RemoveListener(BattleEvent.BOUT_UPDATE, OnBoutUpdate);
         _battleModel.RemoveListener(BattleEvent.ENEMY_DEAD, OnEnemyDead);
+
+        Message.RemoveListener(MsgType.ATTACK_HIT, OnAttackHit);
     }
 
     //自己的回合抽牌
@@ -164,6 +168,9 @@ public class BattleManager : IDisposable
         }
         yield return new WaitForSeconds(AnimationTime.HAND_TO_USED);
 
+        //回合标题展示时间
+        yield return new WaitForSeconds(AnimationTime.BOUT_DISPLAY_TIME);
+
         //todo 结算buff效果
 
         //按顺序执行回合动作
@@ -172,38 +179,48 @@ public class BattleManager : IDisposable
             BoutAction boutAction = kv.Value.boutAction;
             if (boutAction == null)
                 continue;
-            HandleBoutAction(kv.Value, boutAction);
-            yield return new WaitForSeconds(0.5f);
+            float actionTime = HandleBoutAction(kv.Value, boutAction);
+            yield return new WaitForSeconds(actionTime);
         }
+
+        //都执行完了统一等待
+        yield return new WaitForSeconds(AnimationTime.BOUT_END_TIME);
 
         _battleModel.SetBout(Bout.SELF);
     }
 
     //处理某个敌人的行动
-    private void HandleBoutAction(EnemyInstance enemyInst, BoutAction boutAction)
+    private float HandleBoutAction(EnemyInstance enemyInst, BoutAction boutAction)
     {
         switch (boutAction.enemyAction)
         {
             case EnemyAction.ATTACK:
-                //结算对自身的伤害
-                int orignArmor = _battleModel.selfData.armor;
-                int leftArmor = orignArmor - boutAction.iValue;
-                if (leftArmor < 0)
-                {
-                    _battleModel.UpdateArmor(0);
-                    _battleModel.ReduceSelfHp(-leftArmor);
-                }
-                else
-                {
-                    _battleModel.UpdateArmor(leftArmor);
-                }
-
-                HandleOnHitEffect(enemyInst, orignArmor, boutAction.iValue);
-                break;
+                Message.Send(MsgType.DO_ATTACK, new AttackStruct(enemyInst, boutAction));
+                return AnimationTime.ATTACK_TIME;
             default:
                 Debug.LogError("unhandle enemy action:" + boutAction.enemyAction);
-                break;
+                return 0.5f;    //容错用时间
         }
+    }
+
+    private void OnAttackHit(object obj)
+    {
+        //结算对自身的伤害
+        AttackStruct attackStruct = obj as AttackStruct;
+        int orignArmor = _battleModel.selfData.armor;
+        int leftArmor = orignArmor - attackStruct.boutAction.iValue;
+        if (leftArmor < 0)
+        {
+            _battleModel.UpdateArmor(0);
+            _battleModel.ReduceSelfHp(-leftArmor);
+        }
+        else
+        {
+            _battleModel.UpdateArmor(leftArmor);
+        }
+        Message.Send(MsgType.SHOW_HIT_EFFECT, attackStruct);
+
+        HandleOnHitEffect(attackStruct.casterInst, orignArmor, attackStruct.boutAction.iValue);
     }
 
     //结算自身受击效果

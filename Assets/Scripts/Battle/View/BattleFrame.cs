@@ -114,6 +114,9 @@ namespace UI.Battle
             _battleModel.AddListener(BattleEvent.SELF_HP_UPDATE, OnSelfHpUpdate);
             _battleModel.AddListener(BattleEvent.SELF_BUFF_ADD, OnSelfBuffAdd);
             _battleModel.AddListener(BattleEvent.SELF_BUFF_UPDATE, OnSelfBuffUpdate);
+
+            Message.AddListener(MsgType.DO_ATTACK, OnDoAttack);
+            Message.AddListener(MsgType.SHOW_HIT_EFFECT, OnShowHitEffect);
         }
 
         private void ReleaseControl()
@@ -139,6 +142,9 @@ namespace UI.Battle
             _battleModel.RemoveListener(BattleEvent.SELF_HP_UPDATE, OnSelfHpUpdate);
             _battleModel.RemoveListener(BattleEvent.SELF_BUFF_ADD, OnSelfBuffAdd);
             _battleModel.RemoveListener(BattleEvent.SELF_BUFF_UPDATE, OnSelfBuffUpdate);
+
+            Message.RemoveListener(MsgType.DO_ATTACK, OnDoAttack);
+            Message.RemoveListener(MsgType.SHOW_HIT_EFFECT, OnShowHitEffect);
         }
 
         private void AddCardEvent(CardCom cardCom)
@@ -381,6 +387,7 @@ namespace UI.Battle
             if (fighter == null)
                 return;
             fighter.UpdateHp(enemyInstance.curHp);
+            fighter.ShowHitEffect();    //todo 判断是否是掉血
         }
 
         private void OnEnemyDead(object obj)
@@ -432,6 +439,22 @@ namespace UI.Battle
         {
             RefreshBuff();
         }
+
+        private void OnDoAttack(object obj)
+        {
+            AttackStruct attackStruct = obj as AttackStruct;
+            Fighter fighter = GetFighter(attackStruct.casterInst.instId);
+            if (fighter == null)
+                return;
+            fighter.DoAttack(()=> { Message.Send(MsgType.ATTACK_HIT, attackStruct); });
+        }
+
+        private void OnShowHitEffect(object obj)
+        {
+            //todo 判断攻击者是否是敌人
+            ftSelf.ShowHitEffect();
+        }
+
     }
 
     enum HpArmorControl
