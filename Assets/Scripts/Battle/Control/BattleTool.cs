@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class BattleTool
 {
+    public static AnimationCurve hpCurve;
+
     /// <summary>
     /// 是否还能抽卡
     /// </summary>

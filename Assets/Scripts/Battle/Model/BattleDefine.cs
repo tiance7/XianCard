@@ -31,10 +31,12 @@ public class AttackStruct
 {
     public EnemyInstance casterInst;    //攻击者
     public BoutAction boutAction;
+    public bool isBlock { get; private set; }    //是否格挡
 
-    public AttackStruct(EnemyInstance enemyInst, BoutAction boutAction)
+    public AttackStruct(EnemyInstance enemyInst, BoutAction boutAction, bool isBlock)
     {
         this.casterInst = enemyInst;
         this.boutAction = boutAction;
+        this. isBlock = isBlock;
     }
 }

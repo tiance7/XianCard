@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="197,210">
-  <controller name="ctrlAction" exported="true" pages="0,none,1,attack" selected="1"/>
+  <controller name="ctrlAction" exported="true" pages="0,none,1,attack" selected="0"/>
   <displayList>
     <loader id="n3_s0y6" name="imgAvatar" xy="0,0" size="197,186" url="ui://n5b6g3gas0y67" align="center" fill="scaleMatchHeight"/>
     <component id="n4_s0y6" name="pgsHp" src="s0y68" xy="0,190" size="197,20" controller="ctrlArmor,0">

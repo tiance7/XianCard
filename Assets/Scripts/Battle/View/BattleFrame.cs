@@ -1,4 +1,5 @@
-﻿using FairyGUI;
+﻿using DG.Tweening;
+using FairyGUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -451,9 +452,29 @@ namespace UI.Battle
 
         private void OnShowHitEffect(object obj)
         {
+            AttackStruct attackStruct = obj as AttackStruct;
             //todo 判断攻击者是否是敌人
             ftSelf.ShowHitEffect();
+            if (attackStruct.isBlock)
+                ShowBlockText(ftSelf.xy);
         }
+
+        /// <summary>
+        /// 显示格挡文字
+        /// </summary>
+        private void ShowBlockText(Vector2 xy)
+        {
+            BlockText blockText = BlockText.CreateInstance();
+            blockText.xy = xy;
+            AddChild(blockText);
+            float fadeTime = 2.0f;
+            blockText.TweenMoveY(blockText.y - 200, fadeTime).SetEase(Ease.OutQuad);
+            //blockText.TweenMoveX(blockText.x + 200, fadeTime);
+            //blockText.TweenMoveY(blockText.y + 400, fadeTime).SetEase(BattleTool.hpCurve);
+            blockText.TweenFade(0, fadeTime);
+            blockText.TweenScale(new Vector2(0.8f, 0.8f), fadeTime).OnComplete(() => { blockText.Dispose(); });
+        }
+
 
     }
 

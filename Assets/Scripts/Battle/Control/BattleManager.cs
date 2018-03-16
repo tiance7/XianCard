@@ -195,7 +195,8 @@ public class BattleManager : IDisposable
         switch (boutAction.enemyAction)
         {
             case EnemyAction.ATTACK:
-                Message.Send(MsgType.DO_ATTACK, new AttackStruct(enemyInst, boutAction));
+                bool isBlock = _battleModel.selfData.armor >= boutAction.iValue;
+                Message.Send(MsgType.DO_ATTACK, new AttackStruct(enemyInst, boutAction, isBlock));
                 return AnimationTime.ATTACK_TIME;
             default:
                 Debug.LogError("unhandle enemy action:" + boutAction.enemyAction);
@@ -214,7 +215,7 @@ public class BattleManager : IDisposable
             _battleModel.UpdateArmor(0);
             _battleModel.ReduceSelfHp(-leftArmor);
         }
-        else
+        else  //如果护甲有剩余
         {
             _battleModel.UpdateArmor(leftArmor);
         }

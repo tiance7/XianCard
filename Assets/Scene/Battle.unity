@@ -231,7 +231,7 @@ MonoBehaviour:
   rotation: {x: 0, y: 0, z: 0}
   fairyBatching: 0
   touchDisabled: 0
-  cachedUISize: {x: 1136, y: 640}
+  cachedUISize: {x: 1440, y: 900}
   hitTestMode: 0
   setNativeChildrenOrder: 0
 --- !u!4 &1244845939
@@ -242,7 +242,7 @@ Transform:
   m_GameObject: {fileID: 1244845937}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.015625, y: 0.015625, z: 0.015625}
+  m_LocalScale: {x: 0.011111111, y: 0.011111111, z: 0.011111111}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -274,6 +274,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57a57dff404680a4088fe8b4784a8e5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: -1.8379381
+      outSlope: -1.8379381
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.31036556
+      value: -0.38227043
+      inSlope: 0.021548148
+      outSlope: 0.021548148
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 0.60537547
+      value: 0.99235547
+      inSlope: 2.9029055
+      outSlope: 2.9029055
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!4 &1594773792
 Transform:
   m_ObjectHideFlags: 0
@@ -358,7 +382,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1891567137}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.875, y: -5, z: 0}
+  m_LocalPosition: {x: 8, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

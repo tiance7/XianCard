@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="197,61" pivot="0.5,0.5">
+  <displayList>
+    <text id="n9_cuv8" name="txtBlock" xy="0,0" size="197,61" fontSize="50" color="#ffffff" align="center" autoSize="none" strokeColor="#000000" text="格挡"/>
+  </displayList>
+</component>

@@ -21,6 +21,8 @@
     <image id="est9i" name="sword.png" path="/Assets/fx/"/>
     <component id="est9j" name="FxSword.xml" path="/Frames/" exported="true"/>
     <component id="mq4yk" name="BoutCom.xml" path="/Components/" exported="true"/>
+    <component id="cuv8l" name="BlockText.xml" path="/Components/Text/" exported="true"/>
+    <component id="cuv8m" name="HpText.xml" path="/Components/Text/" exported="true"/>
   </resources>
   <publish name="Battle" genCode="true"/>
 </packageDescription>
