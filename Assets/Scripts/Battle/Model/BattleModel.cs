@@ -59,7 +59,7 @@ public class BattleModel : ModelBase
     public void ReduceSelfHp(int value)
     {
         selfData.ReduceHp(value);
-        SendEvent(BattleEvent.SELF_HP_UPDATE);
+        SendEvent(BattleEvent.SELF_HP_UPDATE, value);
         if(selfData.curHp <= 0)
             SendEvent(BattleEvent.SELF_DEAD);
     }
@@ -178,7 +178,7 @@ public class BattleModel : ModelBase
         enemyInstance.curHp -= iEffectValue;
         if (enemyInstance.curHp <= 0)
             enemyInstance.curHp = 0;
-        SendEvent(BattleEvent.ENEMY_HP_UPDATE, instId);
+        SendEvent(BattleEvent.ENEMY_HP_UPDATE, new HpUpdateStruct(instId, -iEffectValue));
         if (enemyInstance.curHp == 0)
             SendEvent(BattleEvent.ENEMY_DEAD, instId);
     }

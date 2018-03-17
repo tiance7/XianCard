@@ -125,6 +125,7 @@ public class BattleManager : IDisposable
     //自身回合结束处理
     private void SelfBoutEndHandle()
     {
+        //回合结束buff结算
         foreach (var buffInst in _battleModel.selfData.lstBuffInst)
         {
             BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);

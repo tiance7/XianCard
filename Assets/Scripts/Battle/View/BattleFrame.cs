@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI.Battle
 {
@@ -380,15 +381,19 @@ namespace UI.Battle
 
         private void OnEnemyHpUpdate(object obj)
         {
-            int instId = (int)obj;
-            EnemyInstance enemyInstance = _battleModel.GetEnemy(instId);
+            HpUpdateStruct hpUpdate = obj as HpUpdateStruct;
+            EnemyInstance enemyInstance = _battleModel.GetEnemy(hpUpdate.instId);
             if (enemyInstance == null)
                 return;
-            Fighter fighter = GetFighter(instId);
+            Fighter fighter = GetFighter(hpUpdate.instId);
             if (fighter == null)
                 return;
             fighter.UpdateHp(enemyInstance.curHp);
-            fighter.ShowHitEffect();    //todo 判断是否是掉血
+            if (hpUpdate.changeValue < 0)
+            {
+                fighter.ShowHitEffect();
+                ShowFlyHpText(-hpUpdate.changeValue, fighter.xy);
+            }
         }
 
         private void OnEnemyDead(object obj)
@@ -428,7 +433,25 @@ namespace UI.Battle
 
         private void OnSelfHpUpdate(object obj)
         {
+            int reduceValue = (int)obj;
             ftSelf.UpdateHp(_battleModel.selfData.curHp);
+            ShowFlyHpText(reduceValue, ftSelf.xy);
+        }
+
+        //显示飘血动画
+        private void ShowFlyHpText(int reduceValue, Vector2 xy)
+        {
+            HpText hpText = HpText.CreateInstance();
+            hpText.txtHp.text = reduceValue.ToString();
+            hpText.xy = xy;
+            AddChild(hpText);
+            float fadeTime = 1.0f;
+            hpText.TweenMoveX(hpText.x + 200, fadeTime);
+            hpText.TweenMoveY(this.height, fadeTime).SetEase(BattleTool.hpCurve);
+            hpText.TweenFade(0, 0.5f).SetDelay(0.8f);
+            DOTween.To(() => hpText.txtHp.color, newColor => hpText.txtHp.color = newColor, Color.white, fadeTime)
+                .SetUpdate(true)
+                .SetTarget(this);
         }
 
         private void OnSelfBuffAdd(object obj)

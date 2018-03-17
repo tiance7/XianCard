@@ -40,3 +40,18 @@ public class AttackStruct
         this. isBlock = isBlock;
     }
 }
+
+/// <summary>
+/// 生命改变结构体
+/// </summary>
+public class HpUpdateStruct
+{
+    public int instId;
+    public int changeValue; //变化值 加血为正，扣血为负
+
+    public HpUpdateStruct(int instId, int changeValue)
+    {
+        this.instId = instId;
+        this.changeValue = changeValue;
+    }
+}

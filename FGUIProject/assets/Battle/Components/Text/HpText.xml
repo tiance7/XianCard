@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="61,61">
   <displayList>
-    <text id="n10_cuv8" name="n10" xy="0,0" size="61,61" fontSize="50" color="#ff0000" align="center" strokeColor="#000000" text="10"/>
+    <text id="n10_cuv8" name="txtHp" xy="0,0" size="61,61" fontSize="50" color="#ff0000" align="center" strokeColor="#000000" text="10"/>
   </displayList>
 </component>
