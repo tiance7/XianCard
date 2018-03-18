@@ -96,7 +96,7 @@ namespace UI.Battle
         /// </summary>
         internal void DoAttack(Action onHitCallback)
         {
-            tActionFade.Play(() => 
+            tActionFade.Play(() =>
             {
                 tAttackLeft.Play(() =>
                 {
@@ -106,10 +106,27 @@ namespace UI.Battle
             });
         }
 
+        /// <summary>
+        /// 死亡处理
+        /// </summary>
+        internal void DeadHandle()
+        {
+            SetAction(ActionControl.NONE);
+            pgsHp.cDead.SetSelectedIndex((int)DeadControl.YES);
+            pgsHp.text = GameText.BATTLE_4;
+            tDead.Play();
+        }
+
         enum ActionControl
         {
             NONE,
             ATTACK
+        }
+
+        enum DeadControl
+        {
+            NO,
+            YES
         }
 
     }

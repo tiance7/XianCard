@@ -8,6 +8,7 @@ namespace UI.Battle
 	public partial class HpBar : GProgressBar
 	{
 		public Controller ctrlArmor;
+		public Controller cDead;
 		public GTextField txtArmor;
 		public Transition tGetArmor;
 
@@ -27,6 +28,7 @@ namespace UI.Battle
 			base.ConstructFromXML(xml);
 
 			ctrlArmor = this.GetController("ctrlArmor");
+			cDead = this.GetController("cDead");
 			txtArmor = (GTextField)this.GetChild("txtArmor");
 			tGetArmor = this.GetTransition("tGetArmor");
 		}

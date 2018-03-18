@@ -17,6 +17,7 @@ namespace UI.Battle
 		public Transition tAttackLeft;
 		public Transition tAttackLeftBack;
 		public Transition tActionFade;
+		public Transition tDead;
 
 		public const string URL = "ui://n5b6g3gas0y69";
 
@@ -43,6 +44,7 @@ namespace UI.Battle
 			tAttackLeft = this.GetTransition("tAttackLeft");
 			tAttackLeftBack = this.GetTransition("tAttackLeftBack");
 			tActionFade = this.GetTransition("tActionFade");
+			tDead = this.GetTransition("tDead");
 		}
 	}
 }

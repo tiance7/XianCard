@@ -15,6 +15,7 @@ namespace UI.Battle
 		public GTextField txtCost;
 		public GComponent frmHand;
 		public BoutCom comBout;
+		public Transition tBattleEnd;
 
 		public const string URL = "ui://n5b6g3gas4o70";
 
@@ -39,6 +40,7 @@ namespace UI.Battle
 			txtCost = (GTextField)this.GetChild("txtCost");
 			frmHand = (GComponent)this.GetChild("frmHand");
 			comBout = (BoutCom)this.GetChild("comBout");
+			tBattleEnd = this.GetTransition("tBattleEnd");
 		}
 	}
 }

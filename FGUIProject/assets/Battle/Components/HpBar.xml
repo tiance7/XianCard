@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="120,20" extention="ProgressBar">
-  <controller name="ctrlArmor" exported="true" pages="0,no,1,has" selected="1"/>
+  <controller name="ctrlArmor" exported="true" pages="0,no,1,has" selected="0"/>
+  <controller name="cDead" exported="true" pages="0,no,1,yes" selected="1"/>
   <displayList>
     <graph id="n6_s0y6" name="n6" xy="0,0" size="120,20" type="rect">
       <relation target="" sidePair="width-width"/>
     </graph>
-    <graph id="n4_s0y6" name="bar" xy="0,0" size="120,20" type="rect" fillColor="#ff0066ff">
+    <graph id="n4_s0y6" name="bar" xy="0,0" size="120,20" type="rect" fillColor="#ff33ff00">
       <gearColor controller="ctrlArmor" pages="1" values="#0066ff" default="#33ff00"/>
       <relation target="" sidePair="width-width"/>
     </graph>
     <text id="n5_s0y6" name="title" xy="25,-2" size="70,25" fontSize="18" color="#ffffff" strokeColor="#000000" text="100/100">
+      <gearDisplay controller="cDead" pages="0"/>
       <relation target="" sidePair="center-center"/>
     </text>
     <image id="n7_w0fa" name="n7" src="w0fac" xy="-90,-61" pivot="0.5,0.5" scale="0.4,0.4">
@@ -17,6 +19,10 @@
     </image>
     <text id="n8_w0fa" name="txtArmor" xy="-47,-4" pivot="0.5,0.5" size="41,29" fontSize="22" color="#ffffff" align="center" autoSize="none" text="0">
       <gearDisplay controller="ctrlArmor" pages="1"/>
+    </text>
+    <text id="n9_iunu" name="n9" xy="37,-3" size="45,27" fontSize="20" color="#ffffff" strokeColor="#000000" text="死亡">
+      <gearDisplay controller="cDead" pages="1"/>
+      <relation target="" sidePair="center-center"/>
     </text>
   </displayList>
   <ProgressBar titleType="valueAndmax"/>

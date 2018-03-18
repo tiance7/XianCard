@@ -25,4 +25,18 @@ public class BattleTool
         BattleModel.Inst.ShuffleDeckFromUsed();
         return 1.0f;    //todo 动画播放时间
     }
+
+    /// <summary>
+    /// 是否全部的敌人都死亡
+    /// </summary>
+    /// <returns></returns>
+    internal static bool IsAllEnemyDead()
+    {
+        foreach (var kv in BattleModel.Inst.GetEnemys())
+        {
+            if (kv.Value.curHp > 0)
+                return false;
+        }
+        return true;
+    }
 }

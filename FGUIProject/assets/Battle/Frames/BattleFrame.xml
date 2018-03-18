@@ -10,4 +10,12 @@
     <component id="n2_s4o7" name="frmHand" src="s4o75" xy="320,694"/>
     <component id="n8_mq4y" name="comBout" src="mq4yk" xy="0,335" touchable="false"/>
   </displayList>
+  <transition name="tBattleEnd">
+    <item time="0" type="Visible" target="n0_s4o7" value="false"/>
+    <item time="0" type="Visible" target="n7_odk6" value="false"/>
+    <item time="0" type="Visible" target="n1_s4o7" value="false"/>
+    <item time="0" type="Visible" target="n6_s0y6" value="false"/>
+    <item time="0" type="XY" target="n2_s4o7" tween="true" startValue="320,694" endValue="320,921" duration="12"/>
+    <item time="13" type="Visible" target="n2_s4o7" value="false"/>
+  </transition>
 </component>

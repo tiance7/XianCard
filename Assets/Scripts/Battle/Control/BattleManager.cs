@@ -156,6 +156,16 @@ public class BattleManager : IDisposable
     {
         int instId = (int)obj;
         _dicEnemyAction.Remove(instId);
+
+        CheckIsBattleEnd();
+    }
+
+    //检查战斗是否结束
+    private void CheckIsBattleEnd()
+    {
+        Debug.Log("battle end");
+        if (BattleTool.IsAllEnemyDead())
+            Message.Send(MsgType.BATTLE_END);
     }
 
     //敌方回合处理

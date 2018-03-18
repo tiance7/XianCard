@@ -3,7 +3,7 @@
   <controller name="ctrlAction" exported="true" pages="0,none,1,attack" selected="0"/>
   <displayList>
     <loader id="n3_s0y6" name="imgAvatar" xy="0,0" size="197,186" url="ui://n5b6g3gas0y67" align="center" fill="scaleMatchHeight"/>
-    <component id="n4_s0y6" name="pgsHp" src="s0y68" xy="0,190" size="197,20" controller="ctrlArmor,0">
+    <component id="n4_s0y6" name="pgsHp" src="s0y68" xy="0,190" size="197,20" controller="ctrlArmor,0,cDead,0">
       <ProgressBar max="100"/>
     </component>
     <image id="n5_84g1" name="n5" src="84g1d" xy="48,-78" group="n7_84g1" scale="0.15,0.15"/>
@@ -25,5 +25,8 @@
   <transition name="tActionFade">
     <item time="0" type="Alpha" target="n7_84g1" tween="true" startValue="1" endValue="0" duration="24" ease="Linear"/>
     <item time="0" type="Shake" target="n5_84g1" value="3,0.2"/>
+  </transition>
+  <transition name="tDead">
+    <item time="0" type="Alpha" target="n3_s0y6" tween="true" startValue="1" endValue="0" duration="24"/>
   </transition>
 </component>

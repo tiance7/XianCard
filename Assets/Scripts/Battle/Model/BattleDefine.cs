@@ -22,6 +22,7 @@ public class AnimationTime
     public const float ATTACK_TIME = 1.63f; //攻击总时间(头顶1s + 攻击位移0.63s)
     public const float BOUT_DISPLAY_TIME = 1.5f; //回合展示时间
     public const float BOUT_END_TIME = 1.5f; //回合结束时间
+    public const float BATTLE_END_DEAD_TIME = 1.0f;    //战斗结束死亡动画时间
 }
 
 /// <summary>

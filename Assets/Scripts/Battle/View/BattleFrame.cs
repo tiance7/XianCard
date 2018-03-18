@@ -119,6 +119,7 @@ namespace UI.Battle
 
             Message.AddListener(MsgType.DO_ATTACK, OnDoAttack);
             Message.AddListener(MsgType.SHOW_HIT_EFFECT, OnShowHitEffect);
+            Message.AddListener(MsgType.BATTLE_END, OnBattleEnd);
         }
 
         private void ReleaseControl()
@@ -147,6 +148,7 @@ namespace UI.Battle
 
             Message.RemoveListener(MsgType.DO_ATTACK, OnDoAttack);
             Message.RemoveListener(MsgType.SHOW_HIT_EFFECT, OnShowHitEffect);
+            Message.RemoveListener(MsgType.BATTLE_END, OnBattleEnd);
         }
 
         private void AddCardEvent(CardCom cardCom)
@@ -398,7 +400,9 @@ namespace UI.Battle
 
         private void OnEnemyDead(object obj)
         {
-            //todo
+            int instId = (int)obj;
+            //todo 根据id获取Fighter
+            ftEnemy.DeadHandle();
         }
 
         private void OnActionUpdate(object obj)
@@ -498,7 +502,19 @@ namespace UI.Battle
             blockText.TweenScale(new Vector2(0.8f, 0.8f), fadeTime).OnComplete(() => { blockText.Dispose(); });
         }
 
+        private void OnBattleEnd(object obj)
+        {
+            frmHand.touchable = false;
+            tBattleEnd.Play();
+            Core.Inst.StartCoroutine(ShowChooseCard());
+        }
 
+        private IEnumerator ShowChooseCard()
+        {
+            yield return new WaitForSeconds(AnimationTime.BATTLE_END_DEAD_TIME);
+
+            //todo 显示抽卡界面
+        }
     }
 
     enum HpArmorControl
