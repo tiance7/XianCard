@@ -19,6 +19,7 @@ namespace UI.Battle
 			UIObjectFactory.SetPackageItemExtension(CardDeckCom.URL, typeof(CardDeckCom));
 			UIObjectFactory.SetPackageItemExtension(UsedCardCom.URL, typeof(UsedCardCom));
 			UIObjectFactory.SetPackageItemExtension(BuffRender.URL, typeof(BuffRender));
+			UIObjectFactory.SetPackageItemExtension(BattleRewardFrame.URL, typeof(BattleRewardFrame));
 		}
 	}
 }

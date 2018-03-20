@@ -5,6 +5,7 @@ using UnityEngine;
 public class ResPath
 {
     public const string XML_DIR = "XML/";
+    public const string UI = "UI/";
 
     /// <summary>
     /// 获取FGUI里的资源路径

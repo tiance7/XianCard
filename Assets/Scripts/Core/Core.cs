@@ -19,13 +19,16 @@ public class Core : MonoBehaviour
         Editor = true;
 #endif
 
-        if (Inst != null)
+        if(Inst == null)
         {
-            Debug.Log("Core重复创建");
+            Inst = this;
+        }
+        else if (Inst != null)
+        {
+            Destroy(this.gameObject);   //防止重复创建
             return;
         }
 
-        Inst = this;
         _mainThreadID = System.Threading.Thread.CurrentThread.ManagedThreadId;
         DontDestroyOnLoad(gameObject);
 
@@ -39,7 +42,7 @@ public class Core : MonoBehaviour
         TemplateManager templateMgr = new TemplateManager(new TemplateList());
         templateMgr.LoadAllXml();
 
-        //WinTool.RegisteWindows();                      // 注册窗口
+        WinTool.RegisteWindows();                      // 注册窗口
 
         EnemyActionReg.InitAction();
 

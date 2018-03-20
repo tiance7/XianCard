@@ -514,6 +514,7 @@ namespace UI.Battle
             yield return new WaitForSeconds(AnimationTime.BATTLE_END_DEAD_TIME);
 
             //todo 显示抽卡界面
+            WindowManager.Open(WindowId.BATTLE_REWARD);
         }
     }
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1440,900">
+  <controller name="ctrlReward" exported="true" pages="0,list,1,selectCard" selected="1"/>
+  <displayList>
+    <text id="n1_xtfz" name="n1" xy="620,110" size="200,48" fontSize="39" color="#ffffff" strokeColor="#000000" text="选择一张牌">
+      <gearText controller="ctrlReward" pages="1" values="选择一张牌" default="获得战利品"/>
+      <relation target="" sidePair="center-center"/>
+    </text>
+    <component id="n3_xtfz" name="btnJumpCard" src="xtfzp" xy="1192,535">
+      <gearDisplay controller="ctrlReward" pages="0"/>
+    </component>
+    <graph id="n0_xtfz" name="n0" xy="544,167" size="351,529" group="n4_xtfz" type="rect" lineColor="#ff006666" fillColor="#ff003333"/>
+    <list id="n2_xtfz" name="n2" xy="557,184" size="320,494" group="n4_xtfz" overflow="scroll" defaultItem="ui://n5b6g3gaxtfzo"/>
+    <group id="n4_xtfz" name="n4" xy="544,167" size="351,529" advanced="true">
+      <gearDisplay controller="ctrlReward" pages="0"/>
+    </group>
+    <component id="n5_xtfz" name="btnJump" src="xtfzq" xy="29,669">
+      <gearDisplay controller="ctrlReward" pages="1"/>
+    </component>
+    <component id="n6_xtfz" name="card1" src="s4o71" xy="580,179" pivot="0.5,0.5" scale="0.8,0.8" controller="ctrlState,0">
+      <gearDisplay controller="ctrlReward" pages="1"/>
+    </component>
+    <component id="n9_xtfz" name="card2" src="s4o71" xy="580,179" pivot="0.5,0.5" scale="0.8,0.8" controller="ctrlState,0">
+      <gearDisplay controller="ctrlReward" pages="1"/>
+    </component>
+    <component id="n10_xtfz" name="card3" src="s4o71" xy="580,179" pivot="0.5,0.5" scale="0.8,0.8" controller="ctrlState,0">
+      <gearDisplay controller="ctrlReward" pages="1"/>
+    </component>
+  </displayList>
+  <transition name="tSelect3Card">
+    <item time="0" type="XY" target="n10_xtfz" tween="true" startValue="580,179" endValue="880,179" duration="12"/>
+    <item time="0" type="XY" target="n6_xtfz" tween="true" startValue="580,179" endValue="280,179" duration="12"/>
+  </transition>
+</component>

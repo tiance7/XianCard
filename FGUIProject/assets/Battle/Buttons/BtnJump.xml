@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="180,55" extention="Button">
+  <displayList>
+    <graph id="n6_s0y6" name="n6" xy="0,0" size="180,55" type="rect" fillColor="#ff990000"/>
+    <text id="n7_s0y6" name="n7" xy="57,8" size="65,39" fontSize="30" color="#ffff00" strokeColor="#000000" text="跳过">
+      <relation target="" sidePair="center-center"/>
+    </text>
+  </displayList>
+  <Button downEffect="dark" downEffectValue="0.80"/>
+</component>

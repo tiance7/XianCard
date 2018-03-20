@@ -11,7 +11,7 @@
     <component id="s0y68" name="HpBar.xml" path="/Components/" exported="true"/>
     <component id="s0y69" name="Fighter.xml" path="/Components/" exported="true"/>
     <image id="s0y6a" name="guaiwu.jpg" path="/Assets/Enemy/" exported="true"/>
-    <component id="s0y6b" name="BtnEndTurn.xml" path="/Components/"/>
+    <component id="s0y6b" name="BtnEndTurn.xml" path="/Buttons/"/>
     <image id="w0fac" name="armor.jpg" path="/Assets/"/>
     <image id="84g1d" name="sword_icon.png" path="/Assets/"/>
     <component id="sdmte" name="BuffRender.xml" path="/Components/" exported="true"/>
@@ -23,6 +23,10 @@
     <component id="mq4yk" name="BoutCom.xml" path="/Components/" exported="true"/>
     <component id="cuv8l" name="BlockText.xml" path="/Components/Text/" exported="true"/>
     <component id="cuv8m" name="HpText.xml" path="/Components/Text/" exported="true"/>
+    <component id="xtfzn" name="BattleRewardFrame.xml" path="/Frames/" exported="true"/>
+    <component id="xtfzo" name="BattleRewardRender.xml" path="/Components/" exported="true"/>
+    <component id="xtfzp" name="BtnJumpChooseCard.xml" path="/Buttons/"/>
+    <component id="xtfzq" name="BtnJump.xml" path="/Buttons/"/>
   </resources>
   <publish name="Battle" genCode="true"/>
 </packageDescription>

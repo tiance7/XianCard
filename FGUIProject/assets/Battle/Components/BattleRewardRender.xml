@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="320,80">
+  <displayList>
+    <graph id="n0_xtfz" name="n0" xy="0,0" size="320,80" type="rect" fillColor="#ff33cccc"/>
+    <text id="n1_xtfz" name="n1" xy="13,24" size="293,31" fontSize="24" color="#ffff00" strokeColor="#000000" text="将一张卡牌加入你的牌组中"/>
+  </displayList>
+</component>
