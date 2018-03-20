@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class CardType
 {
-    public const uint ATTACK = 1;   //攻击
-    public const uint SKILL = 2;    //技能
-    public const uint FORMATION = 3;    //阵法
+    public const uint ATTACK = 1;                       //攻击
+    public const uint SKILL = 2;                        //技能
+    public const uint FORMATION = 3;                    //阵法
 }
