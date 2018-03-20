@@ -9,7 +9,9 @@ public sealed class CardTemplate
 	public string szName;	//名字
 	public int iCost;	//费用
 	public string szDesc;	//描述
-	public uint nType;	//卡牌类型
+	public uint nType;	//卡牌类型 enum of CardType
+	public uint nCardUseType;	//卡牌使用条件 enum of CardUseType
+	public uint nUseTypeParam;	//卡牌使用条件参数
 	public uint nEffectId;	//效果ID
 	public uint nUpgradeId;	//升级后ID
 }
@@ -29,7 +31,9 @@ public sealed class CardTemplateData
 			template.szName = element["szName"] != null ? element["szName"].InnerText : "";	//名字
 			template.iCost = element["iCost"] != null ? int.Parse(element["iCost"].InnerText) : 0;	//费用
 			template.szDesc = element["szDesc"] != null ? element["szDesc"].InnerText : "";	//描述
-			template.nType = element["nType"] != null ? uint.Parse(element["nType"].InnerText) : 0;	//卡牌类型
+			template.nType = element["nType"] != null ? uint.Parse(element["nType"].InnerText) : 0;	//卡牌类型 enum of CardType
+			template.nCardUseType = element["nCardUseType"] != null ? uint.Parse(element["nCardUseType"].InnerText) : 0;	//卡牌使用条件 enum of CardUseType
+			template.nUseTypeParam = element["nUseTypeParam"] != null ? uint.Parse(element["nUseTypeParam"].InnerText) : 0;	//卡牌使用条件参数
 			template.nEffectId = element["nEffectId"] != null ? uint.Parse(element["nEffectId"].InnerText) : 0;	//效果ID
 			template.nUpgradeId = element["nUpgradeId"] != null ? uint.Parse(element["nUpgradeId"].InnerText) : 0;	//升级后ID
 
