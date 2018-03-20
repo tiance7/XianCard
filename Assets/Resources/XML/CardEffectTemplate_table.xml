@@ -4,41 +4,57 @@
 		<g_CardEffectTemplate>
 			<entry>
 				<nId>1</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>1</nTarget>
 				<nType>1</nType>
 				<iEffectValue>6</iEffectValue>
 			</entry>
 			<entry>
 				<nId>2</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>1</nTarget>
 				<nType>1</nType>
 				<iEffectValue>9</iEffectValue>
 			</entry>
 			<entry>
 				<nId>3</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
 				<nType>2</nType>
 				<iEffectValue>5</iEffectValue>
 			</entry>
 			<entry>
 				<nId>4</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
 				<nType>2</nType>
 				<iEffectValue>8</iEffectValue>
 			</entry>
 			<entry>
 				<nId>5</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>0</nTarget>
 				<nType>3</nType>
 				<iEffectValue>1</iEffectValue>
 			</entry>
 			<entry>
 				<nId>6</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>0</nTarget>
 				<nType>3</nType>
 				<iEffectValue>2</iEffectValue>
 			</entry>
 			<entry>
 				<nId>7</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>0</nTarget>
 				<nType>3</nType>
 				<iEffectValue>3</iEffectValue>
 			</entry>
 			<entry>
 				<nId>8</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>0</nTarget>
 				<nType>3</nType>
 				<iEffectValue>4</iEffectValue>
 			</entry>
