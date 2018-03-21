@@ -80,7 +80,25 @@ namespace UI.Battle
         }
 
         /// <summary>
-        /// 设置是否被悬停选中
+        /// 设置是否非战斗时被悬停选中
+        /// </summary>
+        /// <param name="isHolding"></param>
+        internal void SetHoldNormal(bool isHolding)
+        {
+            if (this.parent == null)
+                return;
+
+            if (isHolding)
+                _tweenScaleHelper.x = _tweenScaleHelper.y = 1.0f;
+            else
+                _tweenScaleHelper.x = _tweenScaleHelper.y = BattleDefine.CARD_SCALE;
+
+            ReleaseTweenScale();
+            _tweenScale = this.TweenScale(_tweenScaleHelper, 0.3f);
+        }
+
+        /// <summary>
+        /// 设置是否战斗时被悬停选中
         /// </summary>
         /// <param name="isHolding"></param>
         internal void SetHold(bool isHolding, bool useTween = true, Action tweenEndCallback = null)

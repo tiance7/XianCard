@@ -12,6 +12,7 @@ public class BattleModel : ModelBase
     #endregion
 
     //自身
+    public uint job { get; private set; }    //职业
     public FighterData selfData;
 
     //本局怪物
@@ -49,7 +50,8 @@ public class BattleModel : ModelBase
     //-------------------------自身数据-------------------------
     private void InitSelf()
     {
-        selfData = new FighterData(1, 80, 80, 0); //todo  实例ID分配 根据职业初始化
+        job = Job.SWORD;    //todo 根据玩家选择指定
+        selfData = new FighterData(1, 80, 80, 0); //todo  实例ID分配 根据职业初始化属性
     }
 
     /// <summary>

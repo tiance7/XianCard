@@ -26,6 +26,15 @@ public class AnimationTime
 }
 
 /// <summary>
+/// 职业划分
+/// </summary>
+public class Job
+{
+    public const uint NONE = 0;  //通用
+    public const uint SWORD = 1; //剑修
+}
+
+/// <summary>
 /// 攻击结构体
 /// </summary>
 public class AttackStruct

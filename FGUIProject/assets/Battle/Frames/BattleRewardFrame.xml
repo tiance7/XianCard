@@ -10,20 +10,20 @@
       <gearDisplay controller="ctrlReward" pages="0"/>
     </component>
     <graph id="n0_xtfz" name="n0" xy="544,167" size="351,529" group="n4_xtfz" type="rect" lineColor="#ff006666" fillColor="#ff003333"/>
-    <list id="n2_xtfz" name="n2" xy="557,184" size="320,494" group="n4_xtfz" overflow="scroll" defaultItem="ui://n5b6g3gaxtfzo"/>
+    <list id="n2_xtfz" name="lstReward" xy="557,184" size="320,494" group="n4_xtfz" overflow="scroll" defaultItem="ui://n5b6g3gaxtfzo"/>
     <group id="n4_xtfz" name="n4" xy="544,167" size="351,529" advanced="true">
       <gearDisplay controller="ctrlReward" pages="0"/>
     </group>
-    <component id="n5_xtfz" name="btnJump" src="xtfzq" xy="29,669">
+    <component id="n5_xtfz" name="btnJumpSelectCard" src="xtfzq" xy="29,669">
       <gearDisplay controller="ctrlReward" pages="1"/>
     </component>
-    <component id="n6_xtfz" name="card1" src="s4o71" xy="580,179" pivot="0.5,0.5" scale="0.8,0.8" controller="ctrlState,0">
+    <component id="n6_xtfz" name="card1" src="s4o71" xy="580,179" pivot="0.5,0.5" scale="0.7,0.7" controller="ctrlState,0">
       <gearDisplay controller="ctrlReward" pages="1"/>
     </component>
-    <component id="n9_xtfz" name="card2" src="s4o71" xy="580,179" pivot="0.5,0.5" scale="0.8,0.8" controller="ctrlState,0">
+    <component id="n9_xtfz" name="card2" src="s4o71" xy="580,179" pivot="0.5,0.5" scale="0.7,0.7" controller="ctrlState,0">
       <gearDisplay controller="ctrlReward" pages="1"/>
     </component>
-    <component id="n10_xtfz" name="card3" src="s4o71" xy="580,179" pivot="0.5,0.5" scale="0.8,0.8" controller="ctrlState,0">
+    <component id="n10_xtfz" name="card3" src="s4o71" xy="580,179" pivot="0.5,0.5" scale="0.7,0.7" controller="ctrlState,0">
       <gearDisplay controller="ctrlReward" pages="1"/>
     </component>
   </displayList>

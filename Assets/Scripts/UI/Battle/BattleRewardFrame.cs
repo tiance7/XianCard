@@ -9,7 +9,8 @@ namespace UI.Battle
 	{
 		public Controller ctrlReward;
 		public GButton btnJumpCard;
-		public GButton btnJump;
+		public GList lstReward;
+		public GButton btnJumpSelectCard;
 		public CardCom card1;
 		public CardCom card2;
 		public CardCom card3;
@@ -32,7 +33,8 @@ namespace UI.Battle
 
 			ctrlReward = this.GetController("ctrlReward");
 			btnJumpCard = (GButton)this.GetChild("btnJumpCard");
-			btnJump = (GButton)this.GetChild("btnJump");
+			lstReward = (GList)this.GetChild("lstReward");
+			btnJumpSelectCard = (GButton)this.GetChild("btnJumpSelectCard");
 			card1 = (CardCom)this.GetChild("card1");
 			card2 = (CardCom)this.GetChild("card2");
 			card3 = (CardCom)this.GetChild("card3");
