@@ -8,6 +8,7 @@
 				<iCost>1</iCost>
 				<szDesc>造成6点伤害</szDesc>
 				<nType>1</nType>
+				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>1</nEffectId>
@@ -19,6 +20,7 @@
 				<iCost>1</iCost>
 				<szDesc>造成9点伤害</szDesc>
 				<nType>1</nType>
+				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>2</nEffectId>
@@ -29,6 +31,7 @@
 				<iCost>1</iCost>
 				<szDesc>获得5点防御</szDesc>
 				<nType>2</nType>
+				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>3</nEffectId>
@@ -40,6 +43,7 @@
 				<iCost>1</iCost>
 				<szDesc>获得8点防御</szDesc>
 				<nType>2</nType>
+				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>4</nEffectId>
@@ -51,6 +55,7 @@
 				<iCost>3</iCost>
 				<szDesc>以剑护身，对攻击者造成等同于护甲减少值一半的伤害</szDesc>
 				<nType>3</nType>
+				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>5</nEffectId>
@@ -63,6 +68,7 @@
 				<iCost>2</iCost>
 				<szDesc>以剑护身，对攻击者造成等同于护甲减少值一半的伤害</szDesc>
 				<nType>3</nType>
+				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>5</nEffectId>
@@ -74,6 +80,7 @@
 				<iCost>1</iCost>
 				<szDesc>每回合结束获得3点护甲</szDesc>
 				<nType>3</nType>
+				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>6</nEffectId>
@@ -86,6 +93,7 @@
 				<iCost>1</iCost>
 				<szDesc>每回合结束获得4点护甲</szDesc>
 				<nType>3</nType>
+				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>7</nEffectId>
@@ -97,6 +105,7 @@
 				<iCost>3</iCost>
 				<szDesc>护甲不在回合结束时消失</szDesc>
 				<nType>3</nType>
+				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>8</nEffectId>
@@ -109,6 +118,7 @@
 				<iCost>2</iCost>
 				<szDesc>护甲不在回合结束时消失</szDesc>
 				<nType>3</nType>
+				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>8</nEffectId>

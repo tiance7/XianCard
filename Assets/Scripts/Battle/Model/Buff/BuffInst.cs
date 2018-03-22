@@ -8,5 +8,6 @@ using UnityEngine;
 public class BuffInst
 {
     public uint tplId;
-    public int leftBout;    //剩余回合数 -1表示无限
+    public int leftBout;            //剩余回合数 -1表示无限
+    public int effectVal;           //效果值
 }

@@ -5,9 +5,9 @@ using System.Xml;
 public sealed class CardEffectTemplate
 {
 	public uint nId;	//id
-	public uint iEffectTrigType;	//效果触发类型 enum of CardEffectTrigType
-	public uint nTarget;	//目标类型 enum of CardEffectTargetType
-	public uint nType;	//效果类型 enum of CardEffectType
+	public uint iEffectTrigType;	//效果触发类型 enum CardEffectTrigType
+	public uint nTarget;	//目标类型 enum CardEffectTargetType
+	public uint nType;	//效果类型 enum CardEffectType
 	public int iEffectValue;	//效果值
 	public uint nLinkId;	//关联效果ID
 }
@@ -23,9 +23,9 @@ public sealed class CardEffectTemplateData
 		{
 			CardEffectTemplate template = new CardEffectTemplate();
 			template.nId = element["nId"] != null ? uint.Parse(element["nId"].InnerText) : 0;	//id
-			template.iEffectTrigType = element["iEffectTrigType"] != null ? uint.Parse(element["iEffectTrigType"].InnerText) : 0;	//效果触发类型 enum of CardEffectTrigType
-			template.nTarget = element["nTarget"] != null ? uint.Parse(element["nTarget"].InnerText) : 0;	//目标类型 enum of CardEffectTargetType
-			template.nType = element["nType"] != null ? uint.Parse(element["nType"].InnerText) : 0;	//效果类型 enum of CardEffectType
+			template.iEffectTrigType = element["iEffectTrigType"] != null ? uint.Parse(element["iEffectTrigType"].InnerText) : 0;	//效果触发类型 enum CardEffectTrigType
+			template.nTarget = element["nTarget"] != null ? uint.Parse(element["nTarget"].InnerText) : 0;	//目标类型 enum CardEffectTargetType
+			template.nType = element["nType"] != null ? uint.Parse(element["nType"].InnerText) : 0;	//效果类型 enum CardEffectType
 			template.iEffectValue = element["iEffectValue"] != null ? int.Parse(element["iEffectValue"].InnerText) : 0;	//效果值
 			template.nLinkId = element["nLinkId"] != null ? uint.Parse(element["nLinkId"].InnerText) : 0;	//关联效果ID
 

@@ -291,13 +291,14 @@ public class BattleModel : ModelBase
                 continue;
             if (templet.iBout != -1)
                 buffInst.leftBout += templet.iBout;
+            buffInst.effectVal += templet.iEffectA;
             hasBuff = true;
             SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffId);
             break;
         }
         if(!hasBuff)
         {
-            selfData.lstBuffInst.Add(new BuffInst() { tplId = buffId, leftBout = templet.iBout });
+            selfData.lstBuffInst.Add(new BuffInst() { tplId = buffId, leftBout = templet.iBout, effectVal = templet.iEffectA });
             SendEvent(BattleEvent.SELF_BUFF_ADD, buffId);
         }
     }
