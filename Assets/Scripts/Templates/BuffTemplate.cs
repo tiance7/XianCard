@@ -7,6 +7,8 @@ public sealed class BuffTemplate
 	public uint nId;	//id
 	public uint nType;	//enum BuffType
 	public uint nTrigger;	//enum BuffTriggerType
+	public uint nTriggerParam1;	//触发类型参数1
+	public uint nTriggerParam2;	//触发类型参数2
 	public int iEffectA;	//效果值A
 	public int iBout;	//持续回合
 	public string szImg;	//图片名
@@ -25,6 +27,8 @@ public sealed class BuffTemplateData
 			template.nId = element["nId"] != null ? uint.Parse(element["nId"].InnerText) : 0;	//id
 			template.nType = element["nType"] != null ? uint.Parse(element["nType"].InnerText) : 0;	//enum BuffType
 			template.nTrigger = element["nTrigger"] != null ? uint.Parse(element["nTrigger"].InnerText) : 0;	//enum BuffTriggerType
+			template.nTriggerParam1 = element["nTriggerParam1"] != null ? uint.Parse(element["nTriggerParam1"].InnerText) : 0;	//触发类型参数1
+			template.nTriggerParam2 = element["nTriggerParam2"] != null ? uint.Parse(element["nTriggerParam2"].InnerText) : 0;	//触发类型参数2
 			template.iEffectA = element["iEffectA"] != null ? int.Parse(element["iEffectA"].InnerText) : 0;	//效果值A
 			template.iBout = element["iBout"] != null ? int.Parse(element["iBout"].InnerText) : 0;	//持续回合
 			template.szImg = element["szImg"] != null ? element["szImg"].InnerText : "";	//图片名

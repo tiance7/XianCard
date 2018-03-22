@@ -9,4 +9,5 @@ public class CardEffectTargetType
     public const uint RANDOM_ENEMY = 2;             //随机敌人
     public const uint ALL_ENEMY = 3;                //所有敌人
     public const uint SELF = 4;                     //自己
+    public const uint ATTACKER = 5;                 //攻击者
 }

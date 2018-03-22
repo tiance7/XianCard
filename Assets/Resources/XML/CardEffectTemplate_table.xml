@@ -33,28 +33,28 @@
 			<entry>
 				<nId>5</nId>
 				<iEffectTrigType>0</iEffectTrigType>
-				<nTarget>0</nTarget>
+				<nTarget>4</nTarget>
 				<nType>3</nType>
 				<iEffectValue>1</iEffectValue>
 			</entry>
 			<entry>
 				<nId>6</nId>
 				<iEffectTrigType>0</iEffectTrigType>
-				<nTarget>0</nTarget>
+				<nTarget>4</nTarget>
 				<nType>3</nType>
 				<iEffectValue>2</iEffectValue>
 			</entry>
 			<entry>
 				<nId>7</nId>
 				<iEffectTrigType>0</iEffectTrigType>
-				<nTarget>0</nTarget>
+				<nTarget>4</nTarget>
 				<nType>3</nType>
 				<iEffectValue>3</iEffectValue>
 			</entry>
 			<entry>
 				<nId>8</nId>
 				<iEffectTrigType>0</iEffectTrigType>
-				<nTarget>0</nTarget>
+				<nTarget>4</nTarget>
 				<nType>3</nType>
 				<iEffectValue>4</iEffectValue>
 			</entry>

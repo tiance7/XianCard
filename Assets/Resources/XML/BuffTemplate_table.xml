@@ -6,6 +6,7 @@
 				<nId>1</nId>
 				<nType>1</nType>
 				<nTrigger>1</nTrigger>
+				<iEffectA>50</iEffectA>
 				<iBout>-1</iBout>
 				<szImg>buff_wuling</szImg>
 			</entry>
@@ -28,6 +29,8 @@
 			<entry>
 				<nId>4</nId>
 				<nType>3</nType>
+				<nTrigger>0</nTrigger>
+				<iEffectA>0</iEffectA>
 				<iBout>-1</iBout>
 				<szImg>buff_dimai</szImg>
 			</entry>

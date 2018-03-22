@@ -246,7 +246,7 @@ public class BattleManager : IDisposable
             switch (template.nType)
             {
                 case BuffType.ARMOR_REFLECT:
-                    int reflectValue = (int)Math.Round(Math.Min(orignArmor, atkValue) * 0.5f);
+                    int reflectValue = (Math.Min(orignArmor, atkValue) * buffInst.effectVal)/100;
                     _battleModel.ReduceEnemyHp(enemyInst.instId, reflectValue);
                     break;
                 default:

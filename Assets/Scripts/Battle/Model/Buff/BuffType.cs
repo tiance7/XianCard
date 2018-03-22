@@ -7,9 +7,9 @@ using UnityEngine;
 /// </summary>
 public class BuffType
 {
-    public const uint ARMOR_REFLECT = 1;    //反伤=护甲减少值
-    public const uint ADD_ARMOR = 2;    //获得护甲
-    public const uint KEEP_ARMOR = 3;    //回合结束保留护甲
+    public const uint ARMOR_REFLECT = 1;                //反伤=护甲减少值*系数
+    public const uint ADD_ARMOR = 2;                    //获得护甲
+    public const uint KEEP_ARMOR = 3;                   //回合结束保留护甲
 }
 
 /// <summary>
@@ -17,6 +17,12 @@ public class BuffType
 /// </summary>
 public class BuffTriggerType
 {
-    public const uint ON_HIT = 1;    //受击时
-    public const uint BOUT_END = 2;    //回合结束
+    public const uint NONE = 0;                         //无
+    public const uint ON_HIT = 1;                       //受击时
+    public const uint BOUT_END = 2;                     //回合结束
+    public const uint BOUT_START = 3;                   //回合开始
+    public const uint BOUT_DRAW_END = 4;                //回合抽牌结束
+    public const uint DO_HARM = 5;                      //造成伤害时
+    public const uint CARD_EXHAUST = 6;                 //卡牌被消耗时
+
 }
