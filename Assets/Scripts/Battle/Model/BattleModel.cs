@@ -42,6 +42,10 @@ public class BattleModel : ModelBase
 
         InitDeck();
         ShuffleDeck();
+        _lstHand.Clear();
+
+        _lstUsed.Clear();
+        SendEvent(BattleEvent.USED_NUM_UPDATE);
 
         InitCost();
         SetBout(Bout.SELF);
@@ -190,6 +194,7 @@ public class BattleModel : ModelBase
     //根据收集到的牌初始化牌堆
     private void InitDeck()
     {
+        _lstDeck.Clear();
         foreach (CardInstance collectCard in CharModel.Inst.GetCollectCardList())
         {
             _lstDeck.Add(collectCard.Clone());

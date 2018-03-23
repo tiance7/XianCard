@@ -163,7 +163,6 @@ public class BattleManager : IDisposable
     //检查战斗是否结束
     private void CheckIsBattleEnd()
     {
-        Debug.Log("battle end");
         if (BattleTool.IsAllEnemyDead())
             Message.Send(MsgType.BATTLE_END);
     }

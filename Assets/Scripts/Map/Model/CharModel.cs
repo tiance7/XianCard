@@ -29,14 +29,20 @@ public class CharModel
         //初始5张攻击卡 5张防御卡
         List<uint> lstInitCardId = new List<uint> { 1, 1, 1, 1, 1, 3, 3, 3, 3, 3 };
 
-        lstInitCardId.Add(5);   //todo 测试用 五灵归宗
-        lstInitCardId.Add(7);   //todo 测试用 金甲阵
-        lstInitCardId.Add(9);   //todo 测试用 地脉阵
+        //lstInitCardId.Add(5);   //todo 测试用 五灵归宗
+        //lstInitCardId.Add(7);   //todo 测试用 金甲阵
+        //lstInitCardId.Add(9);   //todo 测试用 地脉阵
 
         foreach (uint cardId in lstInitCardId)
         {
             _lstCollectCard.Add(new CardInstance(cardId));
         }
+    }
+
+    //添加一张卡
+    public void AddCollectCard(CardInstance cardInst)
+    {
+        _lstCollectCard.Add(cardInst);
     }
 
 }

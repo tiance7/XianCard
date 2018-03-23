@@ -29,7 +29,7 @@ namespace UI.Battle
         /// 设置卡牌信息
         /// </summary>
         /// <param name="drawCard"></param>
-        internal void SetCard(CardInstance cardInst)
+        internal void SetCard(CardInstance cardInst, bool checkUse = true)
         {
             _cardInst = cardInst;
             _template = CardTemplateData.GetData(cardInst.tplId);
@@ -39,7 +39,7 @@ namespace UI.Battle
             txtName.text = _template.szName;
             txtType.text = GetTypeDesc(_template.nType);
             txtDesc.text = _template.szDesc; //todo 处理通配符
-            UpdateUsable();
+            UpdateUsable(checkUse);
         }
 
         public CardInstance GetCardInstance()
@@ -71,9 +71,9 @@ namespace UI.Battle
             return this.TweenMove(_cardOrignPos, moveTime);
         }
 
-        public void UpdateUsable()
+        public void UpdateUsable(bool checkUse = true)
         {
-            if (BattleModel.Inst.curCost >= _template.iCost)
+            if (checkUse && BattleModel.Inst.curCost >= _template.iCost)
                 ctrlState.SetSelectedIndex((int)StateControl.CAN_USE);
             else
                 ctrlState.SetSelectedIndex((int)StateControl.NO_COST);

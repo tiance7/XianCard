@@ -16,6 +16,7 @@ public class BattleRewardWindow : WindowExtend
     public BattleRewardWindow()
     {
         modal = true;
+        modalAlpha = 0.4f;
         fitType = FitScreen.FullScreen;
     }
 
@@ -46,6 +47,12 @@ public class BattleRewardWindow : WindowExtend
         _frmBattleReward.lstReward.onClickItem.Add(OnRewardClick);
         _frmBattleReward.btnJumpCard.onClick.Add(OnCloseClick);
         _frmBattleReward.btnJumpSelectCard.onClick.Add(OnJumpSelectCard);
+
+        List<CardCom> lstCardCom = new List<CardCom>() { _frmBattleReward.card1, _frmBattleReward.card2, _frmBattleReward.card3 };
+        foreach (var cardCom in lstCardCom)
+        {
+            cardCom.onClick.Add(OnCardComClick);
+        }
     }
 
     private void ReleaseControl()
@@ -79,9 +86,9 @@ public class BattleRewardWindow : WindowExtend
         //todo 判断奖励类型
         //如果是卡牌类型奖励
         SetRewardControl(RewardControl.SELECT_CARD);
-        _frmBattleReward.card1.SetCard(new CardInstance(_lstRewardCard[0].nId));
-        _frmBattleReward.card2.SetCard(new CardInstance(_lstRewardCard[1].nId));
-        _frmBattleReward.card3.SetCard(new CardInstance(_lstRewardCard[2].nId));
+        _frmBattleReward.card1.SetCard(new CardInstance(_lstRewardCard[0].nId), false);
+        _frmBattleReward.card2.SetCard(new CardInstance(_lstRewardCard[1].nId), false);
+        _frmBattleReward.card3.SetCard(new CardInstance(_lstRewardCard[2].nId), false);
         _frmBattleReward.tSelect3Card.Play();
     }
 
@@ -104,6 +111,14 @@ public class BattleRewardWindow : WindowExtend
     private void OnJumpSelectCard(EventContext context)
     {
         SetRewardControl(RewardControl.LIST);
+    }
+
+    private void OnCardComClick(EventContext context)
+    {
+        CardCom cardCom = context.sender as CardCom;
+        CharModel.Inst.AddCollectCard(cardCom.GetCardInstance());
+        //todo 播放获得动画
+        CloseSelf();
     }
 
 
