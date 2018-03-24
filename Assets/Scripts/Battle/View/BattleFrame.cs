@@ -193,76 +193,33 @@ namespace UI.Battle
             CardTemplate template = CardTemplateData.GetData(cardInstance.tplId);
             if (template == null)
                 return false;
-            if (_battleModel.curCost < template.iCost)  //如果费用不足
+            if (_battleModel.curCost < template.iCost)  //如果费用不足,todo:根据卡牌实例里的费用
                 return false;
-            switch (template.nType)
+            switch (template.nTargetType)
             {
-                case CardType.ATTACK:
-                    //攻击牌 判断是否鼠标放置在某个敌人上面 是就对敌人使用
+                case CardTargetType.ONE_ENEMY:      
+                    //判断是否鼠标放置在某个敌人上面 是就对敌人使用
                     if (ftEnemy.rootContainer.HitTest(Stage.inst.touchPosition, true) == ftEnemy.rootContainer)
-                        UseSkillCard(cardInstance, template, ftEnemy);
-                    return false;
-                case CardType.SKILL:    //技能牌 
-                case CardType.FORMATION:    //阵法牌 
+                    {
+                        _battleModel.UseSkillCard(cardInstance, template, ftEnemy.instId);
+                        return true;
+                    }
+                    break;
+                case CardTargetType.SELF:
+                case CardTargetType.ALL_ENEMY:
+                case CardTargetType.NONE:
                     //判断是否超过某个高度 是就使用
                     if (Stage.inst.touchPosition.y < _skillUseY)
                     {
-                        UseSkillCard(cardInstance, template);
+                        _battleModel.UseSkillCard(cardInstance, template);
                         return true;
                     }
+                    break;
+                default:
+                    Debug.LogError("unhandle card targettype:" + template.nTargetType);
                     return false;
-                default:
-                    Debug.LogError("unhandle card type:" + template.nType);
-                    return false;
             }
-        }
-
-        //使用技能卡
-        private void UseSkillCard(CardInstance cardInstance, CardTemplate template, Fighter target = null)
-        {
-            Debug.Log("card used:" + cardInstance.tplId);
-            HandleCardEffect(cardInstance, template.nEffectId, target);
-            _battleModel.ReduceCost(template.iCost);
-
-            //处理卡牌去向
-            switch (template.nType)
-            {
-                case CardType.ATTACK:
-                case CardType.SKILL:
-                    _battleModel.MoveHandCardToUsed(cardInstance);
-                    break;
-                case CardType.FORMATION:
-                    _battleModel.ConsumeHandCard(cardInstance);
-                    break;
-                default:
-                    Debug.LogError("unhandle card used type:" + template.nType);
-                    break;
-            }
-        }
-
-        //处理卡牌效果
-        private void HandleCardEffect(CardInstance cardInstance, uint effectId, Fighter target = null)
-        {
-            CardEffectTemplate effectTemplate = CardEffectTemplateData.GetData(effectId);
-            if (effectTemplate == null)
-                return;
-            switch (effectTemplate.nType)
-            {
-                case CardEffectType.ONE_DAMAGE:
-                    _battleModel.ReduceEnemyHp(target.instId, effectTemplate.iEffectValue);
-                    break;
-                case CardEffectType.GET_ARMOR:
-                    _battleModel.AddArmor(effectTemplate.iEffectValue);
-                    break;
-                case CardEffectType.CASTER_GET_BUFF:
-                    _battleModel.AddBuff((uint)effectTemplate.iEffectValue);
-                    break;
-                default:
-                    Debug.LogError("unhandle card effect type:" + effectTemplate.nType);
-                    break;
-            }
-            if (effectTemplate.nLinkId != 0)
-                HandleCardEffect(cardInstance, effectTemplate.nLinkId, target);
+            return false;
         }
 
         private void OnTouchMove(EventContext context)

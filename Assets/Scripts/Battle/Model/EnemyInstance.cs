@@ -5,15 +5,12 @@ using UnityEngine;
 /// <summary>
 /// 怪物实例
 /// </summary>
-public class EnemyInstance
+public class EnemyInstance : ObjectBase
 {
-    public int instId;
-    public int curHp;
-    public int maxHp;
     public EnemyTemplate template { get; private set; }
     public BoutAction boutAction;   //下一回合要执行的行为
 
-    public EnemyInstance(uint tplId)
+    public EnemyInstance(uint tplId) : base()
     {
         template = EnemyTemplateData.GetData(tplId);
         if (template == null)

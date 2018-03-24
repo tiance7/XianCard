@@ -34,6 +34,12 @@
 				<iBout>-1</iBout>
 				<szImg>buff_dimai</szImg>
 			</entry>
+			<entry>
+				<nId>5</nId>
+				<nType>4</nType>
+				<nTrigger>0</nTrigger>
+				<iBout>1</iBout>
+			</entry>
 		</g_BuffTemplate>
 	</LocalData>
 </LocalDatas>

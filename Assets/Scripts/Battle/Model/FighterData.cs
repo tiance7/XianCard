@@ -3,20 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FighterData
+public class FighterData : ObjectBase
 {
-    public int instId;
-    public int curHp { get; private set; }
-    public int maxHp;
-    public int armor;
-    public List<BuffInst> lstBuffInst = new List<BuffInst>();
-
-    public FighterData(int instId, int curHp, int maxHp, int armor)
+    public FighterData(int instId, int curHp, int maxHp, int armor) : base()
     {
-        this.instId = instId;
-        this.curHp = curHp;
-        this.maxHp = maxHp;
-        this.armor = armor;
+        base.instId = instId;
+        base.curHp = curHp;
+        base.maxHp = maxHp;
+        base.armor = armor;
     }
 
     internal void ReduceHp(int value)
