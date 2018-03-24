@@ -23,6 +23,11 @@ public class BattleModel : ModelBase
     private List<CardInstance> _lstHand = new List<CardInstance>(); //手牌
     private List<CardInstance> _lstUsed = new List<CardInstance>(); //弃牌堆
 
+    //数据统计
+    public EffectStatistics effectStat;
+    public RoundStatistics roundStat;
+    public BattleStatistics battleStat;
+
     //费用
     public int curCost { get; private set; }
     public int maxCost { get; private set; }
@@ -39,6 +44,7 @@ public class BattleModel : ModelBase
     {
         selfData.BattleInit();
         InitEnemy();
+        InitStatistics();
 
         InitDeck();
         ShuffleDeck();
@@ -127,6 +133,20 @@ public class BattleModel : ModelBase
         SendEvent(BattleEvent.COST_CHANGE);
     }
 
+    //-------------------------统计数据-------------------------
+    private void InitStatistics()
+    {
+        effectStat = new EffectStatistics();
+        roundStat = new RoundStatistics();
+        battleStat = new BattleStatistics();
+    }
+
+    public void InitRoundStatistics()
+    {
+        effectStat = new EffectStatistics();
+        roundStat = new RoundStatistics();
+    }
+
     //-------------------------全局数据-------------------------
 
     public void SetBout(Bout value)
@@ -172,6 +192,35 @@ public class BattleModel : ModelBase
     }
 
     /// <summary>
+    /// 对目标造成伤害（可被护甲抵消）
+    /// </summary>
+    /// <param name="instId"></param>
+    /// <param name="iEffectValue"></param>
+    internal void DamageEnemy(int instId, int iEffectValue)
+    {
+        EnemyInstance enemyInstance = GetEnemy(instId);
+        if (enemyInstance == null)
+            return;
+
+        if (enemyInstance.armor >= iEffectValue)
+        {
+            enemyInstance.armor -= iEffectValue;
+            effectStat.damageArmor += (uint)iEffectValue;
+            roundStat.damageArmor += (uint)iEffectValue;
+        }
+        else
+        {
+            int iReduceHp = iEffectValue - enemyInstance.armor;
+
+            effectStat.damageArmor += (uint)enemyInstance.armor;
+            roundStat.damageArmor += (uint)enemyInstance.armor;
+            enemyInstance.armor = 0;
+
+            ReduceEnemyHp(instId, iReduceHp);
+        }
+    }
+
+    /// <summary>
     /// 掉血
     /// </summary>
     /// <param name="instId"></param>
@@ -182,6 +231,10 @@ public class BattleModel : ModelBase
         if (enemyInstance == null)
             return;
         enemyInstance.curHp -= iEffectValue;
+
+        effectStat.damageLife += (uint)iEffectValue;
+        roundStat.damageLife += (uint)iEffectValue;
+
         if (enemyInstance.curHp <= 0)
             enemyInstance.curHp = 0;
         SendEvent(BattleEvent.ENEMY_HP_UPDATE, new HpUpdateStruct(instId, -iEffectValue));
@@ -234,6 +287,11 @@ public class BattleModel : ModelBase
     /// </summary>
     internal void DrawOneCard()
     {
+        if (HasBuff(BuffType.CAN_NOT_DRAW_CARD))
+        {
+            return;
+        }
+
         CardInstance drawCard = _lstDeck[0];
         if (drawCard == null)
         {
@@ -244,6 +302,23 @@ public class BattleModel : ModelBase
         SendEvent(BattleEvent.DECK_NUM_UPDATE);
         _lstHand.Add(drawCard);
         SendEvent(BattleEvent.DRAW_ONE_CARD, drawCard);
+    }
+
+    /// <summary>
+    /// 抽多张牌
+    /// </summary>
+    /// <param name="drawCount"></param>
+    internal void DrawMultiCard(int drawCount)
+    {
+        if (HasBuff(BuffType.CAN_NOT_DRAW_CARD))
+        {
+            return;
+        }
+
+        for (var i = 0; i < drawCount; ++i)
+        {
+            DrawOneCard();
+        }
     }
 
     /// <summary>
@@ -283,10 +358,27 @@ public class BattleModel : ModelBase
     }
 
     /// <summary>
-    /// 获得buff
+    /// 是否有对应类型的BUFF
+    /// </summary>
+    /// <returns></returns>
+    internal bool HasBuff(uint buffType)
+    {
+        foreach (var buffInst in selfData.lstBuffInst)
+        {
+            BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
+            if (template == null)
+                continue;
+            if (template.nType == buffType)
+                return true;
+        }
+        return false;
+    }
+    
+    /// <summary>
+    /// 自身获得buff
     /// </summary>
     /// <param name="buffId"></param>
-    internal void AddBuff(uint buffId)
+    internal void AddSelfBuff(uint buffId)
     {
         BuffTemplate templet = BuffTemplateData.GetData(buffId);
         if (templet == null)
@@ -310,4 +402,104 @@ public class BattleModel : ModelBase
         }
     }
 
+    //使用技能卡
+    internal void UseSkillCard(CardInstance cardInstance, CardTemplate template, int targetInstId = 0)
+    {
+        effectStat = new EffectStatistics();
+
+        Debug.Log("card used:" + cardInstance.tplId);
+        ReduceCost(template.iCost);
+        effectStat.consumeCost += (uint)template.iCost;
+
+        HandleCardEffect(cardInstance, template.nEffectId, targetInstId);
+
+        roundStat.lstUsedCardId.Add(cardInstance.tplId);
+        battleStat.useCardCount += 1;
+
+        //处理卡牌去向
+        switch (template.nType)
+        {
+            case CardType.ATTACK:
+            case CardType.SKILL:
+               MoveHandCardToUsed(cardInstance);
+                break;
+            case CardType.FORMATION:
+                ConsumeHandCard(cardInstance);
+                break;
+            default:
+                Debug.LogError("unhandle card type:" + template.nType);
+                break;
+        }
+    }
+
+    //检测能否触发卡牌效果
+    internal bool CanTriggerCardEffect(uint effectId, int targetInstId)
+    {
+        CardEffectTemplate effectTemplate = CardEffectTemplateData.GetData(effectId);
+        if (effectTemplate == null)
+            return false;
+
+        switch(effectTemplate.iEffectTrigType)
+        {
+            case CardEffectTrigType.NONE:
+                break;
+            case CardEffectTrigType.GIVE_NOT_BLOCK_DAMAGE:
+                if (effectStat.damageLife > 0)
+                {
+                    return true;
+                }
+                return false;
+            default:
+                Debug.LogError("unhandle card EffectTrigType:" + effectTemplate.iEffectTrigType);
+                break;
+        }
+
+        return true;
+    }
+
+    //处理卡牌效果
+    internal void HandleCardEffect(CardInstance cardInstance, uint effectId, int targetInstId = 0)
+    {
+        CardEffectTemplate effectTemplate = CardEffectTemplateData.GetData(effectId);
+        if (effectTemplate == null)
+            return;
+
+        if (CanTriggerCardEffect(effectId, targetInstId))
+        {
+            switch (effectTemplate.nType)
+            {
+                case CardEffectType.ONE_DAMAGE:
+                    ReduceEnemyHp(targetInstId, effectTemplate.iEffectValue);
+                    break;
+                case CardEffectType.GET_ARMOR:
+                    AddArmor(effectTemplate.iEffectValue);
+                    break;
+                case CardEffectType.CASTER_GET_BUFF:
+                    if (effectTemplate.nTarget == CardEffectTargetType.SELF)
+                    {
+                        AddSelfBuff((uint)effectTemplate.iEffectValue);
+                    }
+                    else if (effectTemplate.nTarget == CardEffectTargetType.ALL_ENEMY)
+                    {
+                        // todo:各种类型目标给予BUFF
+                    }
+                    break;
+                case CardEffectType.DRAW_CARD:
+                    DrawMultiCard(effectTemplate.iEffectValue);
+                    break;
+                case CardEffectType.GIVE_COST:
+                    ReduceCost(-effectTemplate.iEffectValue);
+                    effectStat.getCostCount += (uint)effectTemplate.iEffectValue;
+                    roundStat.getCostCount += (uint)effectTemplate.iEffectValue;
+                    battleStat.getCostCount += (uint)effectTemplate.iEffectValue;
+                    break;
+                default:
+                    Debug.LogError("unhandle card effect type:" + effectTemplate.nType);
+                    break;
+            }
+        }
+
+        if (effectTemplate.nLinkId != 0)
+            HandleCardEffect(cardInstance, effectTemplate.nLinkId, targetInstId);
+    }
 }

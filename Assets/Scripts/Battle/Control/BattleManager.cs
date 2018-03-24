@@ -93,6 +93,7 @@ public class BattleManager : IDisposable
                 if(!HasBuff(BuffType.KEEP_ARMOR))
                 _battleModel.UpdateArmor(0);
                 UpdateEnemyAction();
+                _battleModel.InitRoundStatistics();
                 break;
             case Bout.ENEMY:
                 SelfBoutEndHandle();
@@ -111,15 +112,7 @@ public class BattleManager : IDisposable
     /// <returns></returns>
     private bool HasBuff(uint buffType)
     {
-        foreach (var buffInst in _battleModel.selfData.lstBuffInst)
-        {
-            BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
-            if (template == null)
-                continue;
-            if (template.nType == buffType)
-                return true;
-        }
-        return false;
+        return _battleModel.HasBuff(buffType);
     }
 
     //自身回合结束处理

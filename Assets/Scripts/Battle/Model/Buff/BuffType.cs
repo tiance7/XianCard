@@ -10,6 +10,7 @@ public class BuffType
     public const uint ARMOR_REFLECT = 1;                //反伤=护甲减少值*系数
     public const uint ADD_ARMOR = 2;                    //获得护甲
     public const uint KEEP_ARMOR = 3;                   //回合结束保留护甲
+    public const uint CAN_NOT_DRAW_CARD = 4;            //无法抽卡
 }
 
 /// <summary>
