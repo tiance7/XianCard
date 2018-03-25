@@ -39,6 +39,7 @@
 				<nType>4</nType>
 				<nTrigger>0</nTrigger>
 				<iBout>1</iBout>
+				<szImg>buff_nodraw</szImg>
 			</entry>
 		</g_BuffTemplate>
 	</LocalData>
