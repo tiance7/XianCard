@@ -201,7 +201,8 @@ namespace UI.Battle
                     //判断是否鼠标放置在某个敌人上面 是就对敌人使用
                     if (ftEnemy.rootContainer.HitTest(Stage.inst.touchPosition, true) == ftEnemy.rootContainer)
                     {
-                        _battleModel.UseSkillCard(cardInstance, template, ftEnemy.instId);
+                        _manager.UseSkillCard(cardInstance, template, ftEnemy.instId);
+                        //_battleModel.UseSkillCard(cardInstance, template, ftEnemy.instId);
                         return true;
                     }
                     break;
@@ -211,7 +212,8 @@ namespace UI.Battle
                     //判断是否超过某个高度 是就使用
                     if (Stage.inst.touchPosition.y < _skillUseY)
                     {
-                        _battleModel.UseSkillCard(cardInstance, template);
+                        _manager.UseSkillCard(cardInstance, template);
+                        //_battleModel.UseSkillCard(cardInstance, template);
                         return true;
                     }
                     break;

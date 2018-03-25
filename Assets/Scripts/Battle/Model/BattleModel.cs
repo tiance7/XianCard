@@ -134,7 +134,7 @@ public class BattleModel : ModelBase
     }
 
     //-------------------------统计数据-------------------------
-    private void InitStatistics()
+    public void InitStatistics()
     {
         effectStat = new EffectStatistics();
         roundStat = new RoundStatistics();
@@ -189,35 +189,6 @@ public class BattleModel : ModelBase
             return;
         enemyInst.boutAction = boutAction;
         SendEvent(BattleEvent.ENEMY_ACTION_UPDATE, instId);
-    }
-
-    /// <summary>
-    /// 对目标造成伤害（可被护甲抵消）
-    /// </summary>
-    /// <param name="instId"></param>
-    /// <param name="iEffectValue"></param>
-    internal void DamageEnemy(int instId, int iEffectValue)
-    {
-        EnemyInstance enemyInstance = GetEnemy(instId);
-        if (enemyInstance == null)
-            return;
-
-        if (enemyInstance.armor >= iEffectValue)
-        {
-            enemyInstance.armor -= iEffectValue;
-            effectStat.damageArmor += (uint)iEffectValue;
-            roundStat.damageArmor += (uint)iEffectValue;
-        }
-        else
-        {
-            int iReduceHp = iEffectValue - enemyInstance.armor;
-
-            effectStat.damageArmor += (uint)enemyInstance.armor;
-            roundStat.damageArmor += (uint)enemyInstance.armor;
-            enemyInstance.armor = 0;
-
-            ReduceEnemyHp(instId, iReduceHp);
-        }
     }
 
     /// <summary>
@@ -287,10 +258,10 @@ public class BattleModel : ModelBase
     /// </summary>
     internal void DrawOneCard()
     {
-        if (HasBuff(BuffType.CAN_NOT_DRAW_CARD))
-        {
-            return;
-        }
+        //if (HasBuff(BuffType.CAN_NOT_DRAW_CARD))
+        //{
+        //    return;
+        //}
 
         CardInstance drawCard = _lstDeck[0];
         if (drawCard == null)
@@ -302,23 +273,6 @@ public class BattleModel : ModelBase
         SendEvent(BattleEvent.DECK_NUM_UPDATE);
         _lstHand.Add(drawCard);
         SendEvent(BattleEvent.DRAW_ONE_CARD, drawCard);
-    }
-
-    /// <summary>
-    /// 抽多张牌
-    /// </summary>
-    /// <param name="drawCount"></param>
-    internal void DrawMultiCard(int drawCount)
-    {
-        if (HasBuff(BuffType.CAN_NOT_DRAW_CARD))
-        {
-            return;
-        }
-
-        for (var i = 0; i < drawCount; ++i)
-        {
-            DrawOneCard();
-        }
     }
 
     /// <summary>
@@ -401,105 +355,5 @@ public class BattleModel : ModelBase
             SendEvent(BattleEvent.SELF_BUFF_ADD, buffId);
         }
     }
-
-    //使用技能卡
-    internal void UseSkillCard(CardInstance cardInstance, CardTemplate template, int targetInstId = 0)
-    {
-        effectStat = new EffectStatistics();
-
-        Debug.Log("card used:" + cardInstance.tplId);
-        ReduceCost(template.iCost);
-        effectStat.consumeCost += (uint)template.iCost;
-
-        HandleCardEffect(cardInstance, template.nEffectId, targetInstId);
-
-        roundStat.lstUsedCardId.Add(cardInstance.tplId);
-        battleStat.useCardCount += 1;
-
-        //处理卡牌去向
-        switch (template.nType)
-        {
-            case CardType.ATTACK:
-            case CardType.SKILL:
-               MoveHandCardToUsed(cardInstance);
-                break;
-            case CardType.FORMATION:
-                ConsumeHandCard(cardInstance);
-                break;
-            default:
-                Debug.LogError("unhandle card type:" + template.nType);
-                break;
-        }
-    }
-
-    //检测能否触发卡牌效果
-    internal bool CanTriggerCardEffect(uint effectId, int targetInstId)
-    {
-        CardEffectTemplate effectTemplate = CardEffectTemplateData.GetData(effectId);
-        if (effectTemplate == null)
-            return false;
-
-        switch(effectTemplate.iEffectTrigType)
-        {
-            case CardEffectTrigType.NONE:
-                break;
-            case CardEffectTrigType.GIVE_NOT_BLOCK_DAMAGE:
-                if (effectStat.damageLife > 0)
-                {
-                    return true;
-                }
-                return false;
-            default:
-                Debug.LogError("unhandle card EffectTrigType:" + effectTemplate.iEffectTrigType);
-                break;
-        }
-
-        return true;
-    }
-
-    //处理卡牌效果
-    internal void HandleCardEffect(CardInstance cardInstance, uint effectId, int targetInstId = 0)
-    {
-        CardEffectTemplate effectTemplate = CardEffectTemplateData.GetData(effectId);
-        if (effectTemplate == null)
-            return;
-
-        if (CanTriggerCardEffect(effectId, targetInstId))
-        {
-            switch (effectTemplate.nType)
-            {
-                case CardEffectType.ONE_DAMAGE:
-                    ReduceEnemyHp(targetInstId, effectTemplate.iEffectValue);
-                    break;
-                case CardEffectType.GET_ARMOR:
-                    AddArmor(effectTemplate.iEffectValue);
-                    break;
-                case CardEffectType.CASTER_GET_BUFF:
-                    if (effectTemplate.nTarget == CardEffectTargetType.SELF)
-                    {
-                        AddSelfBuff((uint)effectTemplate.iEffectValue);
-                    }
-                    else if (effectTemplate.nTarget == CardEffectTargetType.ALL_ENEMY)
-                    {
-                        // todo:各种类型目标给予BUFF
-                    }
-                    break;
-                case CardEffectType.DRAW_CARD:
-                    DrawMultiCard(effectTemplate.iEffectValue);
-                    break;
-                case CardEffectType.GIVE_COST:
-                    ReduceCost(-effectTemplate.iEffectValue);
-                    effectStat.getCostCount += (uint)effectTemplate.iEffectValue;
-                    roundStat.getCostCount += (uint)effectTemplate.iEffectValue;
-                    battleStat.getCostCount += (uint)effectTemplate.iEffectValue;
-                    break;
-                default:
-                    Debug.LogError("unhandle card effect type:" + effectTemplate.nType);
-                    break;
-            }
-        }
-
-        if (effectTemplate.nLinkId != 0)
-            HandleCardEffect(cardInstance, effectTemplate.nLinkId, targetInstId);
-    }
+    
 }

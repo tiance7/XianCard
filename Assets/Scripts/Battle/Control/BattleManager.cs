@@ -46,10 +46,11 @@ public class BattleManager : IDisposable
         Message.RemoveListener(MsgType.ATTACK_HIT, OnAttackHit);
     }
 
-    //自己的回合抽牌
-    private void SelfBoutDrawCard(int drawNum)
+    //自己抽牌
+    private void SelfDrawCard(int drawNum)
     {
-        //抽5张牌
+        if (HasBuff(BuffType.CAN_NOT_DRAW_CARD))
+            return;
         Core.Inst.StartCoroutine(DrawCard(drawNum));
     }
 
@@ -88,10 +89,10 @@ public class BattleManager : IDisposable
         switch (_battleModel.bout)
         {
             case Bout.SELF:
-                SelfBoutDrawCard(5);
+                SelfDrawCard(5);
                 _battleModel.RecoverCost();
-                if(!HasBuff(BuffType.KEEP_ARMOR))
-                _battleModel.UpdateArmor(0);
+                if (!HasBuff(BuffType.KEEP_ARMOR))
+                    _battleModel.UpdateArmor(0);
                 UpdateEnemyAction();
                 _battleModel.InitRoundStatistics();
                 break;
@@ -238,7 +239,7 @@ public class BattleManager : IDisposable
             switch (template.nType)
             {
                 case BuffType.ARMOR_REFLECT:
-                    int reflectValue = (Math.Min(orignArmor, atkValue) * buffInst.effectVal)/100;
+                    int reflectValue = (Math.Min(orignArmor, atkValue) * buffInst.effectVal) / 100;
                     _battleModel.ReduceEnemyHp(enemyInst.instId, reflectValue);
                     break;
                 default:
@@ -247,4 +248,151 @@ public class BattleManager : IDisposable
             }
         }
     }
+
+    //使用技能卡
+    internal void UseSkillCard(CardInstance cardInstance, CardTemplate template, int targetInstId = 0)
+    {
+        _battleModel.effectStat = new EffectStatistics();
+
+        Debug.Log("card used:" + cardInstance.tplId);
+        _battleModel.ReduceCost(template.iCost);
+        _battleModel.effectStat.consumeCost += (uint)template.iCost;
+
+        HandleCardEffect(cardInstance, template.nEffectId, targetInstId);
+
+        _battleModel.roundStat.lstUsedCardId.Add(cardInstance.tplId);
+        _battleModel.battleStat.useCardCount += 1;
+
+        //处理卡牌去向
+        switch (template.nType)
+        {
+            case CardType.ATTACK:
+            case CardType.SKILL:
+                _battleModel.MoveHandCardToUsed(cardInstance);
+                break;
+            case CardType.FORMATION:
+                _battleModel.ConsumeHandCard(cardInstance);
+                break;
+            default:
+                Debug.LogError("unhandle card type:" + template.nType);
+                break;
+        }
+    }
+
+    //处理卡牌效果
+    private void HandleCardEffect(CardInstance cardInstance, uint effectId, int targetInstId = 0)
+    {
+        CardEffectTemplate effectTemplate = CardEffectTemplateData.GetData(effectId);
+        if (effectTemplate == null)
+            return;
+
+        if (CanTriggerCardEffect(effectId, targetInstId))
+        {
+            switch (effectTemplate.nType)
+            {
+                case CardEffectType.ONE_DAMAGE:
+                    _battleModel.ReduceEnemyHp(targetInstId, effectTemplate.iEffectValue);
+                    break;
+                case CardEffectType.GET_ARMOR:
+                    _battleModel.AddArmor(effectTemplate.iEffectValue);
+                    break;
+                case CardEffectType.CASTER_GET_BUFF:
+                    if (effectTemplate.nTarget == CardEffectTargetType.SELF)
+                    {
+                        _battleModel.AddSelfBuff((uint)effectTemplate.iEffectValue);
+                    }
+                    else if (effectTemplate.nTarget == CardEffectTargetType.ALL_ENEMY)
+                    {
+                        // todo:各种类型目标给予BUFF
+                    }
+                    break;
+                case CardEffectType.DRAW_CARD:
+                    SelfDrawCard(effectTemplate.iEffectValue);
+                    //DrawMultiCard(effectTemplate.iEffectValue);
+                    break;
+                case CardEffectType.GIVE_COST:
+                    _battleModel.ReduceCost(-effectTemplate.iEffectValue);
+                    _battleModel.effectStat.getCostCount += (uint)effectTemplate.iEffectValue;
+                    _battleModel.roundStat.getCostCount += (uint)effectTemplate.iEffectValue;
+                    _battleModel.battleStat.getCostCount += (uint)effectTemplate.iEffectValue;
+                    break;
+                default:
+                    Debug.LogError("unhandle card effect type:" + effectTemplate.nType);
+                    break;
+            }
+        }
+
+        if (effectTemplate.nLinkId != 0)
+            HandleCardEffect(cardInstance, effectTemplate.nLinkId, targetInstId);
+    }
+
+    ///// <summary>
+    ///// 抽多张牌
+    ///// </summary>
+    ///// <param name="drawCount"></param>
+    //internal void DrawMultiCard(int drawCount)
+    //{
+    //    if (HasBuff(BuffType.CAN_NOT_DRAW_CARD))
+    //    {
+    //        return;
+    //    }
+
+    //    for (var i = 0; i < drawCount; ++i)
+    //    {
+    //        DrawOneCard();
+    //    }
+    //}
+
+    //检测能否触发卡牌效果
+    internal bool CanTriggerCardEffect(uint effectId, int targetInstId)
+    {
+        CardEffectTemplate effectTemplate = CardEffectTemplateData.GetData(effectId);
+        if (effectTemplate == null)
+            return false;
+
+        switch (effectTemplate.iEffectTrigType)
+        {
+            case CardEffectTrigType.NONE:
+                break;
+            case CardEffectTrigType.GIVE_NOT_BLOCK_DAMAGE:
+                if (_battleModel.effectStat.damageLife > 0)
+                    return true;
+                return false;
+            default:
+                Debug.LogError("unhandle card EffectTrigType:" + effectTemplate.iEffectTrigType);
+                break;
+        }
+
+        return true;
+    }
+
+    /// <summary>
+    /// 对目标造成伤害（可被护甲抵消）
+    /// </summary>
+    /// <param name="instId"></param>
+    /// <param name="iEffectValue"></param>
+    //internal void DamageEnemy(int instId, int iEffectValue)
+    //{
+    //    EnemyInstance enemyInstance = GetEnemy(instId);
+    //    if (enemyInstance == null)
+    //        return;
+
+    //    if (enemyInstance.armor >= iEffectValue)
+    //    {
+    //        enemyInstance.armor -= iEffectValue;
+    //        effectStat.damageArmor += (uint)iEffectValue;
+    //        roundStat.damageArmor += (uint)iEffectValue;
+    //    }
+    //    else
+    //    {
+    //        int iReduceHp = iEffectValue - enemyInstance.armor;
+
+    //        effectStat.damageArmor += (uint)enemyInstance.armor;
+    //        roundStat.damageArmor += (uint)enemyInstance.armor;
+    //        enemyInstance.armor = 0;
+
+    //        ReduceEnemyHp(instId, iReduceHp);
+    //    }
+    //}
+
 }

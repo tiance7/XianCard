@@ -32,6 +32,7 @@ public class CharModel
         //lstInitCardId.Add(5);   //todo 测试用 五灵归宗
         //lstInitCardId.Add(7);   //todo 测试用 金甲阵
         //lstInitCardId.Add(9);   //todo 测试用 地脉阵
+        lstInitCardId.Add(11);   //todo 测试用
 
         foreach (uint cardId in lstInitCardId)
         {
