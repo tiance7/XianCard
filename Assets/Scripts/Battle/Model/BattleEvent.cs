@@ -17,6 +17,7 @@ public enum BattleEvent
     ARMOR_CHANGE,   //护甲改变
     SELF_BUFF_ADD,
     SELF_BUFF_UPDATE,
+    SELF_BUFF_REMOVE,
 
     //全局
     COST_CHANGE,    //费用改变

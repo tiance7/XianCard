@@ -41,6 +41,13 @@
 				<iBout>1</iBout>
 				<szImg>buff_nodraw</szImg>
 			</entry>
+			<entry>
+				<nId>6</nId>
+				<nType>101</nType>
+				<nTrigger>0</nTrigger>
+				<iEffectA>1</iEffectA>
+				<iBout>-1</iBout>
+			</entry>
 		</g_BuffTemplate>
 	</LocalData>
 </LocalDatas>

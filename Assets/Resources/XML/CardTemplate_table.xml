@@ -198,6 +198,56 @@
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>16</nEffectId>
 			</entry>
+			<entry>
+				<nId>17</nId>
+				<nJob>1</nJob>
+				<szName>幻剑决</szName>
+				<iCost>1</iCost>
+				<szDesc>造成8点伤害，获得1把幻剑</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>18</nEffectId>
+				<nUpgradeId>18</nUpgradeId>
+			</entry>
+			<entry>
+				<nId>18</nId>
+				<nJob>1</nJob>
+				<szName>幻剑决+</szName>
+				<iCost>1</iCost>
+				<szDesc>造成12点伤害，获得2把幻剑</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>19</nEffectId>
+			</entry>
+			<entry>
+				<nId>19</nId>
+				<nJob>1</nJob>
+				<szName>子母剑</szName>
+				<iCost>2</iCost>
+				<szDesc>造成7点伤害x2，获得2把幻剑</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>22</nEffectId>
+				<nUpgradeId>20</nUpgradeId>
+			</entry>
+			<entry>
+				<nId>20</nId>
+				<nJob>1</nJob>
+				<szName>子母剑+</szName>
+				<iCost>2</iCost>
+				<szDesc>造成9点伤害x2，获得3把幻剑</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>23</nEffectId>
+			</entry>
 		</g_CardTemplate>
 	</LocalData>
 </LocalDatas>

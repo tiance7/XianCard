@@ -128,11 +128,24 @@ public class BattleManager : IDisposable
             switch (template.nType)
             {
                 case BuffType.ADD_ARMOR:
-                    _battleModel.AddArmor(template.iEffectA);
+                    _battleModel.AddArmor(buffInst.effectVal);
                     break;
                 default:
                     Debug.LogError("unhandle bout end buff:" + template.nType);
                     break;
+            }
+        }
+
+        for(int i= _battleModel.selfData.lstBuffInst.Count-1; i >= 0; --i)
+        {
+            BuffInst buffInst = _battleModel.selfData.lstBuffInst[i];
+            BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
+            if (template == null)
+                continue;
+
+            if (buffInst.leftBout != -1)
+            {
+                _battleModel.DecSelfBuffLeftBout(buffInst, 1);
             }
         }
     }
@@ -291,7 +304,12 @@ public class BattleManager : IDisposable
             switch (effectTemplate.nType)
             {
                 case CardEffectType.ONE_DAMAGE:
-                    _battleModel.ReduceEnemyHp(targetInstId, effectTemplate.iEffectValue);
+                    int iDmgCount = effectTemplate.iEffectCount > 1 ? effectTemplate.iEffectCount : 1;
+                    for (int i = 0; i <iDmgCount; ++i)
+                    {
+                        this.DamageEnemy(targetInstId, effectTemplate.iEffectValue);
+                    }
+                    //_battleModel.ReduceEnemyHp(targetInstId, effectTemplate.iEffectValue);
                     break;
                 case CardEffectType.GET_ARMOR:
                     _battleModel.AddArmor(effectTemplate.iEffectValue);
@@ -299,7 +317,8 @@ public class BattleManager : IDisposable
                 case CardEffectType.CASTER_GET_BUFF:
                     if (effectTemplate.nTarget == CardEffectTargetType.SELF)
                     {
-                        _battleModel.AddSelfBuff((uint)effectTemplate.iEffectValue);
+                        int iCount = effectTemplate.iEffectCount > 1 ? effectTemplate.iEffectCount : 1;
+                        _battleModel.AddSelfBuff((uint)effectTemplate.iEffectValue, iCount);
                     }
                     else if (effectTemplate.nTarget == CardEffectTargetType.ALL_ENEMY)
                     {
@@ -371,28 +390,29 @@ public class BattleManager : IDisposable
     /// </summary>
     /// <param name="instId"></param>
     /// <param name="iEffectValue"></param>
-    //internal void DamageEnemy(int instId, int iEffectValue)
-    //{
-    //    EnemyInstance enemyInstance = GetEnemy(instId);
-    //    if (enemyInstance == null)
-    //        return;
+    internal void DamageEnemy(int instId, int iEffectValue)
+    {
+        EnemyInstance enemyInstance = _battleModel.GetEnemy(instId);
+        if (enemyInstance == null)
+            return;
 
-    //    if (enemyInstance.armor >= iEffectValue)
-    //    {
-    //        enemyInstance.armor -= iEffectValue;
-    //        effectStat.damageArmor += (uint)iEffectValue;
-    //        roundStat.damageArmor += (uint)iEffectValue;
-    //    }
-    //    else
-    //    {
-    //        int iReduceHp = iEffectValue - enemyInstance.armor;
+        if (enemyInstance.armor >= iEffectValue)
+        {
+            _battleModel.ReduceEnemyArmor(instId, iEffectValue);
 
-    //        effectStat.damageArmor += (uint)enemyInstance.armor;
-    //        roundStat.damageArmor += (uint)enemyInstance.armor;
-    //        enemyInstance.armor = 0;
+            _battleModel.effectStat.damageArmor += (uint)iEffectValue;
+            _battleModel.roundStat.damageArmor += (uint)iEffectValue;
+        }
+        else
+        {
+            int iReduceHp = iEffectValue - enemyInstance.armor;
 
-    //        ReduceEnemyHp(instId, iReduceHp);
-    //    }
-    //}
+            _battleModel.effectStat.damageArmor += (uint)enemyInstance.armor;
+            _battleModel.roundStat.damageArmor += (uint)enemyInstance.armor;
+            _battleModel.ReduceEnemyArmor(instId, enemyInstance.armor);
+
+            _battleModel.ReduceEnemyHp(instId, iReduceHp);
+        }
+    }
 
 }
