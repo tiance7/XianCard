@@ -72,7 +72,7 @@ public class BattleModel : ModelBase
     {
         selfData.ReduceHp(value);
         SendEvent(BattleEvent.SELF_HP_UPDATE, value);
-        if(selfData.curHp <= 0)
+        if (selfData.curHp <= 0)
             SendEvent(BattleEvent.SELF_DEAD);
     }
 
@@ -356,12 +356,12 @@ public class BattleModel : ModelBase
         }
         return false;
     }
-    
+
     /// <summary>
     /// 自身获得buff
     /// </summary>
     /// <param name="buffId"></param>
-    internal void AddSelfBuff(uint buffId)
+    internal void AddSelfBuff(uint buffId, int count = 1)
     {
         BuffTemplate templet = BuffTemplateData.GetData(buffId);
         if (templet == null)
@@ -372,17 +372,56 @@ public class BattleModel : ModelBase
             if (buffInst.tplId != buffId)
                 continue;
             if (templet.iBout != -1)
-                buffInst.leftBout += templet.iBout;
-            buffInst.effectVal += templet.iEffectA;
+            {
+                // 无法抽卡只有1层
+                if (templet.nType != BuffType.CAN_NOT_DRAW_CARD)
+                {
+                    buffInst.leftBout += templet.iBout;
+                }
+            }
+            else
+            {
+                buffInst.effectVal += templet.iEffectA*count;
+            }
+
             hasBuff = true;
             SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffId);
             break;
         }
-        if(!hasBuff)
+        if (!hasBuff)
         {
             selfData.lstBuffInst.Add(new BuffInst() { tplId = buffId, leftBout = templet.iBout, effectVal = templet.iEffectA });
             SendEvent(BattleEvent.SELF_BUFF_ADD, buffId);
         }
     }
-    
+
+    /// <summary>
+    /// 减少buff剩余回合数
+    /// </summary>
+    /// <param name="buffInst"></param>
+    internal void DecSelfBuffLeftBout(BuffInst buffInst, int iDec)
+    {
+        if (buffInst.leftBout == -1)
+            return;
+
+        if (buffInst.leftBout <= iDec)
+        {
+            RemoveSelfBuff(buffInst);
+        }
+        else
+        {
+            buffInst.leftBout -= iDec;
+            SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffInst.tplId);
+        }
+    }
+
+    /// <summary>
+    /// 移除自身buff
+    /// </summary>
+    /// <param name="buffInst"></param>
+    internal void RemoveSelfBuff(BuffInst buffInst)
+    {
+        selfData.lstBuffInst.Remove(buffInst);
+        SendEvent(BattleEvent.SELF_BUFF_REMOVE, buffInst);
+    }
 }

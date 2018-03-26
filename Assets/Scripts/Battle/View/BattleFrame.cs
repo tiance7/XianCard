@@ -116,6 +116,8 @@ namespace UI.Battle
             _battleModel.AddListener(BattleEvent.SELF_HP_UPDATE, OnSelfHpUpdate);
             _battleModel.AddListener(BattleEvent.SELF_BUFF_ADD, OnSelfBuffAdd);
             _battleModel.AddListener(BattleEvent.SELF_BUFF_UPDATE, OnSelfBuffUpdate);
+            _battleModel.AddListener(BattleEvent.SELF_BUFF_REMOVE, OnSelfBuffRemove);
+            
 
             Message.AddListener(MsgType.DO_ATTACK, OnDoAttack);
             Message.AddListener(MsgType.SHOW_HIT_EFFECT, OnShowHitEffect);
@@ -145,6 +147,7 @@ namespace UI.Battle
             _battleModel.RemoveListener(BattleEvent.SELF_HP_UPDATE, OnSelfHpUpdate);
             _battleModel.RemoveListener(BattleEvent.SELF_BUFF_ADD, OnSelfBuffAdd);
             _battleModel.RemoveListener(BattleEvent.SELF_BUFF_UPDATE, OnSelfBuffUpdate);
+            _battleModel.RemoveListener(BattleEvent.SELF_BUFF_REMOVE, OnSelfBuffRemove);
 
             Message.RemoveListener(MsgType.DO_ATTACK, OnDoAttack);
             Message.RemoveListener(MsgType.SHOW_HIT_EFFECT, OnShowHitEffect);
@@ -423,6 +426,11 @@ namespace UI.Battle
         }
 
         private void OnSelfBuffUpdate(object obj)
+        {
+            RefreshBuff();
+        }
+
+        private void OnSelfBuffRemove(object obj)
         {
             RefreshBuff();
         }
