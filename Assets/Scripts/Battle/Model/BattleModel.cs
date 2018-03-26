@@ -213,6 +213,35 @@ public class BattleModel : ModelBase
             SendEvent(BattleEvent.ENEMY_DEAD, instId);
     }
 
+    /// <summary>
+    /// 加护甲
+    /// </summary>
+    /// <param name="instId"></param>
+    /// <param name="iEffectValue"></param>
+    internal void AddEnemyArmor(int instId, int iEffectValue)
+    {
+        ReduceEnemyArmor(instId, -iEffectValue);
+    }
+
+    /// <summary>
+    /// 掉护甲
+    /// </summary>
+    /// <param name="instId"></param>
+    /// <param name="iEffectValue"></param>
+    internal void ReduceEnemyArmor(int instId, int iEffectValue)
+    {
+        EnemyInstance enemyInstance = GetEnemy(instId);
+        if (enemyInstance == null)
+            return;
+
+        enemyInstance.armor -= iEffectValue;
+
+        effectStat.damageArmor += (uint)iEffectValue;
+        roundStat.damageArmor += (uint)iEffectValue;
+
+        if (enemyInstance.armor <= 0)
+            enemyInstance.armor = 0;
+    }
     //-------------------------卡牌数据-------------------------
 
     //根据收集到的牌初始化牌堆
