@@ -19,6 +19,10 @@ namespace UI.Battle
                     txtValue.text = templet.iEffectA.ToString();
                     txtValue.visible = true;
                     break;
+                case BuffType.MAGIC_SWORD:  //幻剑
+                    txtValue.text = buffInst.effectVal.ToString();
+                    txtValue.visible = true;
+                    break;
                 default:
                     txtValue.text = buffInst.leftBout.ToString();
                     txtValue.visible = buffInst.leftBout > 0;

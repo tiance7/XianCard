@@ -47,6 +47,7 @@
 				<nTrigger>0</nTrigger>
 				<iEffectA>1</iEffectA>
 				<iBout>-1</iBout>
+				<szImg>buff_huanjian</szImg>
 			</entry>
 		</g_BuffTemplate>
 	</LocalData>

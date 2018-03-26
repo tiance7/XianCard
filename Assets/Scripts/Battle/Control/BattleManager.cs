@@ -305,11 +305,7 @@ public class BattleManager : IDisposable
             {
                 case CardEffectType.ONE_DAMAGE:
                     int iDmgCount = effectTemplate.iEffectCount > 1 ? effectTemplate.iEffectCount : 1;
-                    for (int i = 0; i <iDmgCount; ++i)
-                    {
-                        this.DamageEnemy(targetInstId, effectTemplate.iEffectValue);
-                    }
-                    //_battleModel.ReduceEnemyHp(targetInstId, effectTemplate.iEffectValue);
+                    Core.Inst.StartCoroutine(DamageEnemyCoroutine(iDmgCount, targetInstId, effectTemplate));
                     break;
                 case CardEffectType.GET_ARMOR:
                     _battleModel.AddArmor(effectTemplate.iEffectValue);
@@ -327,7 +323,6 @@ public class BattleManager : IDisposable
                     break;
                 case CardEffectType.DRAW_CARD:
                     SelfDrawCard(effectTemplate.iEffectValue);
-                    //DrawMultiCard(effectTemplate.iEffectValue);
                     break;
                 case CardEffectType.GIVE_COST:
                     _battleModel.ReduceCost(-effectTemplate.iEffectValue);
@@ -345,22 +340,14 @@ public class BattleManager : IDisposable
             HandleCardEffect(cardInstance, effectTemplate.nLinkId, targetInstId);
     }
 
-    ///// <summary>
-    ///// 抽多张牌
-    ///// </summary>
-    ///// <param name="drawCount"></param>
-    //internal void DrawMultiCard(int drawCount)
-    //{
-    //    if (HasBuff(BuffType.CAN_NOT_DRAW_CARD))
-    //    {
-    //        return;
-    //    }
-
-    //    for (var i = 0; i < drawCount; ++i)
-    //    {
-    //        DrawOneCard();
-    //    }
-    //}
+    private IEnumerator DamageEnemyCoroutine(int iDmgCount, int targetInstId, CardEffectTemplate effectTemplate)
+    {
+        for (int i = 0; i < iDmgCount; ++i)
+        {
+            DamageEnemy(targetInstId, effectTemplate.iEffectValue);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
 
     //检测能否触发卡牌效果
     internal bool CanTriggerCardEffect(uint effectId, int targetInstId)

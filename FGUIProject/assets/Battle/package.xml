@@ -28,6 +28,7 @@
     <component id="xtfzp" name="BtnJumpChooseCard.xml" path="/Buttons/"/>
     <component id="xtfzq" name="BtnJump.xml" path="/Buttons/"/>
     <image id="h3h9r" name="buff_nodraw.jpg" path="/Assets/Buff/" exported="true"/>
+    <image id="l56ks" name="buff_huanjian.jpg" path="/Assets/Buff/" exported="true"/>
   </resources>
   <publish name="Battle" genCode="true"/>
 </packageDescription>
