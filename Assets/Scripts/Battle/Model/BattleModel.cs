@@ -390,7 +390,7 @@ public class BattleModel : ModelBase
         }
         if (!hasBuff)
         {
-            selfData.lstBuffInst.Add(new BuffInst() { tplId = buffId, leftBout = templet.iBout, effectVal = templet.iEffectA });
+            selfData.lstBuffInst.Add(new BuffInst() { tplId = buffId, leftBout = templet.iBout, effectVal = templet.iEffectA * count });
             SendEvent(BattleEvent.SELF_BUFF_ADD, buffId);
         }
     }
