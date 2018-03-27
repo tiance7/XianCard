@@ -9,7 +9,8 @@ public sealed class CardEffectTemplate
 	public uint nTarget;	//目标类型 enum CardEffectTargetType
 	public uint nType;	//效果类型 enum CardEffectType
 	public int iEffectValue;	//效果值
-	public int iEffectCount;	//效果触发次数，默认1次
+	public int iEffectCount;	//效果触发次数
+	public int iCostEffectTimes;	//费用效果倍数
 	public uint nLinkId;	//关联效果ID
 }
 
@@ -28,7 +29,8 @@ public sealed class CardEffectTemplateData
 			template.nTarget = element["nTarget"] != null ? uint.Parse(element["nTarget"].InnerText) : 0;	//目标类型 enum CardEffectTargetType
 			template.nType = element["nType"] != null ? uint.Parse(element["nType"].InnerText) : 0;	//效果类型 enum CardEffectType
 			template.iEffectValue = element["iEffectValue"] != null ? int.Parse(element["iEffectValue"].InnerText) : 0;	//效果值
-			template.iEffectCount = element["iEffectCount"] != null ? int.Parse(element["iEffectCount"].InnerText) : 0;	//效果触发次数，默认1次
+			template.iEffectCount = element["iEffectCount"] != null ? int.Parse(element["iEffectCount"].InnerText) : 0;	//效果触发次数
+			template.iCostEffectTimes = element["iCostEffectTimes"] != null ? int.Parse(element["iCostEffectTimes"].InnerText) : 0;	//费用效果倍数
 			template.nLinkId = element["nLinkId"] != null ? uint.Parse(element["nLinkId"].InnerText) : 0;	//关联效果ID
 
 			Data.Add(template.nId, template);
