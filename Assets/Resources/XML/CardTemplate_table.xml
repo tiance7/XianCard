@@ -273,6 +273,31 @@
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>27</nEffectId>
 			</entry>
+			<entry>
+				<nId>23</nId>
+				<nJob>1</nJob>
+				<szName>回剑护身</szName>
+				<iCost>1</iCost>
+				<szDesc>把召唤的剑化为多重护甲</szDesc>
+				<nType>2</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>29</nEffectId>
+				<nUpgradeId>24</nUpgradeId>
+			</entry>
+			<entry>
+				<nId>24</nId>
+				<nJob>1</nJob>
+				<szName>回剑护身+</szName>
+				<iCost>0</iCost>
+				<szDesc>把召唤的剑化为多重护甲</szDesc>
+				<nType>2</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>29</nEffectId>
+			</entry>
 		</g_CardTemplate>
 	</LocalData>
 </LocalDatas>

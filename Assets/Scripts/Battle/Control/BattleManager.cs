@@ -123,15 +123,16 @@ public class BattleManager : IDisposable
         foreach (var buffInst in _battleModel.selfData.lstBuffInst)
         {
             BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
-            if (template == null || template.nTrigger != BuffTriggerType.BOUT_END)
+            if (template == null)
                 continue;
             switch (template.nType)
             {
                 case BuffType.ADD_ARMOR:
+                case BuffType.MULTI_ARMOR:
                     _battleModel.AddArmor(buffInst.effectVal);
                     break;
                 default:
-                    Debug.LogError("unhandle bout end buff:" + template.nType);
+                    //Debug.LogError("unhandle bout end buff:" + template.nType);
                     break;
             }
         }
@@ -247,7 +248,7 @@ public class BattleManager : IDisposable
         foreach (var buffInst in _battleModel.selfData.lstBuffInst)
         {
             BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
-            if (template == null || template.nTrigger != BuffTriggerType.ON_HIT)
+            if (template == null)
                 continue;
             switch (template.nType)
             {
@@ -255,8 +256,15 @@ public class BattleManager : IDisposable
                     int reflectValue = (Math.Min(orignArmor, atkValue) * buffInst.effectVal) / 100;
                     _battleModel.ReduceEnemyHp(enemyInst.instId, reflectValue);
                     break;
+                case BuffType.MULTI_ARMOR:
+                    if (orignArmor < atkValue)
+                    {
+                        //受伤少一层护甲
+                        _battleModel.DecSelfBuffEffectVal(buffInst, 1);
+                    }
+                    break;
                 default:
-                    Debug.LogError("unhandle on hit buff type:" + template.nType);
+                    //Debug.LogError("unhandle on hit buff type:" + template.nType);
                     break;
             }
         }
@@ -340,6 +348,15 @@ public class BattleManager : IDisposable
                     _battleModel.effectStat.getCostCount += (uint)effectTemplate.iEffectValue;
                     _battleModel.roundStat.getCostCount += (uint)effectTemplate.iEffectValue;
                     _battleModel.battleStat.getCostCount += (uint)effectTemplate.iEffectValue;
+                    break;
+                case CardEffectType.CONSUME_BUFF_GET_BUFF:
+
+                    BuffInst rmBuff = _battleModel.GetBuffInst((uint)effectTemplate.iEffectValue);
+                    if (rmBuff != null)
+                    {
+                        _battleModel.RemoveSelfBuff(rmBuff);
+                        _battleModel.AddSelfBuff((uint)effectTemplate.iEffectValue_2,rmBuff.effectVal);
+                    }
                     break;
                 default:
                     Debug.LogError("unhandle card effect type:" + effectTemplate.nType);

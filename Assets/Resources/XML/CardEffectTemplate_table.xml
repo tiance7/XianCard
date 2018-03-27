@@ -241,6 +241,16 @@
 				<iEffectCount>0</iEffectCount>
 				<iCostEffectTimes>1</iCostEffectTimes>
 			</entry>
+			<entry>
+				<nId>29</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>1</nTarget>
+				<nType>6</nType>
+				<iEffectValue>6</iEffectValue>
+				<iEffectCount>0</iEffectCount>
+				<iCostEffectTimes>0</iCostEffectTimes>
+				<iEffectValue_2>7</iEffectValue_2>
+			</entry>
 		</g_CardEffectTemplate>
 	</LocalData>
 </LocalDatas>
