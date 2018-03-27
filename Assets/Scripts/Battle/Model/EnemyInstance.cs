@@ -15,7 +15,7 @@ public class EnemyInstance : ObjectBase
         template = EnemyTemplateData.GetData(tplId);
         if (template == null)
             return;
-        curHp = maxHp = 16;  //todo 删除测试代码
+        curHp = maxHp = 25;  //todo 删除测试代码
         //curHp = maxHp = template.iHp;
     }
 

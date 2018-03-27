@@ -35,7 +35,10 @@ namespace UI.Battle
             _template = CardTemplateData.GetData(cardInst.tplId);
             if (_template == null)
                 return;
-            txtCost.text = _template.iCost.ToString();
+            if (_template.iCost == -1)
+                txtCost.text = "X";
+            else
+                txtCost.text = _template.iCost.ToString();
             txtName.text = _template.szName;
             txtType.text = GetTypeDesc(_template.nType);
             txtDesc.text = _template.szDesc; //todo 处理通配符

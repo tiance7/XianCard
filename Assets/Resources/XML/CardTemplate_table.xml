@@ -280,7 +280,7 @@
 				<iCost>1</iCost>
 				<szDesc>把召唤的剑化为多重护甲</szDesc>
 				<nType>2</nType>
-				<nTargetType>1</nTargetType>
+				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>29</nEffectId>
@@ -293,7 +293,7 @@
 				<iCost>0</iCost>
 				<szDesc>把召唤的剑化为多重护甲</szDesc>
 				<nType>2</nType>
-				<nTargetType>1</nTargetType>
+				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>29</nEffectId>
