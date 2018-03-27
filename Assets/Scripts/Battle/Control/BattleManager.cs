@@ -268,8 +268,14 @@ public class BattleManager : IDisposable
         _battleModel.effectStat = new EffectStatistics();
 
         Debug.Log("card used:" + cardInstance.tplId);
-        _battleModel.ReduceCost(template.iCost);
-        _battleModel.effectStat.consumeCost += (uint)template.iCost;
+        int iCost = template.iCost;
+        if (-1 == iCost)
+        {
+            iCost = _battleModel.curCost;
+        }
+
+        _battleModel.ReduceCost(iCost);
+        _battleModel.effectStat.consumeCost += (uint)iCost;
 
         HandleCardEffect(cardInstance, template.nEffectId, targetInstId);
 
@@ -299,12 +305,17 @@ public class BattleManager : IDisposable
         if (effectTemplate == null)
             return;
 
+        Func<CardEffectTemplate, int> fnGetEffectCount = delegate(CardEffectTemplate effectTpl)
+        {
+            return effectTpl.iCostEffectTimes * (int)_battleModel.effectStat.consumeCost + effectTpl.iEffectCount;
+        };
+
         if (CanTriggerCardEffect(effectId, targetInstId))
         {
             switch (effectTemplate.nType)
             {
                 case CardEffectType.ONE_DAMAGE:
-                    int iDmgCount = effectTemplate.iEffectCount > 1 ? effectTemplate.iEffectCount : 1;
+                    int iDmgCount = fnGetEffectCount(effectTemplate);
                     Core.Inst.StartCoroutine(DamageEnemyCoroutine(iDmgCount, targetInstId, effectTemplate));
                     break;
                 case CardEffectType.GET_ARMOR:
@@ -313,7 +324,7 @@ public class BattleManager : IDisposable
                 case CardEffectType.CASTER_GET_BUFF:
                     if (effectTemplate.nTarget == CardEffectTargetType.SELF)
                     {
-                        int iCount = effectTemplate.iEffectCount > 1 ? effectTemplate.iEffectCount : 1;
+                        int iCount = fnGetEffectCount(effectTemplate);
                         _battleModel.AddSelfBuff((uint)effectTemplate.iEffectValue, iCount);
                     }
                     else if (effectTemplate.nTarget == CardEffectTargetType.ALL_ENEMY)

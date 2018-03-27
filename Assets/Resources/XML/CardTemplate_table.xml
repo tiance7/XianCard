@@ -248,6 +248,31 @@
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>23</nEffectId>
 			</entry>
+			<entry>
+				<nId>21</nId>
+				<nJob>1</nJob>
+				<szName>无定剑</szName>
+				<iCost>-1</iCost>
+				<szDesc>消耗所有费，每一费用造成8点伤害，获得X把幻剑</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>26</nEffectId>
+				<nUpgradeId>22</nUpgradeId>
+			</entry>
+			<entry>
+				<nId>22</nId>
+				<nJob>1</nJob>
+				<szName>无定剑+</szName>
+				<iCost>-1</iCost>
+				<szDesc>消耗所有费，每一费用造成11点伤害，获得X把幻剑</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>27</nEffectId>
+			</entry>
 		</g_CardTemplate>
 	</LocalData>
 </LocalDatas>

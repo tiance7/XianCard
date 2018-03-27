@@ -8,6 +8,7 @@
 				<nTarget>1</nTarget>
 				<nType>1</nType>
 				<iEffectValue>6</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 			</entry>
 			<entry>
 				<nId>2</nId>
@@ -15,6 +16,7 @@
 				<nTarget>1</nTarget>
 				<nType>1</nType>
 				<iEffectValue>9</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 			</entry>
 			<entry>
 				<nId>3</nId>
@@ -22,6 +24,7 @@
 				<nTarget>4</nTarget>
 				<nType>2</nType>
 				<iEffectValue>5</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 			</entry>
 			<entry>
 				<nId>4</nId>
@@ -29,6 +32,7 @@
 				<nTarget>4</nTarget>
 				<nType>2</nType>
 				<iEffectValue>8</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 			</entry>
 			<entry>
 				<nId>5</nId>
@@ -36,6 +40,7 @@
 				<nTarget>4</nTarget>
 				<nType>3</nType>
 				<iEffectValue>1</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 			</entry>
 			<entry>
 				<nId>6</nId>
@@ -43,6 +48,7 @@
 				<nTarget>4</nTarget>
 				<nType>3</nType>
 				<iEffectValue>2</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 			</entry>
 			<entry>
 				<nId>7</nId>
@@ -50,6 +56,7 @@
 				<nTarget>4</nTarget>
 				<nType>3</nType>
 				<iEffectValue>3</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 			</entry>
 			<entry>
 				<nId>8</nId>
@@ -57,6 +64,7 @@
 				<nTarget>4</nTarget>
 				<nType>3</nType>
 				<iEffectValue>4</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 			</entry>
 			<entry>
 				<nId>9</nId>
@@ -64,6 +72,7 @@
 				<nTarget>4</nTarget>
 				<nType>4</nType>
 				<iEffectValue>3</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 				<nLinkId>11</nLinkId>
 			</entry>
 			<entry>
@@ -72,6 +81,7 @@
 				<nTarget>4</nTarget>
 				<nType>4</nType>
 				<iEffectValue>4</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 				<nLinkId>11</nLinkId>
 			</entry>
 			<entry>
@@ -80,6 +90,7 @@
 				<nTarget>4</nTarget>
 				<nType>3</nType>
 				<iEffectValue>5</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 			</entry>
 			<entry>
 				<nId>12</nId>
@@ -87,6 +98,7 @@
 				<nTarget>4</nTarget>
 				<nType>2</nType>
 				<iEffectValue>8</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 				<nLinkId>14</nLinkId>
 			</entry>
 			<entry>
@@ -95,6 +107,7 @@
 				<nTarget>4</nTarget>
 				<nType>2</nType>
 				<iEffectValue>11</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 				<nLinkId>14</nLinkId>
 			</entry>
 			<entry>
@@ -103,6 +116,7 @@
 				<nTarget>4</nTarget>
 				<nType>4</nType>
 				<iEffectValue>1</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 			</entry>
 			<entry>
 				<nId>15</nId>
@@ -110,6 +124,7 @@
 				<nTarget>1</nTarget>
 				<nType>1</nType>
 				<iEffectValue>6</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 				<nLinkId>17</nLinkId>
 			</entry>
 			<entry>
@@ -118,6 +133,7 @@
 				<nTarget>1</nTarget>
 				<nType>1</nType>
 				<iEffectValue>9</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 				<nLinkId>17</nLinkId>
 			</entry>
 			<entry>
@@ -126,6 +142,7 @@
 				<nTarget>4</nTarget>
 				<nType>5</nType>
 				<iEffectValue>1</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 			</entry>
 			<entry>
 				<nId>18</nId>
@@ -133,6 +150,7 @@
 				<nTarget>1</nTarget>
 				<nType>1</nType>
 				<iEffectValue>8</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 				<nLinkId>20</nLinkId>
 			</entry>
 			<entry>
@@ -141,6 +159,7 @@
 				<nTarget>1</nTarget>
 				<nType>1</nType>
 				<iEffectValue>12</iEffectValue>
+				<iEffectCount>1</iEffectCount>
 				<nLinkId>21</nLinkId>
 			</entry>
 			<entry>
@@ -192,6 +211,35 @@
 				<nType>3</nType>
 				<iEffectValue>6</iEffectValue>
 				<iEffectCount>3</iEffectCount>
+			</entry>
+			<entry>
+				<nId>26</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>1</nTarget>
+				<nType>1</nType>
+				<iEffectValue>8</iEffectValue>
+				<iEffectCount>0</iEffectCount>
+				<iCostEffectTimes>1</iCostEffectTimes>
+				<nLinkId>28</nLinkId>
+			</entry>
+			<entry>
+				<nId>27</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>1</nTarget>
+				<nType>1</nType>
+				<iEffectValue>11</iEffectValue>
+				<iEffectCount>0</iEffectCount>
+				<iCostEffectTimes>1</iCostEffectTimes>
+				<nLinkId>28</nLinkId>
+			</entry>
+			<entry>
+				<nId>28</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>3</nType>
+				<iEffectValue>6</iEffectValue>
+				<iEffectCount>0</iEffectCount>
+				<iCostEffectTimes>1</iCostEffectTimes>
 			</entry>
 		</g_CardEffectTemplate>
 	</LocalData>
