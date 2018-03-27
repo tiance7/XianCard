@@ -17,7 +17,7 @@ namespace UI.Battle
             {
                 case BuffType.ADD_ARMOR:
                 case BuffType.MULTI_ARMOR:
-                    txtValue.text = templet.iEffectA.ToString();
+                    txtValue.text = buffInst.effectVal.ToString();
                     txtValue.visible = true;
                     break;
                 case BuffType.MAGIC_SWORD:  //幻剑
