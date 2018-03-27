@@ -357,12 +357,28 @@ public class BattleModel : ModelBase
         return false;
     }
 
+    internal BuffInst GetBuffInst(uint buffId)
+    {
+        foreach (var buffInst in selfData.lstBuffInst)
+        {
+            if (buffInst.tplId == buffId)
+                return buffInst;
+        }
+
+        return null;
+    }
+
     /// <summary>
     /// 自身获得buff
     /// </summary>
     /// <param name="buffId"></param>
     internal void AddSelfBuff(uint buffId, int count = 1)
     {
+        if (count == 0)
+        {
+            return;
+        }
+
         BuffTemplate templet = BuffTemplateData.GetData(buffId);
         if (templet == null)
             return;
@@ -411,6 +427,26 @@ public class BattleModel : ModelBase
         else
         {
             buffInst.leftBout -= iDec;
+            SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffInst.tplId);
+        }
+    }
+
+    /// <summary>
+    /// 减少buff效果值
+    /// </summary>
+    /// <param name="buffInst"></param>
+    internal void DecSelfBuffEffectVal(BuffInst buffInst, int iDec)
+    {
+        if (buffInst.effectVal == 0)
+            return;
+
+        if (buffInst.effectVal <= iDec)
+        {
+            RemoveSelfBuff(buffInst);
+        }
+        else
+        {
+            buffInst.effectVal -= iDec;
             SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffInst.tplId);
         }
     }

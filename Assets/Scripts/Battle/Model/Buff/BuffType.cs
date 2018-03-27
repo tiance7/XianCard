@@ -11,6 +11,7 @@ public class BuffType
     public const uint ADD_ARMOR = 2;                    //获得护甲
     public const uint KEEP_ARMOR = 3;                   //回合结束保留护甲
     public const uint CAN_NOT_DRAW_CARD = 4;            //无法抽卡
+    public const uint MULTI_ARMOR = 5;                  //多重护甲
 
     //剑修相关
     public const uint MAGIC_SWORD = 101;                //幻剑

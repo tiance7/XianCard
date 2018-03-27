@@ -16,6 +16,7 @@ namespace UI.Battle
             switch(templet.nType)
             {
                 case BuffType.ADD_ARMOR:
+                case BuffType.MULTI_ARMOR:
                     txtValue.text = templet.iEffectA.ToString();
                     txtValue.visible = true;
                     break;
