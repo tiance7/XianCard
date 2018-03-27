@@ -30,6 +30,7 @@
     <image id="h3h9r" name="buff_nodraw.jpg" path="/Assets/Buff/" exported="true"/>
     <image id="l56ks" name="buff_huanjian.jpg" path="/Assets/Buff/" exported="true"/>
     <image id="h5ixt" name="buff_multi_shield.jpg" path="/Assets/Buff/" exported="true"/>
+    <component id="h5ixu" name="TipCom.xml" path="/Components/" exported="true"/>
   </resources>
   <publish name="Battle" genCode="true"/>
 </packageDescription>
