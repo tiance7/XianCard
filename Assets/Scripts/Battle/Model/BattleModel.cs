@@ -22,6 +22,7 @@ public class BattleModel : ModelBase
     private List<CardInstance> _lstDeck = new List<CardInstance>(); //抽牌堆
     private List<CardInstance> _lstHand = new List<CardInstance>(); //手牌
     private List<CardInstance> _lstUsed = new List<CardInstance>(); //弃牌堆
+    private List<CardInstance> _lstExhaust = new List<CardInstance>(); //消耗区
 
     //数据统计
     public EffectStatistics effectStat;
@@ -51,6 +52,8 @@ public class BattleModel : ModelBase
         _lstHand.Clear();
 
         _lstUsed.Clear();
+        _lstExhaust.Clear();
+
         SendEvent(BattleEvent.USED_NUM_UPDATE);
 
         InitCost();
@@ -339,6 +342,17 @@ public class BattleModel : ModelBase
     {
         _lstHand.Remove(cardInstance);
         SendEvent(BattleEvent.HAND_CARD_CONSUME, cardInstance);
+    }
+
+    /// <summary>
+    /// 消耗掉手牌里的一张牌
+    /// </summary>
+    /// <param name="cardInstance"></param>
+    internal void ExhaustHandCard(CardInstance cardInstance)
+    {
+        _lstHand.Remove(cardInstance);
+        _lstExhaust.Add(cardInstance);
+        SendEvent(BattleEvent.HAND_CARD_EXHAUST, cardInstance);
     }
 
     /// <summary>
