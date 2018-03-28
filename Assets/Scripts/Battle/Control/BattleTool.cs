@@ -6,6 +6,7 @@ using UnityEngine;
 public class BattleTool
 {
     public static AnimationCurve hpCurve;
+    private static int _objInstId = 0;  //对象实例ID
 
     /// <summary>
     /// 是否还能抽卡
@@ -14,6 +15,12 @@ public class BattleTool
     public static bool IsDeckHasCard()
     {
         return BattleModel.Inst.GetDeckList().Count > 0;
+    }
+
+    internal static int GetObjectInstId()
+    {
+        ++_objInstId;
+        return _objInstId;
     }
 
     /// <summary>
@@ -65,4 +72,40 @@ public class BattleTool
         return lstReward.GetRange(0, 3);    //todo 如果有法宝，根据法宝数量修正奖励卡牌的备选数量
     }
 
+    /// <summary>
+    /// 获取回合行动
+    /// </summary>
+    /// <param name="fighterInstId"></param>
+    /// <returns></returns>
+    internal static BoutAction GetBoutAction(int fighterInstId)
+    {
+        var enmeyInst = BattleModel.Inst.GetEnemy(fighterInstId);
+        if (enmeyInst == null)
+            return null;
+        return enmeyInst.boutAction;
+    }
+
+    /// <summary>
+    /// 获取回合行为提示
+    /// </summary>
+    /// <param name="boutAction"></param>
+    /// <returns></returns>
+    internal static TipStruct GetActionTip(BoutAction boutAction)
+    {
+        switch (boutAction.enemyAction)
+        {
+            case EnemyAction.ATTACK:
+                var attackTip = new TipStruct()
+                {
+                    name = GameText.ACTION_ATTACK,
+                    iconUrl = ResPath.GetUiImagePath(PackageName.BATTLE, "sword_icon"),
+                    desc = string.Format(GameText.BATTLE_5, boutAction.iValue)
+                };
+                return attackTip;
+            default:
+                Debug.LogError("unhandle enemy action type:" + boutAction.enemyAction);
+                break;
+        }
+        return null;
+    }
 }

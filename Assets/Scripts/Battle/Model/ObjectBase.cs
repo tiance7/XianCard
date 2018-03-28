@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class ObjectBase
 {
-    public int instId;
+    public int instId { get; private set; }
     public int curHp { get; set; }
     public int maxHp;
     public int armor;
@@ -14,7 +14,7 @@ public class ObjectBase
 
     public ObjectBase()
     {
-        instId = 0;
+        instId = BattleTool.GetObjectInstId();
         curHp = 0;
         maxHp = 0;
         armor = 0;

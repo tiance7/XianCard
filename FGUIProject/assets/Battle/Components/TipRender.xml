@@ -3,7 +3,7 @@
   <displayList>
     <graph id="n3_h5ix" name="n3" xy="0,0" size="268,116" alpha="0.8" type="rect" lineSize="5" fillColor="#ff999999"/>
     <text id="n0_h5ix" name="txtName" xy="2,2" size="65,31" fontSize="24" color="#ffff66" strokeColor="#000000" text="name"/>
-    <loader id="n1_h5ix" name="imgIcon" xy="69,0" size="36,36">
+    <loader id="n1_h5ix" name="imgIcon" xy="69,0" size="36,36" fill="scale">
       <relation target="n0_h5ix" sidePair="left-right"/>
     </loader>
     <text id="n2_h5ix" name="txtDesc" xy="2,40" size="263,28" fontSize="21" color="#ffffff" autoSize="height" strokeColor="#000000" text="content desc"/>

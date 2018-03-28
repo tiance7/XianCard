@@ -8,9 +8,11 @@ namespace UI.Battle
 	{
 		public static void BindAll()
 		{
+			UIObjectFactory.SetPackageItemExtension(TipList.URL, typeof(TipList));
 			UIObjectFactory.SetPackageItemExtension(BlockText.URL, typeof(BlockText));
 			UIObjectFactory.SetPackageItemExtension(HpText.URL, typeof(HpText));
 			UIObjectFactory.SetPackageItemExtension(FxSword.URL, typeof(FxSword));
+			UIObjectFactory.SetPackageItemExtension(TipRender.URL, typeof(TipRender));
 			UIObjectFactory.SetPackageItemExtension(BoutCom.URL, typeof(BoutCom));
 			UIObjectFactory.SetPackageItemExtension(HpBar.URL, typeof(HpBar));
 			UIObjectFactory.SetPackageItemExtension(Fighter.URL, typeof(Fighter));
