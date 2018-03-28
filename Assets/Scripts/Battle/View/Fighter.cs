@@ -16,6 +16,13 @@ namespace UI.Battle
         {
             base.ConstructFromResource();
             InitView();
+            InitControl();
+        }
+
+        public override void Dispose()
+        {
+            ReleaseControl();
+            base.Dispose();
         }
 
         private void InitView()
@@ -39,7 +46,22 @@ namespace UI.Battle
             lstBuff.numItems = lstBuffInst.Count;
         }
 
-        internal void Init(EnemyInstance enemyInstance)
+        /// <summary>
+        /// 使用自身数据初始化
+        /// </summary>
+        public void InitFromSelf()
+        {
+            BattleModel battleModel = BattleModel.Inst;
+            instId = battleModel.selfData.instId;
+            pgsHp.max = battleModel.selfData.maxHp;
+            pgsHp.value = battleModel.selfData.curHp;
+        }
+
+        /// <summary>
+        /// 使用敌人数据初始化
+        /// </summary>
+        /// <param name="enemyInstance"></param>
+        public void Init(EnemyInstance enemyInstance)
         {
             instId = enemyInstance.instId;
             rootContainer.touchChildren = false;
@@ -115,6 +137,28 @@ namespace UI.Battle
             pgsHp.cDead.SetSelectedIndex((int)DeadControl.YES);
             pgsHp.text = GameText.BATTLE_4;
             tDead.Play();
+        }
+
+        private void InitControl()
+        {
+            onRollOver.Add(OnRollOver);
+            onRollOut.Add(OnRollOut);
+        }
+
+        private void ReleaseControl()
+        {
+            onRollOver.Remove(OnRollOver);
+            onRollOut.Remove(OnRollOut);
+        }
+
+        private void OnRollOver(EventContext context)
+        {
+            Message.Send(MsgType.FIGHTER_ROLL_OVER, instId);
+        }
+
+        private void OnRollOut(EventContext context)
+        {
+            Message.Send(MsgType.FIGHTER_ROLL_OUT);
         }
 
         enum ActionControl

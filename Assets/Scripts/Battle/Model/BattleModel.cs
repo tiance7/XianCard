@@ -61,7 +61,7 @@ public class BattleModel : ModelBase
     private void InitSelf()
     {
         job = Job.SWORD;    //todo 根据玩家选择指定
-        selfData = new FighterData(1, 80, 80, 0); //todo  实例ID分配 根据职业初始化属性
+        selfData = new FighterData(80, 80, 0); //todo 根据职业初始化属性
     }
 
     /// <summary>
@@ -161,7 +161,8 @@ public class BattleModel : ModelBase
     private void InitEnemy()
     {
         _dicEnemy.Clear();
-        _dicEnemy[0] = new EnemyInstance(1); //todo 根据关卡数据来初始化
+        var enemyInst = new EnemyInstance(1); //todo 根据关卡数据来初始化
+        _dicEnemy[enemyInst.instId] = enemyInst;
         SendEvent(BattleEvent.ENEMY_INIT);
     }
 

@@ -12,15 +12,19 @@ namespace UI.Battle
     {
         private const int CARD_WIDTH = 250; //卡牌宽度 比实际稍小 让卡牌部分重叠显示
         private const int CARD_HEIGHT = 429; //卡牌高度
+        private const int TIP_RENDER_WIDTH = 268;
+        private const int TIP_RENDER_HEIGHT = 116;
 
         //model
         private BattleModel _battleModel;
         private float _skillUseY;   //鼠标小于这个高度后 判断技能卡被使用
         private Vector2 _usedCardPos;   //手牌飞入弃牌堆的坐标
+        private List<TipStruct> _lstTip = new List<TipStruct>();
 
         //view
         private List<CardCom> _lstCard = new List<CardCom>();
         private CardCom _lastHoldCard;
+        private TipList _comTipList;
 
         //control
         private BattleManager _manager;
@@ -39,6 +43,7 @@ namespace UI.Battle
         public override void Dispose()
         {
             ReleaseControl();
+            ReleaseTipList();
             base.Dispose();
         }
 
@@ -60,8 +65,7 @@ namespace UI.Battle
 
         private void InitSelf()
         {
-            ftSelf.pgsHp.max = _battleModel.selfData.maxHp;
-            ftSelf.pgsHp.value = _battleModel.selfData.curHp;
+            ftSelf.InitFromSelf();
             RefreshSelfArmor();
         }
 
@@ -77,8 +81,11 @@ namespace UI.Battle
 
         private void InitEnemy()
         {
-            EnemyInstance enemyInstance = _battleModel.GetEnemys()[0];  //todo 初始化多个敌人
-            ftEnemy.Init(enemyInstance);
+            foreach (var kv in _battleModel.GetEnemys())
+            {
+                ftEnemy.Init(kv.Value); //todo 初始化多个敌人
+                break;
+            }
         }
 
         private void RefreshCost()
@@ -117,11 +124,13 @@ namespace UI.Battle
             _battleModel.AddListener(BattleEvent.SELF_BUFF_ADD, OnSelfBuffAdd);
             _battleModel.AddListener(BattleEvent.SELF_BUFF_UPDATE, OnSelfBuffUpdate);
             _battleModel.AddListener(BattleEvent.SELF_BUFF_REMOVE, OnSelfBuffRemove);
-            
+
 
             Message.AddListener(MsgType.DO_ATTACK, OnDoAttack);
             Message.AddListener(MsgType.SHOW_HIT_EFFECT, OnShowHitEffect);
             Message.AddListener(MsgType.BATTLE_END, OnBattleEnd);
+            Message.AddListener(MsgType.FIGHTER_ROLL_OVER, OnFighterRollOver);
+            Message.AddListener(MsgType.FIGHTER_ROLL_OUT, OnFighterRollOut);
         }
 
         private void ReleaseControl()
@@ -152,6 +161,8 @@ namespace UI.Battle
             Message.RemoveListener(MsgType.DO_ATTACK, OnDoAttack);
             Message.RemoveListener(MsgType.SHOW_HIT_EFFECT, OnShowHitEffect);
             Message.RemoveListener(MsgType.BATTLE_END, OnBattleEnd);
+            Message.RemoveListener(MsgType.FIGHTER_ROLL_OVER, OnFighterRollOver);
+            Message.RemoveListener(MsgType.FIGHTER_ROLL_OUT, OnFighterRollOut);
         }
 
         private void AddCardEvent(CardCom cardCom)
@@ -200,7 +211,7 @@ namespace UI.Battle
                 return false;
             switch (template.nTargetType)
             {
-                case CardTargetType.ONE_ENEMY:      
+                case CardTargetType.ONE_ENEMY:
                     //判断是否鼠标放置在某个敌人上面 是就对敌人使用
                     if (ftEnemy.rootContainer.HitTest(Stage.inst.touchPosition, true) == ftEnemy.rootContainer)
                     {
@@ -339,7 +350,8 @@ namespace UI.Battle
 
         private Fighter GetFighter(int instId)
         {
-            //todo 根据实例ID获取敌人
+            if (ftSelf.instId == instId)
+                return ftSelf;
             return ftEnemy;
         }
 
@@ -441,7 +453,7 @@ namespace UI.Battle
             Fighter fighter = GetFighter(attackStruct.casterInst.instId);
             if (fighter == null)
                 return;
-            fighter.DoAttack(()=> { Message.Send(MsgType.ATTACK_HIT, attackStruct); });
+            fighter.DoAttack(() => { Message.Send(MsgType.ATTACK_HIT, attackStruct); });
         }
 
         private void OnShowHitEffect(object obj)
@@ -483,6 +495,71 @@ namespace UI.Battle
             Stage.inst.onTouchMove.Remove(OnTouchMove);
             WindowManager.Open(WindowId.BATTLE_REWARD);
         }
+
+        private void OnFighterRollOver(object obj)
+        {
+            int fighterInstId = (int)obj;
+            Fighter fighter = GetFighter(fighterInstId);
+            if (fighter == null)
+                return;
+            ShowTip(fighterInstId, fighter);
+        }
+
+        private void OnFighterRollOut(object obj)
+        {
+            HideTip();
+        }
+
+        //显示战斗者提示
+        private void ShowTip(int fighterInstId, Fighter fighter)
+        {
+            _lstTip.Clear();
+
+            //回合描述
+            BoutAction boutAction = BattleTool.GetBoutAction(fighterInstId);
+            if (boutAction != null)
+                _lstTip.Add(BattleTool.GetActionTip(boutAction));
+
+            //todo buff描述
+
+            if (_comTipList == null)
+                InitTipList();
+            _comTipList.visible = true;
+            _comTipList.lstTip.numItems = _lstTip.Count;
+            if (boutAction == null)  //如果是自己
+                _comTipList.SetXY(fighter.x + fighter.width, (this.height - _lstTip.Count * TIP_RENDER_HEIGHT) / 2);
+            else
+                _comTipList.SetXY(fighter.x - TIP_RENDER_WIDTH, (this.height - _lstTip.Count * TIP_RENDER_HEIGHT) / 2);
+        }
+
+        //隐藏战斗者提示
+        private void HideTip()
+        {
+            if (_comTipList != null)
+                _comTipList.visible = false;
+        }
+
+        private void InitTipList()
+        {
+            _comTipList = TipList.CreateInstance();
+            _comTipList.lstTip.itemRenderer = OnTipRender;
+            AddChild(_comTipList);
+        }
+
+        private void ReleaseTipList()
+        {
+            if(_comTipList != null)
+            {
+                _comTipList.Dispose();
+                _comTipList = null;
+            }
+        }
+
+        private void OnTipRender(int index, GObject item)
+        {
+            TipRender render = item as TipRender;
+            render.SetData(_lstTip[index]);
+        }
     }
 
     enum HpArmorControl
@@ -490,4 +567,5 @@ namespace UI.Battle
         NO,
         HAS
     }
+
 }

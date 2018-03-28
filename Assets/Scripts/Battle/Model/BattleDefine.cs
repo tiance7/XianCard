@@ -65,3 +65,13 @@ public class HpUpdateStruct
         this.changeValue = changeValue;
     }
 }
+
+/// <summary>
+/// 提示结构体
+/// </summary>
+public class TipStruct
+{
+    public string name;
+    public string iconUrl;
+    public string desc;
+}
