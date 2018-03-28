@@ -34,6 +34,11 @@ public class CharModel
         //lstInitCardId.Add(9);   //todo 测试用 地脉阵
         lstInitCardId.Add(21);   //todo 测试用
         lstInitCardId.Add(23);   //todo 测试用
+        lstInitCardId.Add(25);   //todo 测试用
+        lstInitCardId.Add(27);   //todo 测试用
+        lstInitCardId.Add(28);   //todo 测试用
+        lstInitCardId.Add(31);   //todo 测试用
+        lstInitCardId.Add(33);   //todo 测试用
 
         foreach (uint cardId in lstInitCardId)
         {

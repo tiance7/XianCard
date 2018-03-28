@@ -97,7 +97,7 @@ public class BattleManager : IDisposable
                 _battleModel.InitRoundStatistics();
                 break;
             case Bout.ENEMY:
-                SelfBoutEndHandle();
+                Core.Inst.StartCoroutine(SelfBoutEndHandle());
                 Core.Inst.StartCoroutine(EnemyBoutHandle());
                 break;
             default:
@@ -117,8 +117,22 @@ public class BattleManager : IDisposable
     }
 
     //自身回合结束处理
-    private void SelfBoutEndHandle()
+    private IEnumerator SelfBoutEndHandle()
     {
+        //虚无卡牌，在回合结束时消耗
+        var handListCopy = new List<CardInstance>(_battleModel.GetHandList());
+        foreach (var handCard in handListCopy)
+        {
+            CardTemplate cardTpl = CardTemplateData.GetData(handCard.tplId);
+            if (cardTpl == null)
+                continue;
+
+            if (cardTpl.bEthereal)
+            {
+                _battleModel.ExhaustHandCard(handCard);
+            }
+        }
+
         //回合结束buff结算
         foreach (var buffInst in _battleModel.selfData.lstBuffInst)
         {
@@ -149,6 +163,14 @@ public class BattleManager : IDisposable
                 _battleModel.DecSelfBuffLeftBout(buffInst, 1);
             }
         }
+
+        //手牌飞入弃牌堆
+        handListCopy = new List<CardInstance>(_battleModel.GetHandList());
+        foreach (var handCard in handListCopy)
+        {
+            _battleModel.MoveHandCardToUsed(handCard);
+        }
+        yield return new WaitForSeconds(AnimationTime.HAND_TO_USED);
     }
 
     //更新敌人下回合行为
@@ -178,14 +200,6 @@ public class BattleManager : IDisposable
     //敌方回合处理
     private IEnumerator EnemyBoutHandle()
     {
-        //手牌飞入弃牌堆
-        var handListCopy = new List<CardInstance>(_battleModel.GetHandList());
-        foreach (var handCard in handListCopy)
-        {
-            _battleModel.MoveHandCardToUsed(handCard);
-        }
-        yield return new WaitForSeconds(AnimationTime.HAND_TO_USED);
-
         //回合标题展示时间
         yield return new WaitForSeconds(AnimationTime.BOUT_DISPLAY_TIME);
 
@@ -291,18 +305,26 @@ public class BattleManager : IDisposable
         _battleModel.battleStat.useCardCount += 1;
 
         //处理卡牌去向
-        switch (template.nType)
+        if (template.bExhaust)
         {
-            case CardType.ATTACK:
-            case CardType.SKILL:
-                _battleModel.MoveHandCardToUsed(cardInstance);
-                break;
-            case CardType.FORMATION:
-                _battleModel.ConsumeHandCard(cardInstance);
-                break;
-            default:
-                Debug.LogError("unhandle card type:" + template.nType);
-                break;
+            //消耗
+            _battleModel.ExhaustHandCard(cardInstance);
+        }
+        else
+        {
+            switch (template.nType)
+            {
+                case CardType.ATTACK:
+                case CardType.SKILL:
+                    _battleModel.MoveHandCardToUsed(cardInstance);
+                    break;
+                case CardType.FORMATION:
+                    _battleModel.ConsumeHandCard(cardInstance);
+                    break;
+                default:
+                    Debug.LogError("unhandle card type:" + template.nType);
+                    break;
+            }
         }
     }
 
@@ -323,22 +345,24 @@ public class BattleManager : IDisposable
             switch (effectTemplate.nType)
             {
                 case CardEffectType.ONE_DAMAGE:
-                    int iDmgCount = fnGetEffectCount(effectTemplate);
-                    Core.Inst.StartCoroutine(DamageEnemyCoroutine(iDmgCount, targetInstId, effectTemplate));
+                case CardEffectType.ONE_DAMAGE_IGNORE_ARMOR:
+                    if(effectTemplate.nTarget == CardEffectTargetType.ONE_ENEMY)
+                    {
+                        int iDmgCount = fnGetEffectCount(effectTemplate);
+                        Core.Inst.StartCoroutine(DamageEnemyCoroutine(iDmgCount, targetInstId, effectTemplate));
+                    }
+                    else if (effectTemplate.nTarget == CardEffectTargetType.ALL_ENEMY)
+                    {
+                        int iDmgCount = fnGetEffectCount(effectTemplate);
+                        Core.Inst.StartCoroutine(DamageAllEnemyCoroutine(iDmgCount, effectTemplate));
+                    }
                     break;
                 case CardEffectType.GET_ARMOR:
                     _battleModel.AddArmor(effectTemplate.iEffectValue);
                     break;
                 case CardEffectType.CASTER_GET_BUFF:
-                    if (effectTemplate.nTarget == CardEffectTargetType.SELF)
-                    {
-                        int iCount = fnGetEffectCount(effectTemplate);
-                        _battleModel.AddSelfBuff((uint)effectTemplate.iEffectValue, iCount);
-                    }
-                    else if (effectTemplate.nTarget == CardEffectTargetType.ALL_ENEMY)
-                    {
-                        // todo:各种类型目标给予BUFF
-                    }
+                    int iCount = fnGetEffectCount(effectTemplate);
+                    _battleModel.AddSelfBuff((uint)effectTemplate.iEffectValue, iCount);
                     break;
                 case CardEffectType.DRAW_CARD:
                     SelfDrawCard(effectTemplate.iEffectValue);
@@ -370,9 +394,23 @@ public class BattleManager : IDisposable
 
     private IEnumerator DamageEnemyCoroutine(int iDmgCount, int targetInstId, CardEffectTemplate effectTemplate)
     {
+        bool bIgnoreArmor = (effectTemplate.nType == CardEffectType.ONE_DAMAGE_IGNORE_ARMOR);
         for (int i = 0; i < iDmgCount; ++i)
         {
-            DamageEnemy(targetInstId, effectTemplate.iEffectValue);
+            DamageEnemy(targetInstId, effectTemplate.iEffectValue, bIgnoreArmor);
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
+    private IEnumerator DamageAllEnemyCoroutine(int iDmgCount, CardEffectTemplate effectTemplate)
+    {
+        bool bIgnoreArmor = (effectTemplate.nType == CardEffectType.ONE_DAMAGE_IGNORE_ARMOR);
+        for (int i = 0; i < iDmgCount; ++i)
+        {
+            foreach (KeyValuePair<int, EnemyInstance> pair in _battleModel.GetEnemys())
+            {
+                DamageEnemy(pair.Value.instId, effectTemplate.iEffectValue, bIgnoreArmor);
+            }
             yield return new WaitForSeconds(0.2f);
         }
     }
@@ -401,32 +439,39 @@ public class BattleManager : IDisposable
     }
 
     /// <summary>
-    /// 对目标造成伤害（可被护甲抵消）
+    /// 对目标造成伤害
     /// </summary>
     /// <param name="instId"></param>
     /// <param name="iEffectValue"></param>
-    internal void DamageEnemy(int instId, int iEffectValue)
+    internal void DamageEnemy(int instId, int iEffectValue, bool ignoreArmor)
     {
         EnemyInstance enemyInstance = _battleModel.GetEnemy(instId);
         if (enemyInstance == null)
             return;
 
-        if (enemyInstance.armor >= iEffectValue)
+        if (false == ignoreArmor)
         {
-            _battleModel.ReduceEnemyArmor(instId, iEffectValue);
+            if (enemyInstance.armor >= iEffectValue)
+            {
+                _battleModel.ReduceEnemyArmor(instId, iEffectValue);
 
-            _battleModel.effectStat.damageArmor += (uint)iEffectValue;
-            _battleModel.roundStat.damageArmor += (uint)iEffectValue;
+                _battleModel.effectStat.damageArmor += (uint)iEffectValue;
+                _battleModel.roundStat.damageArmor += (uint)iEffectValue;
+            }
+            else
+            {
+                int iReduceHp = iEffectValue - enemyInstance.armor;
+
+                _battleModel.effectStat.damageArmor += (uint)enemyInstance.armor;
+                _battleModel.roundStat.damageArmor += (uint)enemyInstance.armor;
+                _battleModel.ReduceEnemyArmor(instId, enemyInstance.armor);
+
+                _battleModel.ReduceEnemyHp(instId, iReduceHp);
+            }
         }
         else
         {
-            int iReduceHp = iEffectValue - enemyInstance.armor;
-
-            _battleModel.effectStat.damageArmor += (uint)enemyInstance.armor;
-            _battleModel.roundStat.damageArmor += (uint)enemyInstance.armor;
-            _battleModel.ReduceEnemyArmor(instId, enemyInstance.armor);
-
-            _battleModel.ReduceEnemyHp(instId, iReduceHp);
+            _battleModel.ReduceEnemyHp(instId, iEffectValue);
         }
     }
 

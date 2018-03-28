@@ -10,6 +10,7 @@ public enum BattleEvent
     USED_NUM_UPDATE,    //弃牌堆数量更新
     MOVE_HAND_TO_USED,  //从手牌移动到弃牌堆
     HAND_CARD_CONSUME,  //手牌使用掉了（本局无法再使用，不进消耗区）
+    HAND_CARD_EXHAUST,  //手牌被消耗了
 
     //自身属性
     SELF_HP_UPDATE,

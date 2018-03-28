@@ -106,6 +106,7 @@ namespace UI.Battle
             _battleModel.AddListener(BattleEvent.DRAW_ONE_CARD, OnDrawOneCard);
             _battleModel.AddListener(BattleEvent.MOVE_HAND_TO_USED, OnMoveHandToUsed);
             _battleModel.AddListener(BattleEvent.HAND_CARD_CONSUME, OnHandCardConsume);
+            _battleModel.AddListener(BattleEvent.HAND_CARD_EXHAUST, OnHandCardConsume);
             _battleModel.AddListener(BattleEvent.ARMOR_CHANGE, OnArmorChange);
             _battleModel.AddListener(BattleEvent.COST_CHANGE, OnCostChange);
             _battleModel.AddListener(BattleEvent.ENEMY_INIT, OnEnemyInit);
@@ -137,6 +138,7 @@ namespace UI.Battle
             _battleModel.RemoveListener(BattleEvent.DRAW_ONE_CARD, OnDrawOneCard);
             _battleModel.RemoveListener(BattleEvent.MOVE_HAND_TO_USED, OnMoveHandToUsed);
             _battleModel.RemoveListener(BattleEvent.HAND_CARD_CONSUME, OnHandCardConsume);
+            _battleModel.RemoveListener(BattleEvent.HAND_CARD_EXHAUST, OnHandCardConsume);
             _battleModel.RemoveListener(BattleEvent.ARMOR_CHANGE, OnArmorChange);
             _battleModel.RemoveListener(BattleEvent.COST_CHANGE, OnCostChange);
             _battleModel.RemoveListener(BattleEvent.ENEMY_INIT, OnEnemyInit);
