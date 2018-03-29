@@ -331,8 +331,13 @@ namespace UI.Battle
             if (cardCom == null)
                 return;
             _lstCard.Remove(cardCom);
-            cardCom.Dispose();
-            UpdateAllCardPos();
+
+            //todo 卡牌消耗动画
+            cardCom.TweenFade(0, 1.0f).OnComplete(() => 
+            {
+                cardCom.Dispose();
+                UpdateAllCardPos();
+            });
         }
 
         private void OnArmorChange(object obj)
