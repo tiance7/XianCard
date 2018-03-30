@@ -7,6 +7,9 @@ public class ResPath
     public const string XML_DIR = "XML/";
     public const string UI = "UI/";
 
+    public const string SFX_BATTLE_WIN = "Sound/win";
+    public const string SFX_SPEAR = "Sound/spear";
+
     /// <summary>
     /// 获取FGUI里的资源路径
     /// </summary>

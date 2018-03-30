@@ -194,7 +194,7 @@ public class BattleManager : IDisposable
     private void CheckIsBattleEnd()
     {
         if (BattleTool.IsAllEnemyDead())
-            Message.Send(MsgType.BATTLE_END);
+            Message.Send(MsgType.BATTLE_WIN);
     }
 
     //敌方回合处理
@@ -251,6 +251,7 @@ public class BattleManager : IDisposable
         {
             _battleModel.UpdateArmor(leftArmor);
         }
+        SoundTool.inst.PlaySoundEffect(ResPath.SFX_SPEAR);  //todo 根据模板表和是否格挡来播放音效
         Message.Send(MsgType.SHOW_HIT_EFFECT, attackStruct);
 
         HandleOnHitEffect(attackStruct.casterInst, orignArmor, attackStruct.boutAction.iValue);
@@ -473,6 +474,7 @@ public class BattleManager : IDisposable
         {
             _battleModel.ReduceEnemyHp(instId, iEffectValue);
         }
+        SoundTool.inst.PlaySoundEffect(ResPath.SFX_SPEAR);  //todo 根据模板表 以及是否格挡 播放不同的音效
     }
 
 }

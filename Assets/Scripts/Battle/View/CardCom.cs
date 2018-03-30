@@ -67,10 +67,12 @@ namespace UI.Battle
             }
         }
 
-        public Tweener UpdatePos(float newX, float newY, float moveTime = 0.5f)
+        public Tweener UpdatePos(float newX, float newY, float destScale=BattleDefine.CARD_SCALE, float moveTime = 0.5f)
         {
             _cardOrignPos.x = newX;
             _cardOrignPos.y = newY;
+            _tweenScaleHelper.x = _tweenScaleHelper.y = destScale;
+            this.TweenScale(_tweenScaleHelper, moveTime);
             return this.TweenMove(_cardOrignPos, moveTime);
         }
 
@@ -168,7 +170,7 @@ namespace UI.Battle
         internal void FlyToUsed(Vector2 usedCardPos)
         {
             ctrlState.SetSelectedIndex((int)StateControl.FLY_TO_USED);
-            Tweener moveTween = UpdatePos(usedCardPos.x, usedCardPos.y, AnimationTime.HAND_TO_USED);
+            Tweener moveTween = UpdatePos(usedCardPos.x, usedCardPos.y, BattleDefine.CARD_DECK_SCALE, AnimationTime.HAND_TO_USED);
             moveTween.OnComplete(() => this.Dispose());
             tFlyToUsed.Play();
         }

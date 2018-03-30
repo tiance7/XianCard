@@ -39,6 +39,8 @@ public class Core : MonoBehaviour
         //AssetManager.Init(Editor);
         //UIObjectFactory.SetLoaderExtension(typeof(MyGLoader));
 
+        SoundTool soundTool = SoundTool.inst;   //提前初始化
+
         TemplateManager templateMgr = new TemplateManager(new TemplateList());
         templateMgr.LoadAllXml();
 

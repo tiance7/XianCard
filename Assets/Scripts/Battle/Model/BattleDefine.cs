@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BattleDefine
 {
+    public const float CARD_DECK_SCALE = 0.15f;   //卡牌在牌堆位置的缩放比例
     public const float CARD_SCALE = 0.7f;   //卡牌缩放比例
 }
 

@@ -22,7 +22,7 @@ namespace UI.Battle
         private List<TipStruct> _lstTip = new List<TipStruct>();
 
         //view
-        private List<CardCom> _lstCard = new List<CardCom>();
+        private List<CardCom> _lstHandCard = new List<CardCom>();
         private CardCom _lastHoldCard;
         private TipList _comTipList;
 
@@ -91,7 +91,7 @@ namespace UI.Battle
         private void RefreshCost()
         {
             txtCost.text = string.Format("{0}/{1}", _battleModel.curCost, _battleModel.maxCost);
-            foreach (CardCom cardCom in _lstCard)
+            foreach (CardCom cardCom in _lstHandCard)
             {
                 cardCom.UpdateUsable();
             }
@@ -129,7 +129,7 @@ namespace UI.Battle
 
             Message.AddListener(MsgType.DO_ATTACK, OnDoAttack);
             Message.AddListener(MsgType.SHOW_HIT_EFFECT, OnShowHitEffect);
-            Message.AddListener(MsgType.BATTLE_END, OnBattleEnd);
+            Message.AddListener(MsgType.BATTLE_WIN, OnBattleWin);
             Message.AddListener(MsgType.FIGHTER_ROLL_OVER, OnFighterRollOver);
             Message.AddListener(MsgType.FIGHTER_ROLL_OUT, OnFighterRollOut);
         }
@@ -162,7 +162,7 @@ namespace UI.Battle
 
             Message.RemoveListener(MsgType.DO_ATTACK, OnDoAttack);
             Message.RemoveListener(MsgType.SHOW_HIT_EFFECT, OnShowHitEffect);
-            Message.RemoveListener(MsgType.BATTLE_END, OnBattleEnd);
+            Message.RemoveListener(MsgType.BATTLE_WIN, OnBattleWin);
             Message.RemoveListener(MsgType.FIGHTER_ROLL_OVER, OnFighterRollOver);
             Message.RemoveListener(MsgType.FIGHTER_ROLL_OUT, OnFighterRollOut);
         }
@@ -277,18 +277,18 @@ namespace UI.Battle
         {
             CardInstance drawCard = obj as CardInstance;
             CardCom cardCom = CardCom.CreateInstance();
-            cardCom.scale = new Vector2(BattleDefine.CARD_SCALE, BattleDefine.CARD_SCALE);
+            cardCom.scale = new Vector2(BattleDefine.CARD_DECK_SCALE, BattleDefine.CARD_DECK_SCALE);
             cardCom.x = -cardCom.width;
             cardCom.SetCard(drawCard);
             frmHand.AddChild(cardCom);
-            _lstCard.Add(cardCom);
+            _lstHandCard.Add(cardCom);
             AddCardEvent(cardCom);
-            UpdateAllCardPos();
+            UpdateAllHandCardPos();
         }
 
-        private void UpdateAllCardPos()
+        private void UpdateAllHandCardPos()
         {
-            int cardNum = _lstCard.Count;
+            int cardNum = _lstHandCard.Count;
             float totalWidth = cardNum * CARD_WIDTH * BattleDefine.CARD_SCALE;
             if (totalWidth > frmHand.width)
                 totalWidth = frmHand.width;
@@ -296,8 +296,8 @@ namespace UI.Battle
             float cardSpace = totalWidth / cardNum;
             for (int i = 0; i < cardNum; i++)
             {
-                CardCom cardCom = _lstCard[i];
-                cardCom.UpdatePos(beginPos + i * cardSpace, 0);
+                CardCom cardCom = _lstHandCard[i];
+                cardCom.UpdatePos(beginPos + i * cardSpace, 0, BattleDefine.CARD_SCALE);
             }
         }
 
@@ -308,14 +308,14 @@ namespace UI.Battle
             CardCom cardCom = GetCardCom(cardInstance);
             if (cardCom == null)
                 return;
-            _lstCard.Remove(cardCom);
+            _lstHandCard.Remove(cardCom);
             cardCom.FlyToUsed(_usedCardPos);
-            UpdateAllCardPos();
+            UpdateAllHandCardPos();
         }
 
         private CardCom GetCardCom(CardInstance cardInstance)
         {
-            foreach (CardCom cardCom in _lstCard)
+            foreach (CardCom cardCom in _lstHandCard)
             {
                 if (cardCom.GetCardInstance().instId == cardInstance.instId)
                     return cardCom;
@@ -330,13 +330,13 @@ namespace UI.Battle
             CardCom cardCom = GetCardCom(cardInstance);
             if (cardCom == null)
                 return;
-            _lstCard.Remove(cardCom);
+            _lstHandCard.Remove(cardCom);
 
             //todo 卡牌消耗动画
             cardCom.TweenFade(0, 1.0f).OnComplete(() => 
             {
                 cardCom.Dispose();
-                UpdateAllCardPos();
+                UpdateAllHandCardPos();
             });
         }
 
@@ -488,10 +488,11 @@ namespace UI.Battle
             blockText.TweenScale(new Vector2(0.8f, 0.8f), fadeTime).OnComplete(() => { blockText.Dispose(); });
         }
 
-        private void OnBattleEnd(object obj)
+        private void OnBattleWin(object obj)
         {
             frmHand.touchable = false;
             tBattleEnd.Play();
+            SoundTool.inst.PlaySoundEffect(ResPath.SFX_BATTLE_WIN);
             Core.Inst.StartCoroutine(ShowChooseCard());
         }
 

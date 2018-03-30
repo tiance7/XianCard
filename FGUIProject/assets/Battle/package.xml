@@ -32,6 +32,7 @@
     <image id="h5ixt" name="buff_multi_shield.jpg" path="/Assets/Buff/" exported="true"/>
     <component id="h5ixu" name="TipRender.xml" path="/Components/" exported="true"/>
     <component id="96fmv" name="TipList.xml" path="/Components/" exported="true"/>
+    <image id="10m8nw" name="deck.jpg" path="/Assets/"/>
   </resources>
   <publish name="Battle" genCode="true"/>
 </packageDescription>
