@@ -67,6 +67,7 @@ namespace UI.Battle
             rootContainer.touchChildren = false;
             pgsHp.max = pgsHp.value = enemyInstance.maxHp;
             imgAvatar.url = ResPath.GetUiImagePath(PackageName.BATTLE, "guaiwu");   //todo 从敌人模板表读取外观
+            SetBuffInstList(enemyInstance.lstBuffInst);
         }
 
         public void UpdateHp(int newHp)

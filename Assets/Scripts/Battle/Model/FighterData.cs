@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FighterData : ObjectBase
 {
-    public FighterData(int curHp, int maxHp, int armor) : base()
+    public FighterData(int curHp, int maxHp, int armor) : base(ObjectType.PLAYER)
     {
         base.curHp = curHp;
         base.maxHp = maxHp;
