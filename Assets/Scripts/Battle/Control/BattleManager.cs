@@ -49,7 +49,7 @@ public class BattleManager : IDisposable
     //自己抽牌
     private void SelfDrawCard(int drawNum)
     {
-        if (HasBuff(BuffType.CAN_NOT_DRAW_CARD))
+        if (_battleModel.selfData.HasBuff(BuffType.CAN_NOT_DRAW_CARD))
             return;
         Core.Inst.StartCoroutine(DrawCard(drawNum));
     }
@@ -91,8 +91,8 @@ public class BattleManager : IDisposable
             case Bout.SELF:
                 SelfDrawCard(5);
                 _battleModel.RecoverCost();
-                if (!HasBuff(BuffType.KEEP_ARMOR))
-                    _battleModel.UpdateArmor(0);
+                if (!_battleModel.selfData.HasBuff(BuffType.KEEP_ARMOR))
+                    _battleModel.UpdateArmor(_battleModel.selfData, 0);
                 UpdateEnemyAction();
                 _battleModel.InitRoundStatistics();
                 break;
@@ -104,16 +104,6 @@ public class BattleManager : IDisposable
                 Debug.LogError("unhandle bout:" + _battleModel.bout);
                 break;
         }
-    }
-
-    /// <summary>
-    /// 是否有对应类型的BUFF
-    /// </summary>
-    /// <param name="buffType"></param>
-    /// <returns></returns>
-    private bool HasBuff(uint buffType)
-    {
-        return _battleModel.HasBuff(buffType);
     }
 
     //自身回合结束处理
@@ -134,35 +124,7 @@ public class BattleManager : IDisposable
         }
 
         //回合结束buff结算
-        foreach (var buffInst in _battleModel.selfData.lstBuffInst)
-        {
-            BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
-            if (template == null)
-                continue;
-            switch (template.nType)
-            {
-                case BuffType.ADD_ARMOR:
-                case BuffType.MULTI_ARMOR:
-                    _battleModel.AddArmor(buffInst.effectVal);
-                    break;
-                default:
-                    //Debug.LogError("unhandle bout end buff:" + template.nType);
-                    break;
-            }
-        }
-
-        for(int i= _battleModel.selfData.lstBuffInst.Count-1; i >= 0; --i)
-        {
-            BuffInst buffInst = _battleModel.selfData.lstBuffInst[i];
-            BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
-            if (template == null)
-                continue;
-
-            if (buffInst.leftBout != -1)
-            {
-                _battleModel.DecSelfBuffLeftBout(buffInst, 1);
-            }
-        }
+        SettleBuffOnBoutEnd(_battleModel.selfData);
 
         //手牌飞入弃牌堆
         handListCopy = new List<CardInstance>(_battleModel.GetHandList());
@@ -171,6 +133,39 @@ public class BattleManager : IDisposable
             _battleModel.MoveHandCardToUsed(handCard);
         }
         yield return new WaitForSeconds(AnimationTime.HAND_TO_USED);
+    }
+
+    private void SettleBuffOnBoutEnd(ObjectBase targetObj)
+    {
+        foreach (var buffInst in targetObj.lstBuffInst)
+        {
+            BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
+            if (template == null)
+                continue;
+            switch (template.nType)
+            {
+                case BuffType.ADD_ARMOR:
+                case BuffType.MULTI_ARMOR:
+                    _battleModel.AddArmor(targetObj, buffInst.effectVal);
+                    break;
+                default:
+                    //Debug.LogError("unhandle bout end buff:" + template.nType);
+                    break;
+            }
+        }
+
+        for (int i = targetObj.lstBuffInst.Count - 1; i >= 0; --i)
+        {
+            BuffInst buffInst = targetObj.lstBuffInst[i];
+            BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
+            if (template == null)
+                continue;
+
+            if (buffInst.leftBout != -1)
+            {
+                _battleModel.DecBuffLeftBout(targetObj, buffInst, 1);
+            }
+        }
     }
 
     //更新敌人下回合行为
@@ -205,6 +200,13 @@ public class BattleManager : IDisposable
 
         //todo 结算buff效果
 
+        //清空护甲
+        foreach (var kv in _battleModel.GetEnemys())
+        {
+            if (!kv.Value.HasBuff(BuffType.KEEP_ARMOR))
+                _battleModel.UpdateArmor(kv.Value, 0);
+        }
+
         //按顺序执行回合动作
         foreach (var kv in _battleModel.GetEnemys())
         {
@@ -213,6 +215,12 @@ public class BattleManager : IDisposable
                 continue;
             float actionTime = HandleBoutAction(kv.Value, boutAction);
             yield return new WaitForSeconds(actionTime);
+        }
+
+        //回合结束结算BUFF
+        foreach (var kv in _battleModel.GetEnemys())
+        {
+            SettleBuffOnBoutEnd(kv.Value);
         }
 
         //都执行完了统一等待
@@ -244,12 +252,12 @@ public class BattleManager : IDisposable
         int leftArmor = orignArmor - attackStruct.boutAction.iValue;
         if (leftArmor < 0)
         {
-            _battleModel.UpdateArmor(0);
+            _battleModel.UpdateArmor(_battleModel.selfData, 0);
             _battleModel.ReduceSelfHp(-leftArmor);
         }
         else  //如果护甲有剩余
         {
-            _battleModel.UpdateArmor(leftArmor);
+            _battleModel.UpdateArmor(_battleModel.selfData, leftArmor);
         }
         Message.Send(MsgType.SHOW_HIT_EFFECT, attackStruct);
 
@@ -274,7 +282,7 @@ public class BattleManager : IDisposable
                     if (orignArmor < atkValue)
                     {
                         //受伤少一层护甲
-                        _battleModel.DecSelfBuffEffectVal(buffInst, 1);
+                        _battleModel.DecBuffEffectVal(_battleModel.selfData, buffInst, 1);
                     }
                     break;
                 default:
@@ -358,11 +366,25 @@ public class BattleManager : IDisposable
                     }
                     break;
                 case CardEffectType.GET_ARMOR:
-                    _battleModel.AddArmor(effectTemplate.iEffectValue);
+                    _battleModel.AddArmor(_battleModel.selfData, effectTemplate.iEffectValue);
                     break;
-                case CardEffectType.CASTER_GET_BUFF:
+                case CardEffectType.GIVE_BUFF:
                     int iCount = fnGetEffectCount(effectTemplate);
-                    _battleModel.AddSelfBuff((uint)effectTemplate.iEffectValue, iCount);
+                    if (effectTemplate.nTarget == CardEffectTargetType.ONE_ENEMY)
+                    {
+                        _battleModel.AddBuff(_battleModel.GetEnemy(targetInstId), (uint)effectTemplate.iEffectValue, iCount);
+                    }
+                    else if (effectTemplate.nTarget == CardEffectTargetType.ALL_ENEMY)
+                    {
+                        foreach(KeyValuePair<int, EnemyInstance> pair in _battleModel.GetEnemys())
+                        {
+                            _battleModel.AddBuff(pair.Value, (uint)effectTemplate.iEffectValue, iCount);        
+                        }
+                    }
+                    else if (effectTemplate.nTarget == CardEffectTargetType.SELF)
+                    {
+                        _battleModel.AddBuff(_battleModel.selfData, (uint)effectTemplate.iEffectValue, iCount);
+                    }
                     break;
                 case CardEffectType.DRAW_CARD:
                     SelfDrawCard(effectTemplate.iEffectValue);
@@ -375,11 +397,11 @@ public class BattleManager : IDisposable
                     break;
                 case CardEffectType.CONSUME_BUFF_GET_BUFF:
 
-                    BuffInst rmBuff = _battleModel.GetBuffInst((uint)effectTemplate.iEffectValue);
+                    BuffInst rmBuff = _battleModel.selfData.GetBuffInst((uint)effectTemplate.iEffectValue);
                     if (rmBuff != null)
                     {
-                        _battleModel.RemoveSelfBuff(rmBuff);
-                        _battleModel.AddSelfBuff((uint)effectTemplate.iEffectValue_2,rmBuff.effectVal);
+                        _battleModel.RemoveBuff(_battleModel.selfData, rmBuff);
+                        _battleModel.AddBuff(_battleModel.selfData, (uint)effectTemplate.iEffectValue_2,rmBuff.effectVal);
                     }
                     break;
                 default:

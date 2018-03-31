@@ -84,8 +84,19 @@ namespace UI.Battle
             foreach (var kv in _battleModel.GetEnemys())
             {
                 ftEnemy.Init(kv.Value); //todo 初始化多个敌人
+                RefreshEnemyArmor(kv.Value);
                 break;
             }
+        }
+
+        private void RefreshEnemyArmor(EnemyInstance enemyInst)
+        {
+            int armor = enemyInst.armor;
+            HpArmorControl armorControl = armor > 0 ? HpArmorControl.HAS : HpArmorControl.NO;
+            ftEnemy.pgsHp.ctrlArmor.SetSelectedIndex((int)armorControl);
+            ftEnemy.pgsHp.txtArmor.text = armor.ToString();
+            if (armor > 0)
+                ftEnemy.pgsHp.tGetArmor.Play();
         }
 
         private void RefreshCost()
@@ -97,9 +108,18 @@ namespace UI.Battle
             }
         }
 
-        private void RefreshBuff()
+        private void RefreshSelfBuff()
         {
             ftSelf.SetBuffInstList(_battleModel.selfData.lstBuffInst);
+        }
+
+        private void RefreshEnemyBuff(int instId)
+        {
+            EnemyInstance enemyInst = _battleModel.GetEnemy(instId);
+            if (enemyInst != null)
+            {
+                ftEnemy.SetBuffInstList(enemyInst.lstBuffInst);
+            }  
         }
 
         private void InitControl()
@@ -120,6 +140,10 @@ namespace UI.Battle
             _battleModel.AddListener(BattleEvent.ENEMY_HP_UPDATE, OnEnemyHpUpdate);
             _battleModel.AddListener(BattleEvent.ENEMY_DEAD, OnEnemyDead);
             _battleModel.AddListener(BattleEvent.ENEMY_ACTION_UPDATE, OnActionUpdate);
+            _battleModel.AddListener(BattleEvent.ENEMY_ARMOR_CHANGE, OnEnemyArmorChange);
+            _battleModel.AddListener(BattleEvent.ENEMY_BUFF_ADD, OnEnemyBuffAdd);
+            _battleModel.AddListener(BattleEvent.ENEMY_BUFF_UPDATE,OnEnemyBuffUpdate);
+            _battleModel.AddListener(BattleEvent.ENEMY_BUFF_REMOVE,OnEnemyBuffRemove);
             _battleModel.AddListener(BattleEvent.BOUT_UPDATE, OnBoutUpdate);
             _battleModel.AddListener(BattleEvent.SELF_HP_UPDATE, OnSelfHpUpdate);
             _battleModel.AddListener(BattleEvent.SELF_BUFF_ADD, OnSelfBuffAdd);
@@ -154,6 +178,10 @@ namespace UI.Battle
             _battleModel.RemoveListener(BattleEvent.ENEMY_HP_UPDATE, OnEnemyHpUpdate);
             _battleModel.RemoveListener(BattleEvent.ENEMY_DEAD, OnEnemyDead);
             _battleModel.RemoveListener(BattleEvent.ENEMY_ACTION_UPDATE, OnActionUpdate);
+            _battleModel.RemoveListener(BattleEvent.ENEMY_ARMOR_CHANGE, OnEnemyArmorChange);
+            _battleModel.RemoveListener(BattleEvent.ENEMY_BUFF_ADD, OnEnemyBuffAdd);
+            _battleModel.RemoveListener(BattleEvent.ENEMY_BUFF_UPDATE, OnEnemyBuffUpdate);
+            _battleModel.RemoveListener(BattleEvent.ENEMY_BUFF_REMOVE, OnEnemyBuffRemove);
             _battleModel.RemoveListener(BattleEvent.BOUT_UPDATE, OnBoutUpdate);
             _battleModel.RemoveListener(BattleEvent.SELF_HP_UPDATE, OnSelfHpUpdate);
             _battleModel.RemoveListener(BattleEvent.SELF_BUFF_ADD, OnSelfBuffAdd);
@@ -398,6 +426,12 @@ namespace UI.Battle
             fighter.UpdateAction(enemyInstance.boutAction);
         }
 
+        private void OnEnemyArmorChange(object obj)
+        {
+            EnemyInstance enemyInst = obj as EnemyInstance;
+            RefreshEnemyArmor(enemyInst);
+        }
+
         private void OnBoutUpdate(object obj)
         {
             btnEndTurn.enabled = _battleModel.bout == Bout.SELF;
@@ -441,17 +475,35 @@ namespace UI.Battle
 
         private void OnSelfBuffAdd(object obj)
         {
-            RefreshBuff();
+            RefreshSelfBuff();
         }
 
         private void OnSelfBuffUpdate(object obj)
         {
-            RefreshBuff();
+            RefreshSelfBuff();
         }
 
         private void OnSelfBuffRemove(object obj)
         {
-            RefreshBuff();
+            RefreshSelfBuff();
+        }
+
+        private void OnEnemyBuffAdd(object obj)
+        {
+            int enemyInstId = (int)obj;
+            RefreshEnemyBuff(enemyInstId);
+        }
+
+        private void OnEnemyBuffUpdate(object obj)
+        {
+            int enemyInstId = (int)obj;
+            RefreshEnemyBuff(enemyInstId);
+        }
+
+        private void OnEnemyBuffRemove(object obj)
+        {
+            int enemyInstId = (int)obj;
+            RefreshEnemyBuff(enemyInstId);
         }
 
         private void OnDoAttack(object obj)

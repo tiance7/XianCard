@@ -80,23 +80,29 @@ public class BattleModel : ModelBase
     }
 
     /// <summary>
-    /// 自身获得护甲
+    /// 获得护甲
     /// </summary>
     /// <param name="value"></param>
-    internal void AddArmor(int value)
+    internal void AddArmor(ObjectBase targetObj, int value)
     {
-        selfData.armor += value;
-        ArmorChangeHandle();
+        targetObj.armor += value;
+        if (targetObj.objType == ObjectType.PLAYER)
+            ArmorChangeHandle();
+        else if (targetObj.objType == ObjectType.ENEMY)
+            SendEvent(BattleEvent.ENEMY_ARMOR_CHANGE, targetObj);
     }
 
     /// <summary>
     /// 更新护甲值
     /// </summary>
     /// <param name="value"></param>
-    public void UpdateArmor(int value)
+    public void UpdateArmor(ObjectBase targetObj, int value)
     {
-        selfData.armor = value;
-        ArmorChangeHandle();
+        targetObj.armor = value;
+        if (targetObj.objType == ObjectType.PLAYER)
+            ArmorChangeHandle();
+        else if (targetObj.objType == ObjectType.ENEMY)
+            SendEvent(BattleEvent.ENEMY_ARMOR_CHANGE, targetObj);
     }
 
     private void ArmorChangeHandle()
@@ -156,6 +162,16 @@ public class BattleModel : ModelBase
     {
         bout = value;
         SendEvent(BattleEvent.BOUT_UPDATE);
+    }
+
+    public ObjectBase FindObjectBase(int instId)
+    {
+        if (selfData.instId == instId)
+        {
+            return selfData;
+        }
+
+        return GetEnemy(instId);
     }
 
     //-------------------------敌人数据-------------------------
@@ -218,16 +234,6 @@ public class BattleModel : ModelBase
     }
 
     /// <summary>
-    /// 加护甲
-    /// </summary>
-    /// <param name="instId"></param>
-    /// <param name="iEffectValue"></param>
-    internal void AddEnemyArmor(int instId, int iEffectValue)
-    {
-        ReduceEnemyArmor(instId, -iEffectValue);
-    }
-
-    /// <summary>
     /// 掉护甲
     /// </summary>
     /// <param name="instId"></param>
@@ -245,6 +251,8 @@ public class BattleModel : ModelBase
 
         if (enemyInstance.armor <= 0)
             enemyInstance.armor = 0;
+
+        SendEvent(BattleEvent.ENEMY_ARMOR_CHANGE, enemyInstance);
     }
     //-------------------------卡牌数据-------------------------
 
@@ -291,11 +299,6 @@ public class BattleModel : ModelBase
     /// </summary>
     internal void DrawOneCard()
     {
-        //if (HasBuff(BuffType.CAN_NOT_DRAW_CARD))
-        //{
-        //    return;
-        //}
-
         CardInstance drawCard = _lstDeck[0];
         if (drawCard == null)
         {
@@ -356,49 +359,28 @@ public class BattleModel : ModelBase
     }
 
     /// <summary>
-    /// 是否有对应类型的BUFF
-    /// </summary>
-    /// <returns></returns>
-    internal bool HasBuff(uint buffType)
-    {
-        foreach (var buffInst in selfData.lstBuffInst)
-        {
-            BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
-            if (template == null)
-                continue;
-            if (template.nType == buffType)
-                return true;
-        }
-        return false;
-    }
-
-    internal BuffInst GetBuffInst(uint buffId)
-    {
-        foreach (var buffInst in selfData.lstBuffInst)
-        {
-            if (buffInst.tplId == buffId)
-                return buffInst;
-        }
-
-        return null;
-    }
-
-    /// <summary>
-    /// 自身获得buff
+    /// 目标对象获得buff
     /// </summary>
     /// <param name="buffId"></param>
-    internal void AddSelfBuff(uint buffId, int count = 1)
+    internal void AddBuff(ObjectBase targetObject, uint buffId, int count = 1)
     {
         if (count == 0)
         {
             return;
         }
 
+        if (null == targetObject)
+        {
+            return;
+        }
+
+        List<BuffInst> lstBuffInst = targetObject.lstBuffInst;
+
         BuffTemplate templet = BuffTemplateData.GetData(buffId);
         if (templet == null)
             return;
-        bool hasBuff = false;
-        foreach (var buffInst in selfData.lstBuffInst)
+
+        foreach (var buffInst in lstBuffInst)
         {
             if (buffInst.tplId != buffId)
                 continue;
@@ -415,14 +397,26 @@ public class BattleModel : ModelBase
                 buffInst.effectVal += templet.iEffectA*count;
             }
 
-            hasBuff = true;
-            SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffId);
-            break;
+            if (targetObject.objType == ObjectType.PLAYER)
+            {
+                SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffId);
+            }
+            else if (targetObject.objType == ObjectType.ENEMY)
+            {
+                SendEvent(BattleEvent.ENEMY_BUFF_UPDATE, buffId);
+            }
+            return;
         }
-        if (!hasBuff)
+
+        //加入新BUFF
+        lstBuffInst.Add(new BuffInst() { tplId = buffId, leftBout = templet.iBout, effectVal = templet.iEffectA * count });
+        if (targetObject.objType == ObjectType.PLAYER)
         {
-            selfData.lstBuffInst.Add(new BuffInst() { tplId = buffId, leftBout = templet.iBout, effectVal = templet.iEffectA * count });
             SendEvent(BattleEvent.SELF_BUFF_ADD, buffId);
+        }
+        else if (targetObject.objType == ObjectType.ENEMY)
+        {
+            SendEvent(BattleEvent.ENEMY_BUFF_ADD, buffId);
         }
     }
 
@@ -430,19 +424,26 @@ public class BattleModel : ModelBase
     /// 减少buff剩余回合数
     /// </summary>
     /// <param name="buffInst"></param>
-    internal void DecSelfBuffLeftBout(BuffInst buffInst, int iDec)
+    internal void DecBuffLeftBout(ObjectBase targetObject, BuffInst buffInst, int iDec)
     {
         if (buffInst.leftBout == -1)
             return;
 
         if (buffInst.leftBout <= iDec)
         {
-            RemoveSelfBuff(buffInst);
+            RemoveBuff(targetObject, buffInst);
         }
         else
         {
             buffInst.leftBout -= iDec;
-            SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffInst.tplId);
+            if (targetObject.objType == ObjectType.PLAYER)
+            {
+                SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffInst.tplId);
+            }
+            else if (targetObject.objType == ObjectType.ENEMY)
+            {
+                SendEvent(BattleEvent.ENEMY_BUFF_UPDATE, buffInst.tplId);
+            }
         }
     }
 
@@ -450,19 +451,26 @@ public class BattleModel : ModelBase
     /// 减少buff效果值
     /// </summary>
     /// <param name="buffInst"></param>
-    internal void DecSelfBuffEffectVal(BuffInst buffInst, int iDec)
+    internal void DecBuffEffectVal(ObjectBase targetObject, BuffInst buffInst, int iDec)
     {
         if (buffInst.effectVal == 0)
             return;
 
         if (buffInst.effectVal <= iDec)
         {
-            RemoveSelfBuff(buffInst);
+            RemoveBuff(targetObject, buffInst);
         }
         else
         {
             buffInst.effectVal -= iDec;
-            SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffInst.tplId);
+            if (targetObject.objType == ObjectType.PLAYER)
+            {
+                SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffInst.tplId);
+            }
+            else if (targetObject.objType == ObjectType.ENEMY)
+            {
+                SendEvent(BattleEvent.ENEMY_BUFF_UPDATE, buffInst.tplId);
+            }
         }
     }
 
@@ -470,9 +478,16 @@ public class BattleModel : ModelBase
     /// 移除自身buff
     /// </summary>
     /// <param name="buffInst"></param>
-    internal void RemoveSelfBuff(BuffInst buffInst)
+    internal void RemoveBuff(ObjectBase targetObject, BuffInst buffInst)
     {
         selfData.lstBuffInst.Remove(buffInst);
-        SendEvent(BattleEvent.SELF_BUFF_REMOVE, buffInst);
+        if (targetObject.objType == ObjectType.PLAYER)
+        {
+            SendEvent(BattleEvent.SELF_BUFF_REMOVE, buffInst);
+        }
+        else if (targetObject.objType == ObjectType.ENEMY)
+        {
+            SendEvent(BattleEvent.ENEMY_BUFF_REMOVE, buffInst);
+        }
     }
 }
