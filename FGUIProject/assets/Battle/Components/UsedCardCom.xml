@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="57,51">
+<component size="58,83">
   <displayList>
+    <image id="n2_10m8n" name="n2" src="10m8nw" xy="0,0" scale="0.3,0.3" grayed="true"/>
     <text id="n0_s4o7" name="n0" xy="8,-1" size="41,25" fontSize="18" color="#ff9900" strokeColor="#000000" text="弃牌"/>
-    <text id="n1_s4o7" name="txtUsedNum" xy="21,26" size="15,25" fontSize="18" color="#ff9900" strokeColor="#000000" text="0">
-      <relation target="" sidePair="center-center"/>
+    <text id="n1_s4o7" name="txtUsedNum" xy="42,58" size="15,25" fontSize="18" color="#ff9900" strokeColor="#000000" text="0">
+      <relation target="" sidePair="right-right"/>
     </text>
   </displayList>
 </component>
