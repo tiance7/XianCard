@@ -4,6 +4,8 @@
 		<g_BuffTemplate>
 			<entry>
 				<nId>1</nId>
+				<szName>反伤</szName>
+				<szDesc>对攻击者造成等同于护甲减少值一半的伤害</szDesc>
 				<nType>1</nType>
 				<nTrigger>1</nTrigger>
 				<iEffectA>50</iEffectA>
@@ -12,6 +14,8 @@
 			</entry>
 			<entry>
 				<nId>2</nId>
+				<szName>金甲阵</szName>
+				<szDesc>每回合结束获得护甲</szDesc>
 				<nType>2</nType>
 				<nTrigger>2</nTrigger>
 				<iEffectA>3</iEffectA>
@@ -20,6 +24,8 @@
 			</entry>
 			<entry>
 				<nId>3</nId>
+				<szName>金甲阵</szName>
+				<szDesc>每回合结束获得护甲</szDesc>
 				<nType>2</nType>
 				<nTrigger>2</nTrigger>
 				<iEffectA>4</iEffectA>
@@ -28,6 +34,8 @@
 			</entry>
 			<entry>
 				<nId>4</nId>
+				<szName>地脉阵</szName>
+				<szDesc>护甲不在回合结束时消失</szDesc>
 				<nType>3</nType>
 				<nTrigger>0</nTrigger>
 				<iEffectA>0</iEffectA>
@@ -36,6 +44,8 @@
 			</entry>
 			<entry>
 				<nId>5</nId>
+				<szName>无法抽牌</szName>
+				<szDesc>本回合不能再抽牌</szDesc>
 				<nType>4</nType>
 				<nTrigger>0</nTrigger>
 				<iBout>1</iBout>
@@ -43,6 +53,8 @@
 			</entry>
 			<entry>
 				<nId>6</nId>
+				<szName>幻剑</szName>
+				<szDesc>召唤的幻剑，可以被其他卡牌使用</szDesc>
 				<nType>101</nType>
 				<nTrigger>0</nTrigger>
 				<iEffectA>1</iEffectA>
@@ -51,6 +63,8 @@
 			</entry>
 			<entry>
 				<nId>7</nId>
+				<szName>多重防御</szName>
+				<szDesc>回合结束时获得护甲，当受到攻击造成伤害时，护甲上限减1</szDesc>
 				<nType>5</nType>
 				<nTrigger>0</nTrigger>
 				<iEffectA>1</iEffectA>

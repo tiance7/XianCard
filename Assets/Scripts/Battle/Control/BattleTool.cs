@@ -108,4 +108,43 @@ public class BattleTool
         }
         return null;
     }
+
+    /// <summary>
+    /// 获取战斗者的BUFF实例列表
+    /// </summary>
+    /// <param name="fighterInstId"></param>
+    /// <returns></returns>
+    internal static List<BuffInst> GetFighterBuff(int fighterInstId)
+    {
+        BattleModel battleModel = BattleModel.Inst;
+        if (fighterInstId == battleModel.selfData.instId)
+            return battleModel.selfData.lstBuffInst;
+
+        EnemyInstance enemy = battleModel.GetEnemy(fighterInstId);
+        if (enemy == null)
+        {
+            Debug.LogError("can't find fighter:" + fighterInstId);
+            return null;
+        }
+        return enemy.lstBuffInst;
+    }
+
+    /// <summary>
+    /// 获取BUFF提示
+    /// </summary>
+    /// <param name="buffInst"></param>
+    /// <returns></returns>
+    internal static TipStruct GetBuffTip(BuffInst buffInst)
+    {
+        BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
+        if (template == null)
+            return null;
+        TipStruct tipStruct = new TipStruct()
+        {
+            name = template.szName,
+            desc = template.szDesc,
+            iconUrl = ResPath.GetUiImagePath(PackageName.BATTLE, template.szImg)
+        };
+        return tipStruct;
+    }
 }

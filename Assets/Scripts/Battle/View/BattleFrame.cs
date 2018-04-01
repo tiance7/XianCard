@@ -580,7 +580,15 @@ namespace UI.Battle
             if (boutAction != null)
                 _lstTip.Add(BattleTool.GetActionTip(boutAction));
 
-            //todo buff描述
+            //buff描述
+            List<BuffInst> lstBuff = BattleTool.GetFighterBuff(fighterInstId);
+            if (lstBuff != null)
+            {
+                foreach (var buffInst in lstBuff)
+                {
+                    _lstTip.Add(BattleTool.GetBuffTip(buffInst));
+                }
+            }
 
             if (_comTipList == null)
                 InitTipList();
