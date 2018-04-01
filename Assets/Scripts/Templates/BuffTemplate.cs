@@ -6,6 +6,8 @@ using System.Xml;
 public sealed class BuffTemplate
 {
 	public uint nId;	//id
+	public string szName;	//名字
+	public string szDesc;	//描述
 	public uint nType;	//enum BuffType
 	public uint nTrigger;	//enum BuffTriggerType
 	public uint nTriggerParam1;	//触发类型参数1
@@ -26,6 +28,8 @@ public sealed class BuffTemplateData
 		{
 			BuffTemplate template = new BuffTemplate();
 			template.nId = element["nId"] != null ? uint.Parse(element["nId"].InnerText) : 0;	//id
+			template.szName = element["szName"] != null ? element["szName"].InnerText : "";	//名字
+			template.szDesc = element["szDesc"] != null ? element["szDesc"].InnerText : "";	//描述
 			template.nType = element["nType"] != null ? uint.Parse(element["nType"].InnerText) : 0;	//enum BuffType
 			template.nTrigger = element["nTrigger"] != null ? uint.Parse(element["nTrigger"].InnerText) : 0;	//enum BuffTriggerType
 			template.nTriggerParam1 = element["nTriggerParam1"] != null ? uint.Parse(element["nTriggerParam1"].InnerText) : 0;	//触发类型参数1
