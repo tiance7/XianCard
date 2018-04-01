@@ -8,10 +8,13 @@ using UnityEngine;
 public class BuffType
 {
     public const uint ARMOR_REFLECT = 1;                //反伤=护甲减少值*系数
-    public const uint ADD_ARMOR = 2;                    //获得护甲
+    public const uint ADD_ARMOR_ROUND_END = 2;          //回合结束获得护甲
     public const uint KEEP_ARMOR = 3;                   //回合结束保留护甲
     public const uint CAN_NOT_DRAW_CARD = 4;            //无法抽卡
     public const uint MULTI_ARMOR = 5;                  //多重护甲
+    public const uint WEAK = 6;                         //虚弱（攻击伤害减少）
+    public const uint VULNERABLE = 7;                   //易伤（受到伤害增加）
+    public const uint FRAIL = 8;                        //脆弱（护甲增加值减少）
 
     //剑修相关
     public const uint MAGIC_SWORD = 101;                //幻剑

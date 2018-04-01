@@ -490,20 +490,20 @@ namespace UI.Battle
 
         private void OnEnemyBuffAdd(object obj)
         {
-            int enemyInstId = (int)obj;
-            RefreshEnemyBuff(enemyInstId);
+            BuffInst buffInst = obj as BuffInst;
+            RefreshEnemyBuff(buffInst.ownerInstId);
         }
 
         private void OnEnemyBuffUpdate(object obj)
         {
-            int enemyInstId = (int)obj;
-            RefreshEnemyBuff(enemyInstId);
+            BuffInst buffInst = obj as BuffInst;
+            RefreshEnemyBuff(buffInst.ownerInstId);
         }
 
         private void OnEnemyBuffRemove(object obj)
         {
-            int enemyInstId = (int)obj;
-            RefreshEnemyBuff(enemyInstId);
+            BuffInst buffInst = obj as BuffInst;
+            RefreshEnemyBuff(buffInst.ownerInstId);
         }
 
         private void OnDoAttack(object obj)

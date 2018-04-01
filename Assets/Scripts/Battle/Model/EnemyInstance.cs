@@ -15,10 +15,10 @@ public class EnemyInstance : ObjectBase
         template = EnemyTemplateData.GetData(tplId);
         if (template == null)
             return;
-        curHp = maxHp = 25;  //todo 删除测试代码
+        curHp = maxHp = 55;  //todo 删除测试代码
         armor = 10;
-        lstBuffInst.Add(new BuffInst() { tplId = 4, leftBout = -1, effectVal = 0 }); //护甲不消失
-        lstBuffInst.Add(new BuffInst() { tplId = 7, leftBout = -1, effectVal = 3 }); //多重护甲
+        lstBuffInst.Add(new BuffInst(instId) { tplId = 4, leftBout = -1, effectVal = 0 }); //护甲不消失
+        lstBuffInst.Add(new BuffInst(instId) { tplId = 7, leftBout = -1, effectVal = 3 }); //多重护甲
         //curHp = maxHp = template.iHp;
     }
 

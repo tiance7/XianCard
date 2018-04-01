@@ -427,6 +427,56 @@
 				<nEffectId>38</nEffectId>
 				<bExhaust>1</bExhaust>
 			</entry>
+			<entry>
+				<nId>35</nId>
+				<nJob>1</nJob>
+				<szName>气宗·无招</szName>
+				<iCost>1</iCost>
+				<szDesc>造成6点伤害，目标获得易伤1回合</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>39</nEffectId>
+				<nUpgradeId>36</nUpgradeId>
+			</entry>
+			<entry>
+				<nId>36</nId>
+				<nJob>1</nJob>
+				<szName>气宗·无招+</szName>
+				<iCost>1</iCost>
+				<szDesc>造成8点伤害，目标获得易伤2回合</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>40</nEffectId>
+			</entry>
+			<entry>
+				<nId>37</nId>
+				<nJob>1</nJob>
+				<szName>七伤剑</szName>
+				<iCost>3</iCost>
+				<szDesc>造成35点伤害，自身虚弱1回合，脆弱1回合</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>43</nEffectId>
+				<nUpgradeId>38</nUpgradeId>
+			</entry>
+			<entry>
+				<nId>38</nId>
+				<nJob>1</nJob>
+				<szName>七伤剑+</szName>
+				<iCost>2</iCost>
+				<szDesc>造成45点伤害，自身虚弱2回合，脆弱1回合</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>46</nEffectId>
+			</entry>
 		</g_CardTemplate>
 	</LocalData>
 </LocalDatas>

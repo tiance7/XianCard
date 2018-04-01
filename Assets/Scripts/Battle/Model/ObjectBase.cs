@@ -51,4 +51,17 @@ public class ObjectBase
 
         return null;
     }
+
+    public BuffInst GetBuffInstByType(uint buffType)
+    {
+        foreach (var buffInst in lstBuffInst)
+        {
+            BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
+            if (template == null)
+                continue;
+            if (template.nType == buffType)
+                return buffInst;
+        }
+        return null;
+    }
 }

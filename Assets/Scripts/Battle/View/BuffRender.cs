@@ -15,7 +15,7 @@ namespace UI.Battle
             img.url = ResPath.GetUiImagePath(PackageName.BATTLE, templet.szImg);
             switch(templet.nType)
             {
-                case BuffType.ADD_ARMOR:
+                case BuffType.ADD_ARMOR_ROUND_END:
                 case BuffType.MULTI_ARMOR:
                     txtValue.text = buffInst.effectVal.ToString();
                     txtValue.visible = true;

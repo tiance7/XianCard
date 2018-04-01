@@ -57,6 +57,27 @@
 				<iBout>-1</iBout>
 				<szImg>buff_multi_shield</szImg>
 			</entry>
+			<entry>
+				<nId>8</nId>
+				<nType>6</nType>
+				<nTrigger>0</nTrigger>
+				<iEffectA>25</iEffectA>
+				<iBout>1</iBout>
+			</entry>
+			<entry>
+				<nId>9</nId>
+				<nType>7</nType>
+				<nTrigger>0</nTrigger>
+				<iEffectA>50</iEffectA>
+				<iBout>1</iBout>
+			</entry>
+			<entry>
+				<nId>10</nId>
+				<nType>8</nType>
+				<nTrigger>0</nTrigger>
+				<iEffectA>25</iEffectA>
+				<iBout>1</iBout>
+			</entry>
 		</g_BuffTemplate>
 	</LocalData>
 </LocalDatas>
