@@ -144,7 +144,7 @@ public class BattleManager : IDisposable
                 continue;
             switch (template.nType)
             {
-                case BuffType.ADD_ARMOR:
+                case BuffType.ADD_ARMOR_ROUND_END:
                 case BuffType.MULTI_ARMOR:
                     _battleModel.AddArmor(targetObj, buffInst.effectVal);
                     break;
@@ -161,8 +161,14 @@ public class BattleManager : IDisposable
             if (template == null)
                 continue;
 
-            if (buffInst.leftBout != -1)
+            if (buffInst.selfAddDebuffThisBout)
             {
+                buffInst.selfAddDebuffThisBout = false;
+                //Debug.LogError("buffId：" + buffInst.tplId + " selfAddDebuffThisBout");
+            }
+            else if (buffInst.leftBout != -1)
+            {
+                //Debug.LogError("DecBuffLeftBout" + buffInst.leftBout);
                 _battleModel.DecBuffLeftBout(targetObj, buffInst, 1);
             }
         }
@@ -248,27 +254,35 @@ public class BattleManager : IDisposable
     {
         //结算对自身的伤害
         AttackStruct attackStruct = obj as AttackStruct;
+        attackStruct.boutAction.iValue = AdjustAttackVal(attackStruct.casterInst, _battleModel.selfData, attackStruct.boutAction.iValue);
+
         int orignArmor = _battleModel.selfData.armor;
         int leftArmor = orignArmor - attackStruct.boutAction.iValue;
+        int reduceArmor = 0;
+        int reeduceHp = 0;
         if (leftArmor < 0)
         {
             _battleModel.UpdateArmor(_battleModel.selfData, 0);
             _battleModel.ReduceSelfHp(-leftArmor);
+            reduceArmor = orignArmor;
+            reeduceHp = -leftArmor;
         }
         else  //如果护甲有剩余
         {
             _battleModel.UpdateArmor(_battleModel.selfData, leftArmor);
+            reduceArmor = attackStruct.boutAction.iValue;
         }
         SoundTool.inst.PlaySoundEffect(ResPath.SFX_SPEAR);  //todo 根据模板表和是否格挡来播放音效
         Message.Send(MsgType.SHOW_HIT_EFFECT, attackStruct);
 
-        HandleOnHitEffect(attackStruct.casterInst, orignArmor, attackStruct.boutAction.iValue);
+        OnObjectHitted(attackStruct.casterInst, _battleModel.selfData, reeduceHp, reduceArmor);
     }
 
-    //结算自身受击效果
-    private void HandleOnHitEffect(EnemyInstance enemyInst, int orignArmor, int atkValue)
+    //结算受击效果
+    private void OnObjectHitted(ObjectBase caster, ObjectBase target, int reduceHp, int reduceArmor)
     {
-        foreach (var buffInst in _battleModel.selfData.lstBuffInst)
+        List<BuffInst> lstBuffInst = new List<BuffInst>(target.lstBuffInst);
+        foreach (var buffInst in lstBuffInst)
         {
             BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
             if (template == null)
@@ -276,14 +290,17 @@ public class BattleManager : IDisposable
             switch (template.nType)
             {
                 case BuffType.ARMOR_REFLECT:
-                    int reflectValue = (Math.Min(orignArmor, atkValue) * buffInst.effectVal) / 100;
-                    _battleModel.ReduceEnemyHp(enemyInst.instId, reflectValue);
+                    if (0 == reduceArmor)
+                        continue;
+
+                    int reflectValue = (reduceArmor * buffInst.effectVal) / 100;
+                    _battleModel.ReduceEnemyHp(caster.instId, reflectValue);
                     break;
                 case BuffType.MULTI_ARMOR:
-                    if (orignArmor < atkValue)
+                    if (reduceHp > 0)
                     {
                         //受伤少一层护甲
-                        _battleModel.DecBuffEffectVal(_battleModel.selfData, buffInst, 1);
+                        _battleModel.DecBuffEffectVal(target, buffInst, 1);
                     }
                     break;
                 default:
@@ -367,24 +384,33 @@ public class BattleManager : IDisposable
                     }
                     break;
                 case CardEffectType.GET_ARMOR:
-                    _battleModel.AddArmor(_battleModel.selfData, effectTemplate.iEffectValue);
+
+                    // 如果有脆弱，减少增加的护甲值
+                    int iAddArmor = effectTemplate.iEffectValue;
+                    BuffInst frailBuff = _battleModel.selfData.GetBuffInstByType(BuffType.FRAIL);
+                    if (frailBuff != null)
+                    {
+                        iAddArmor = iAddArmor * (100 - frailBuff.effectVal) / 100;
+                    }
+
+                    _battleModel.AddArmor(_battleModel.selfData, iAddArmor);
                     break;
                 case CardEffectType.GIVE_BUFF:
                     int iCount = fnGetEffectCount(effectTemplate);
                     if (effectTemplate.nTarget == CardEffectTargetType.ONE_ENEMY)
                     {
-                        _battleModel.AddBuff(_battleModel.GetEnemy(targetInstId), (uint)effectTemplate.iEffectValue, iCount);
+                        _battleModel.AddBuff(_battleModel.selfData, _battleModel.GetEnemy(targetInstId), (uint)effectTemplate.iEffectValue, iCount);
                     }
                     else if (effectTemplate.nTarget == CardEffectTargetType.ALL_ENEMY)
                     {
                         foreach(KeyValuePair<int, EnemyInstance> pair in _battleModel.GetEnemys())
                         {
-                            _battleModel.AddBuff(pair.Value, (uint)effectTemplate.iEffectValue, iCount);        
+                            _battleModel.AddBuff(_battleModel.selfData, pair.Value, (uint)effectTemplate.iEffectValue, iCount);        
                         }
                     }
                     else if (effectTemplate.nTarget == CardEffectTargetType.SELF)
                     {
-                        _battleModel.AddBuff(_battleModel.selfData, (uint)effectTemplate.iEffectValue, iCount);
+                        _battleModel.AddBuff(_battleModel.selfData, _battleModel.selfData, (uint)effectTemplate.iEffectValue, iCount);
                     }
                     break;
                 case CardEffectType.DRAW_CARD:
@@ -402,7 +428,7 @@ public class BattleManager : IDisposable
                     if (rmBuff != null)
                     {
                         _battleModel.RemoveBuff(_battleModel.selfData, rmBuff);
-                        _battleModel.AddBuff(_battleModel.selfData, (uint)effectTemplate.iEffectValue_2,rmBuff.effectVal);
+                        _battleModel.AddBuff(_battleModel.selfData, _battleModel.selfData, (uint)effectTemplate.iEffectValue_2,rmBuff.effectVal);
                     }
                     break;
                 default:
@@ -472,6 +498,8 @@ public class BattleManager : IDisposable
         if (enemyInstance == null)
             return;
 
+        iEffectValue = AdjustAttackVal(_battleModel.selfData, enemyInstance, iEffectValue);
+
         if (false == ignoreArmor)
         {
             if (enemyInstance.armor >= iEffectValue)
@@ -484,19 +512,43 @@ public class BattleManager : IDisposable
             else
             {
                 int iReduceHp = iEffectValue - enemyInstance.armor;
-
-                _battleModel.effectStat.damageArmor += (uint)enemyInstance.armor;
-                _battleModel.roundStat.damageArmor += (uint)enemyInstance.armor;
+                int iReduceArmor = enemyInstance.armor;
+                _battleModel.effectStat.damageArmor += (uint)iReduceArmor;
+                _battleModel.roundStat.damageArmor += (uint)iReduceArmor;
                 _battleModel.ReduceEnemyArmor(instId, enemyInstance.armor);
 
                 _battleModel.ReduceEnemyHp(instId, iReduceHp);
+                OnObjectHitted(_battleModel.selfData, enemyInstance, iReduceHp, iReduceArmor);
             }
         }
         else
         {
             _battleModel.ReduceEnemyHp(instId, iEffectValue);
+            OnObjectHitted(_battleModel.selfData, enemyInstance, iEffectValue, 0);
         }
         SoundTool.inst.PlaySoundEffect(ResPath.SFX_SPEAR);  //todo 根据模板表 以及是否格挡 播放不同的音效
     }
 
+    private int AdjustAttackVal(ObjectBase caster, ObjectBase target, int iVal)
+    {
+        // 如果目标身上有易伤，增加伤害
+        BuffInst vulnerableBuff = target.GetBuffInstByType(BuffType.VULNERABLE);
+        if (vulnerableBuff != null)
+        {
+            iVal = (iVal * (100 + vulnerableBuff.effectVal) / 100);
+        }
+
+        // 攻击者身上有虚弱BUFF，减少伤害
+        BuffInst weakBuff = caster.GetBuffInstByType(BuffType.WEAK);
+        if (weakBuff != null)
+        {
+            iVal = (iVal * (100 - weakBuff.effectVal) / 100);
+            if (iVal < 0)
+            {
+                iVal = 0;
+            }
+        }
+
+        return iVal;
+    }
 }

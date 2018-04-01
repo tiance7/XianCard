@@ -362,7 +362,7 @@ public class BattleModel : ModelBase
     /// 目标对象获得buff
     /// </summary>
     /// <param name="buffId"></param>
-    internal void AddBuff(ObjectBase targetObject, uint buffId, int count = 1)
+    internal void AddBuff(ObjectBase casterObject, ObjectBase targetObject, uint buffId, int count = 1)
     {
         if (count == 0)
         {
@@ -399,24 +399,31 @@ public class BattleModel : ModelBase
 
             if (targetObject.objType == ObjectType.PLAYER)
             {
-                SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffId);
+                SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffInst);
             }
             else if (targetObject.objType == ObjectType.ENEMY)
             {
-                SendEvent(BattleEvent.ENEMY_BUFF_UPDATE, buffId);
+                SendEvent(BattleEvent.ENEMY_BUFF_UPDATE, buffInst);
             }
             return;
         }
 
         //加入新BUFF
-        lstBuffInst.Add(new BuffInst() { tplId = buffId, leftBout = templet.iBout, effectVal = templet.iEffectA * count });
+        BuffInst newBuffInst = new BuffInst(targetObject.instId) {
+            tplId = buffId,
+            leftBout = templet.iBout,
+            effectVal = templet.iEffectA * count,
+            selfAddDebuffThisBout = (BuffInst.IsDebuff(templet.nType)&&casterObject==targetObject)
+        };
+
+        lstBuffInst.Add(newBuffInst);
         if (targetObject.objType == ObjectType.PLAYER)
         {
-            SendEvent(BattleEvent.SELF_BUFF_ADD, buffId);
+            SendEvent(BattleEvent.SELF_BUFF_ADD, newBuffInst);
         }
         else if (targetObject.objType == ObjectType.ENEMY)
         {
-            SendEvent(BattleEvent.ENEMY_BUFF_ADD, buffId);
+            SendEvent(BattleEvent.ENEMY_BUFF_ADD, newBuffInst);
         }
     }
 
@@ -438,11 +445,11 @@ public class BattleModel : ModelBase
             buffInst.leftBout -= iDec;
             if (targetObject.objType == ObjectType.PLAYER)
             {
-                SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffInst.tplId);
+                SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffInst);
             }
             else if (targetObject.objType == ObjectType.ENEMY)
             {
-                SendEvent(BattleEvent.ENEMY_BUFF_UPDATE, buffInst.tplId);
+                SendEvent(BattleEvent.ENEMY_BUFF_UPDATE, buffInst);
             }
         }
     }
@@ -465,11 +472,11 @@ public class BattleModel : ModelBase
             buffInst.effectVal -= iDec;
             if (targetObject.objType == ObjectType.PLAYER)
             {
-                SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffInst.tplId);
+                SendEvent(BattleEvent.SELF_BUFF_UPDATE, buffInst);
             }
             else if (targetObject.objType == ObjectType.ENEMY)
             {
-                SendEvent(BattleEvent.ENEMY_BUFF_UPDATE, buffInst.tplId);
+                SendEvent(BattleEvent.ENEMY_BUFF_UPDATE, buffInst);
             }
         }
     }
@@ -480,7 +487,7 @@ public class BattleModel : ModelBase
     /// <param name="buffInst"></param>
     internal void RemoveBuff(ObjectBase targetObject, BuffInst buffInst)
     {
-        selfData.lstBuffInst.Remove(buffInst);
+        targetObject.lstBuffInst.Remove(buffInst);
         if (targetObject.objType == ObjectType.PLAYER)
         {
             SendEvent(BattleEvent.SELF_BUFF_REMOVE, buffInst);
