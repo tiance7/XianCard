@@ -8,7 +8,9 @@ namespace UI.Map
 	{
 		public static void BindAll()
 		{
+			UIObjectFactory.SetPackageItemExtension(MapCom.URL, typeof(MapCom));
 			UIObjectFactory.SetPackageItemExtension(MapFrame.URL, typeof(MapFrame));
+			UIObjectFactory.SetPackageItemExtension(MonsterCom.URL, typeof(MonsterCom));
 		}
 	}
 }

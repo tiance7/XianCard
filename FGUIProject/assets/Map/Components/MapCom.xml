@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1440,2540">
+  <displayList>
+    <loader id="n3_frdb" name="imgBoss" xy="470,0" size="500,493" url="ui://9zqi84syfrdb5" align="center">
+      <relation target="" sidePair="center-center"/>
+    </loader>
+  </displayList>
+</component>

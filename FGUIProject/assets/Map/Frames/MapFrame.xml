@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1440,900">
+<component size="1440,900" overflow="scroll">
   <displayList>
-    <component id="n1_uu6x" name="monster1" src="uu6x1" xy="139,494"/>
-    <component id="n2_uu6x" name="monster2" src="uu6x1" xy="154,364"/>
-    <component id="n3_uu6x" name="monster3" src="uu6x1" xy="161,231"/>
+    <component id="n4_frdb" name="comMap" src="frdb4" xy="0,0"/>
   </displayList>
 </component>

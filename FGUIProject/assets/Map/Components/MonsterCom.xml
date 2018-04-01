@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="63,63" extention="Button">
   <displayList>
-    <image id="n0_uu6x" name="n0" src="uu6x3" xy="0,0" scale="0.7,0.7"/>
+    <image id="n0_uu6x" name="img" src="uu6x3" xy="0,0" scale="0.7,0.7"/>
   </displayList>
   <Button downEffect="scale" downEffectValue="0.80"/>
 </component>

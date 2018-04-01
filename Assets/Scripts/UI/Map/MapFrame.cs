@@ -7,9 +7,7 @@ namespace UI.Map
 {
 	public partial class MapFrame : GComponent
 	{
-		public GButton monster1;
-		public GButton monster2;
-		public GButton monster3;
+		public MapCom comMap;
 
 		public const string URL = "ui://9zqi84syuu6x0";
 
@@ -26,9 +24,7 @@ namespace UI.Map
 		{
 			base.ConstructFromXML(xml);
 
-			monster1 = (GButton)this.GetChild("monster1");
-			monster2 = (GButton)this.GetChild("monster2");
-			monster3 = (GButton)this.GetChild("monster3");
+			comMap = (MapCom)this.GetChild("comMap");
 		}
 	}
 }

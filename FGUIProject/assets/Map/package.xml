@@ -4,6 +4,8 @@
     <component id="uu6x0" name="MapFrame.xml" path="/Frames/" exported="true"/>
     <component id="uu6x1" name="MonsterCom.xml" path="/Components/" exported="true"/>
     <image id="uu6x3" name="monster.jpg" path="/Assets/"/>
+    <component id="frdb4" name="MapCom.xml" path="/Components/" exported="true"/>
+    <image id="frdb5" name="boss.jpg" path="/Assets/"/>
   </resources>
   <publish name="Package1" genCode="true"/>
 </packageDescription>
