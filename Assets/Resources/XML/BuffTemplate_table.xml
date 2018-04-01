@@ -73,6 +73,8 @@
 			</entry>
 			<entry>
 				<nId>8</nId>
+				<szName>虚弱</szName>
+				<szDesc>攻击造成的伤害减少25%</szDesc>
 				<nType>6</nType>
 				<nTrigger>0</nTrigger>
 				<iEffectA>25</iEffectA>
@@ -80,6 +82,8 @@
 			</entry>
 			<entry>
 				<nId>9</nId>
+				<szName>易伤</szName>
+				<szDesc>受到的伤害增加50%</szDesc>
 				<nType>7</nType>
 				<nTrigger>0</nTrigger>
 				<iEffectA>50</iEffectA>
@@ -87,6 +91,8 @@
 			</entry>
 			<entry>
 				<nId>10</nId>
+				<szName>脆弱</szName>
+				<szDesc>获得的护甲值减少25%</szDesc>
 				<nType>8</nType>
 				<nTrigger>0</nTrigger>
 				<iEffectA>25</iEffectA>
