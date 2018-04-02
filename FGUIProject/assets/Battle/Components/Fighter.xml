@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="197,210">
+<component size="252,330">
   <controller name="ctrlAction" exported="true" pages="0,none,1,attack" selected="0"/>
   <displayList>
-    <loader id="n3_s0y6" name="imgAvatar" xy="0,0" size="197,186" url="ui://n5b6g3gas0y67" align="center" fill="scaleMatchHeight"/>
-    <component id="n4_s0y6" name="pgsHp" src="s0y68" xy="0,190" size="197,20" controller="ctrlArmor,0,cDead,0">
+    <loader id="n3_s0y6" name="imgAvatar" xy="52,78" size="197,186" url="ui://n5b6g3gas0y67" align="center" fill="scaleMatchHeight"/>
+    <component id="n4_s0y6" name="pgsHp" src="s0y68" xy="52,268" size="197,20" controller="ctrlArmor,0,cDead,0">
       <ProgressBar max="100"/>
     </component>
-    <image id="n5_84g1" name="n5" src="84g1d" xy="48,-78" group="n7_84g1" scale="0.15,0.15"/>
-    <text id="n6_84g1" name="txtAttack" xy="110,-46" size="25,25" group="n7_84g1" fontSize="18" color="#ff0000" text="12"/>
-    <group id="n7_84g1" name="grpAttack" xy="48,-78" size="658,494" advanced="true">
+    <image id="n5_84g1" name="n5" src="84g1d" xy="93,0" group="n7_84g1" scale="0.15,0.15"/>
+    <text id="n6_84g1" name="txtAttack" xy="155,32" size="25,25" group="n7_84g1" fontSize="18" color="#ff0000" text="12"/>
+    <group id="n7_84g1" name="grpAttack" xy="93,0" size="658,494" advanced="true">
       <gearDisplay controller="ctrlAction" pages="1"/>
     </group>
-    <list id="n8_sdmt" name="lstBuff" xy="0,211" size="200,40" layout="row" defaultItem="ui://n5b6g3gasdmte"/>
+    <list id="n8_sdmt" name="lstBuff" xy="52,289" size="200,40" layout="row" defaultItem="ui://n5b6g3gasdmte"/>
   </displayList>
   <transition name="tOnHit">
     <item time="0" type="Shake" target="n3_s0y6" value="3,0.2"/>
   </transition>
   <transition name="tAttackLeft">
-    <item time="0" type="XY" target="n3_s0y6" tween="true" startValue="0,0" endValue="-65,0" duration="12" ease="Quad.In"/>
+    <item time="0" type="XY" target="n3_s0y6" tween="true" startValue="52,78" endValue="-65,-" duration="12" ease="Quad.In"/>
   </transition>
   <transition name="tAttackLeftBack">
-    <item time="0" type="XY" target="n3_s0y6" tween="true" startValue="-65,0" endValue="0,0" duration="3"/>
+    <item time="0" type="XY" target="n3_s0y6" tween="true" startValue="-65,-" endValue="52,-" duration="3"/>
   </transition>
   <transition name="tActionFade">
     <item time="0" type="Alpha" target="n7_84g1" tween="true" startValue="1" endValue="0" duration="24" ease="Linear"/>

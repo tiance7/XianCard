@@ -33,6 +33,9 @@
     <component id="h5ixu" name="TipRender.xml" path="/Components/" exported="true"/>
     <component id="96fmv" name="TipList.xml" path="/Components/" exported="true"/>
     <image id="10m8nw" name="deck.jpg" path="/Assets/"/>
+    <image id="10oj5nx" name="buff_cuiruo.jpg" path="/Assets/Buff/" exported="true"/>
+    <image id="10oj5ny" name="buff_xuruo.jpg" path="/Assets/Buff/" exported="true"/>
+    <image id="10oj5nz" name="buff_yishang.jpg" path="/Assets/Buff/" exported="true"/>
   </resources>
   <publish name="Battle" genCode="true"/>
 </packageDescription>

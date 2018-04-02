@@ -79,6 +79,7 @@
 				<nTrigger>0</nTrigger>
 				<iEffectA>25</iEffectA>
 				<iBout>1</iBout>
+				<szImg>buff_xuruo</szImg>
 			</entry>
 			<entry>
 				<nId>9</nId>
@@ -88,6 +89,7 @@
 				<nTrigger>0</nTrigger>
 				<iEffectA>50</iEffectA>
 				<iBout>1</iBout>
+				<szImg>buff_yishang</szImg>
 			</entry>
 			<entry>
 				<nId>10</nId>
@@ -97,6 +99,7 @@
 				<nTrigger>0</nTrigger>
 				<iEffectA>25</iEffectA>
 				<iBout>1</iBout>
+				<szImg>buff_cuiruo</szImg>
 			</entry>
 		</g_BuffTemplate>
 	</LocalData>
