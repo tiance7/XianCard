@@ -12,6 +12,10 @@ public class GameText
     //行动类型
     public const string ACTION_ATTACK = "攻势";
 
+    //卡牌数值
+    public const string CARD_DAMAGE = "{0}点伤害";
+    public const string CARD_DEFENCE = "{0}点护甲";
+
     public const string BATTLE_1 = "我方回合";
     public const string BATTLE_2 = "敌方回合";
     public const string BATTLE_3 = "格挡";

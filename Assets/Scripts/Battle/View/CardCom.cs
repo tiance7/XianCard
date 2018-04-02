@@ -3,11 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using System.Text.RegularExpressions;
 
 namespace UI.Battle
 {
     public partial class CardCom
     {
+        //正则
+        private const string PAT_ATTACK = @"#a\d+#";    //攻击 #a6#
+        private const string PAT_DEFENCE = @"#d\d+#";    //攻击 #d5#
+
         private Vector2 _cardOrignPos = new Vector2();
         private CardInstance _cardInst;
         private CardTemplate _template;
@@ -41,8 +46,32 @@ namespace UI.Battle
                 txtCost.text = _template.iCost.ToString();
             txtName.text = _template.szName;
             txtType.text = GetTypeDesc(_template.nType);
-            txtDesc.text = _template.szDesc; //todo 处理通配符
+            txtDesc.text = GetCardDesc(_template.szDesc);
             UpdateUsable(checkUse);
+        }
+
+        //获取卡牌描述
+        private string GetCardDesc(string orignDesc)
+        {
+            //处理攻击
+            foreach (Match match in Regex.Matches(orignDesc, PAT_ATTACK))
+            {
+                int damage;
+                int.TryParse(Regex.Match(match.Value, @"\d+").Value, out damage);
+                //damage = BattleTool.CalCardDamage(damage);    //todo 根据工具类进行计算
+                orignDesc = orignDesc.Replace(match.Value, string.Format(GameText.CARD_DAMAGE, damage));
+            }
+
+            //处理防御
+            foreach (Match match in Regex.Matches(orignDesc, PAT_DEFENCE))
+            {
+                int defence;
+                int.TryParse(Regex.Match(match.Value, @"\d+").Value, out defence);
+                //defence = BattleTool.CalCardDefence(defence);    //todo 根据工具类进行计算
+                orignDesc = orignDesc.Replace(match.Value, string.Format(GameText.CARD_DEFENCE, defence));
+            }
+
+            return orignDesc;
         }
 
         public CardInstance GetCardInstance()

@@ -6,7 +6,7 @@
 				<nId>1</nId>
 				<szName>攻击</szName>
 				<iCost>1</iCost>
-				<szDesc>造成6点伤害</szDesc>
+				<szDesc>造成#a6#</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -18,7 +18,7 @@
 				<nId>2</nId>
 				<szName>攻击+</szName>
 				<iCost>1</iCost>
-				<szDesc>造成9点伤害</szDesc>
+				<szDesc>造成#a9#</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -29,7 +29,7 @@
 				<nId>3</nId>
 				<szName>防御</szName>
 				<iCost>1</iCost>
-				<szDesc>获得5点防御</szDesc>
+				<szDesc>获得#d5#</szDesc>
 				<nType>2</nType>
 				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -41,7 +41,7 @@
 				<nId>4</nId>
 				<szName>防御+</szName>
 				<iCost>1</iCost>
-				<szDesc>获得8点防御</szDesc>
+				<szDesc>获得#d8#</szDesc>
 				<nType>2</nType>
 				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -78,7 +78,7 @@
 				<nJob>1</nJob>
 				<szName>金甲阵</szName>
 				<iCost>1</iCost>
-				<szDesc>每回合结束获得3点护甲</szDesc>
+				<szDesc>每回合结束获得#s3#</szDesc>
 				<nType>3</nType>
 				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -91,7 +91,7 @@
 				<nJob>1</nJob>
 				<szName>金甲阵+</szName>
 				<iCost>1</iCost>
-				<szDesc>每回合结束获得4点护甲</szDesc>
+				<szDesc>每回合结束获得#s4#</szDesc>
 				<nType>3</nType>
 				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -153,7 +153,7 @@
 				<nJob>1</nJob>
 				<szName>术宗·无危</szName>
 				<iCost>1</iCost>
-				<szDesc>获得8点防御，抽一张牌</szDesc>
+				<szDesc>获得#d8#，抽一张牌</szDesc>
 				<nType>2</nType>
 				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -166,7 +166,7 @@
 				<nJob>1</nJob>
 				<szName>术宗·无危+</szName>
 				<iCost>1</iCost>
-				<szDesc>获得11点防御，抽一张牌</szDesc>
+				<szDesc>获得#d11#，抽一张牌</szDesc>
 				<nType>2</nType>
 				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -178,7 +178,7 @@
 				<nJob>1</nJob>
 				<szName>剑心通明</szName>
 				<iCost>1</iCost>
-				<szDesc>造成6点伤害，如果伤害没有被格挡，获得1费</szDesc>
+				<szDesc>造成#a6#，如果伤害没有被格挡，获得1费</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -191,7 +191,7 @@
 				<nJob>1</nJob>
 				<szName>剑心通明+</szName>
 				<iCost>1</iCost>
-				<szDesc>造成9点伤害，如果伤害没有被格挡，获得1费</szDesc>
+				<szDesc>造成#a9#，如果伤害没有被格挡，获得1费</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -203,7 +203,7 @@
 				<nJob>1</nJob>
 				<szName>幻剑决</szName>
 				<iCost>1</iCost>
-				<szDesc>造成8点伤害，获得1把幻剑</szDesc>
+				<szDesc>造成#a8#，获得1把幻剑</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -216,7 +216,7 @@
 				<nJob>1</nJob>
 				<szName>幻剑决+</szName>
 				<iCost>1</iCost>
-				<szDesc>造成12点伤害，获得2把幻剑</szDesc>
+				<szDesc>造成#a12#，获得2把幻剑</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -228,7 +228,7 @@
 				<nJob>1</nJob>
 				<szName>子母剑</szName>
 				<iCost>2</iCost>
-				<szDesc>造成7点伤害x2，获得2把幻剑</szDesc>
+				<szDesc>造成#a7#x2，获得2把幻剑</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -241,7 +241,7 @@
 				<nJob>1</nJob>
 				<szName>子母剑+</szName>
 				<iCost>2</iCost>
-				<szDesc>造成9点伤害x2，获得3把幻剑</szDesc>
+				<szDesc>造成#a9#x2，获得3把幻剑</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -253,7 +253,7 @@
 				<nJob>1</nJob>
 				<szName>无定剑</szName>
 				<iCost>-1</iCost>
-				<szDesc>消耗所有费，每一费用造成8点伤害，获得X把幻剑</szDesc>
+				<szDesc>消耗所有费，每一费用造成#a8#，获得X把幻剑</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -266,7 +266,7 @@
 				<nJob>1</nJob>
 				<szName>无定剑+</szName>
 				<iCost>-1</iCost>
-				<szDesc>消耗所有费，每一费用造成11点伤害，获得X把幻剑</szDesc>
+				<szDesc>消耗所有费，每一费用造成#a11#，获得X把幻剑</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -303,7 +303,7 @@
 				<nJob>1</nJob>
 				<szName>悬天穿云剑</szName>
 				<iCost>-1</iCost>
-				<szDesc>消耗所有费，对所有敌人造成5*X点伤害</szDesc>
+				<szDesc>消耗所有费，对所有敌人造成X*#a5#</szDesc>
 				<nType>1</nType>
 				<nTargetType>3</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -316,7 +316,7 @@
 				<nJob>1</nJob>
 				<szName>悬天穿云剑+</szName>
 				<iCost>-1</iCost>
-				<szDesc>消耗所有费，对所有敌人造成8*X点伤害</szDesc>
+				<szDesc>消耗所有费，对所有敌人造成X*#a8#</szDesc>
 				<nType>1</nType>
 				<nTargetType>3</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -328,7 +328,7 @@
 				<nJob>1</nJob>
 				<szName>天剑伏魔</szName>
 				<iCost>3</iCost>
-				<szDesc>造成27点伤害</szDesc>
+				<szDesc>造成#a27#</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -341,7 +341,7 @@
 				<nJob>1</nJob>
 				<szName>天剑伏魔+</szName>
 				<iCost>3</iCost>
-				<szDesc>造成38点伤害</szDesc>
+				<szDesc>造成#a38#</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -353,7 +353,7 @@
 				<nJob>1</nJob>
 				<szName>无极剑炁</szName>
 				<iCost>2</iCost>
-				<szDesc>造成12点伤害，无视护甲</szDesc>
+				<szDesc>造成#a12#，无视护甲</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -366,7 +366,7 @@
 				<nJob>1</nJob>
 				<szName>无极剑炁+</szName>
 				<iCost>1</iCost>
-				<szDesc>造成12点伤害，无视护甲</szDesc>
+				<szDesc>造成#a12#，无视护甲</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -378,7 +378,7 @@
 				<nJob>1</nJob>
 				<szName>剑灵通虚</szName>
 				<iCost>1</iCost>
-				<szDesc>造成10点伤害，虚无</szDesc>
+				<szDesc>造成#a10#，虚无</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -392,7 +392,7 @@
 				<nJob>1</nJob>
 				<szName>剑灵通虚+</szName>
 				<iCost>1</iCost>
-				<szDesc>造成15点伤害，虚无</szDesc>
+				<szDesc>造成#a15#，虚无</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -432,7 +432,7 @@
 				<nJob>1</nJob>
 				<szName>气宗·无招</szName>
 				<iCost>1</iCost>
-				<szDesc>造成6点伤害，目标获得易伤1回合</szDesc>
+				<szDesc>造成#a6#，目标获得易伤1回合</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -445,7 +445,7 @@
 				<nJob>1</nJob>
 				<szName>气宗·无招+</szName>
 				<iCost>1</iCost>
-				<szDesc>造成8点伤害，目标获得易伤2回合</szDesc>
+				<szDesc>造成#a8#，目标获得易伤2回合</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -457,7 +457,7 @@
 				<nJob>1</nJob>
 				<szName>七伤剑</szName>
 				<iCost>3</iCost>
-				<szDesc>造成35点伤害，自身虚弱1回合，脆弱1回合</szDesc>
+				<szDesc>造成#a35#，自身虚弱1回合，脆弱1回合</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -470,7 +470,7 @@
 				<nJob>1</nJob>
 				<szName>七伤剑+</szName>
 				<iCost>2</iCost>
-				<szDesc>造成45点伤害，自身虚弱2回合，脆弱1回合</szDesc>
+				<szDesc>造成#a45#，自身虚弱2回合，脆弱1回合</szDesc>
 				<nType>1</nType>
 				<nTargetType>1</nTargetType>
 				<nCardUseType>0</nCardUseType>
