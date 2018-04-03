@@ -2,7 +2,7 @@
 <packageDescription id="9zqi84sy" jpegQuality="80" compressPNG="true">
   <resources>
     <component id="uu6x0" name="MapFrame.xml" path="/Frames/" exported="true"/>
-    <component id="uu6x1" name="MonsterCom.xml" path="/Components/" exported="true"/>
+    <component id="uu6x1" name="EnemyCom.xml" path="/Components/" exported="true"/>
     <image id="uu6x3" name="monster.jpg" path="/Assets/"/>
     <component id="frdb4" name="MapCom.xml" path="/Components/" exported="true"/>
     <image id="frdb5" name="boss.jpg" path="/Assets/"/>

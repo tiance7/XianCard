@@ -2,19 +2,18 @@
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace UI.Map
 {
     public partial class MapFrame
     {
-        private const int SINGLE_HEIGHT = 120; //单个对象占据的高度
-        private const int BOSS_HEIGHT = 500; //BOSS占据的高度
-
-        private List<MonsterCom> _lstMonsterCom = new List<MonsterCom>();
+        private List<GComponent> _lstMapNodeCom = new List<GComponent>();
 
         public override void ConstructFromResource()
         {
             base.ConstructFromResource();
+            MapModel.Inst.Init();   //todo 改成选完职业后初始化
             InitView();
             InitControl();
         }
@@ -22,29 +21,50 @@ namespace UI.Map
         private void InitView()
         {
             //todo 随机生成多条路径
-            for (int i = 0; i < 16; i++)
+            var lstNode = MapModel.Inst.GetCurrentLayerMapNodes();
+            for (int i = 0; i < MapModel.NODE_NUM; i++)
             {
-                MonsterCom monsterCom = MonsterCom.CreateInstance();
-                monsterCom.x = 700; //todo 随机坐标
-                monsterCom.y = BOSS_HEIGHT + i * SINGLE_HEIGHT + Random.Range(0, SINGLE_HEIGHT);
-                comMap.AddChild(monsterCom);
-                _lstMonsterCom.Add(monsterCom);
+                var node = lstNode[i];
+                IMapNode comNode = GetNodeCom(node);
+                if (comNode == null)
+                    continue;
+                comNode.SetNode(node);
+                GComponent gcNode = comNode as GComponent;
+                gcNode.SetXY(node.posX, node.posY);
+                comMap.AddChild(gcNode);
+                _lstMapNodeCom.Add(gcNode);
             }
 
             //todo 划线连接
         }
 
+        //根据节点类型创建不同的显示对象
+        private IMapNode GetNodeCom(MapNodeBase node)
+        {
+            if (node is EnemyNode)
+                return EnemyCom.CreateInstance();
+            Debug.LogError("unhandle node:" + node.GetType());
+            return null;
+        }
+
         private void InitControl()
         {
-            foreach (var monsterCom in _lstMonsterCom)
+            foreach (var nodeCom in _lstMapNodeCom)
             {
-                monsterCom.onClick.Add(OnMonsterClick);
+                nodeCom.onClick.Add(OnMapNodeClick);
             }
         }
 
-        private void OnMonsterClick(EventContext context)
+        private void OnMapNodeClick(EventContext context)
         {
-            SceneManager.LoadScene(SceneName.BATTLE);
+            //todo 不同节点类型不同处理方式
+            IMapNode mapNode = context.sender as IMapNode;
+            var clickNode = mapNode.GetNode();
+            MapModel.Inst.SetEnterNode(clickNode);
+            if (clickNode is EnemyNode)
+                SceneManager.LoadScene(SceneName.BATTLE);
+            else
+                Debug.LogError("unhandle click node:" + clickNode.GetType());
         }
     }
 }

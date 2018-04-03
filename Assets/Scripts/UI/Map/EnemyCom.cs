@@ -5,18 +5,18 @@ using FairyGUI.Utils;
 
 namespace UI.Map
 {
-	public partial class MonsterCom : GButton
+	public partial class EnemyCom : GButton
 	{
 		public GImage img;
 
 		public const string URL = "ui://9zqi84syuu6x1";
 
-		public static MonsterCom CreateInstance()
+		public static EnemyCom CreateInstance()
 		{
-			return (MonsterCom)UIPackage.CreateObject("Map","MonsterCom");
+			return (EnemyCom)UIPackage.CreateObject("Map","EnemyCom");
 		}
 
-		public MonsterCom()
+		public EnemyCom()
 		{
 		}
 

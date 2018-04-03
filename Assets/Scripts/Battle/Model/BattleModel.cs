@@ -180,7 +180,8 @@ public class BattleModel : ModelBase
     private void InitEnemy()
     {
         _dicEnemy.Clear();
-        var enemyInst = new EnemyInstance(1); //todo 根据关卡数据来初始化
+        EnemyNode enemyNode = MapModel.Inst.enterNode as EnemyNode;
+        var enemyInst = new EnemyInstance(enemyNode.tplId);
         _dicEnemy[enemyInst.instId] = enemyInst;
         SendEvent(BattleEvent.ENEMY_INIT);
     }
