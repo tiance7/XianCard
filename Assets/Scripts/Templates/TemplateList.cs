@@ -10,6 +10,7 @@ public sealed class TemplateList
 		"CardEffectTemplate_table.xml",
 		"CardTemplate_table.xml",
 		"EnemyTemplate_table.xml",
+		"RelicTemplate_table.xml",
 	};
 
 	public List<Action<XmlNode>>  FunctionList = new List<Action<XmlNode>>() {
@@ -17,5 +18,6 @@ public sealed class TemplateList
 		CardEffectTemplateData.Init,
 		CardTemplateData.Init,
 		EnemyTemplateData.Init,
+		RelicTemplateData.Init,
 	};
 }
