@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LocalDatas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<LocalData>
+		<g_RelicTemplate>
+			<entry>
+				<nId>1</nId>
+				<nType>1</nType>
+				<szName>护脏符印</szName>
+				<szDesc>如果回合结束没有护甲，获得6点护甲</szDesc>
+			</entry>
+			<entry>
+				<nId>2</nId>
+				<nType>2</nType>
+				<szName>五火七禽扇</szName>
+				<szDesc>一回合内出5张攻击牌 额外造成7点群体伤害</szDesc>
+			</entry>
+			<entry>
+				<nId>3</nId>
+				<nType>1</nType>
+				<szName>五金壶</szName>
+				<szDesc>使你的血上限+6</szDesc>
+			</entry>
+			<entry>
+				<nId>4</nId>
+				<nType>3</nType>
+				<szName>血精石</szName>
+				<szDesc>使你的血上限+10</szDesc>
+			</entry>
+		</g_RelicTemplate>
+	</LocalData>
+</LocalDatas>
