@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="99yi2rtp" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="u8jz0" name="StartFrame.xml" path="/Frames/" exported="true"/>
+    <component id="u8jz1" name="BtnStart.xml" path="/Components/"/>
+  </resources>
+  <publish name="Start" genCode="true"/>
+</packageDescription>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="125,54" extention="Button">
+  <displayList>
+    <graph id="n0_u8jz" name="n0" xy="0,0" size="125,54" type="rect"/>
+    <text id="n1_u8jz" name="n1" xy="8,9" size="109,35" fontSize="26" text="开始游戏">
+      <relation target="" sidePair="center-center"/>
+    </text>
+  </displayList>
+  <Button downEffect="dark" downEffectValue="0.80"/>
+</component>
