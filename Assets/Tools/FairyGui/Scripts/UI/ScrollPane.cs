@@ -263,6 +263,9 @@ namespace FairyGUI
 			if (_tweening != 0)
 				Timers.inst.Remove(_tweenUpdateDelegate);
 
+			if (draggingPane == this)
+				draggingPane = null;
+
 			_pageController = null;
 
 			if (_hzScrollBar != null)
@@ -281,6 +284,22 @@ namespace FairyGUI
 		public GComponent owner
 		{
 			get { return _owner; }
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public GScrollBar hzScrollBar
+		{
+			get { return this._hzScrollBar; }
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		public GScrollBar vtScrollBar
+		{
+			get { return this._vtScrollBar; }
 		}
 
 		/// <summary>
