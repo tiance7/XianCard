@@ -6,6 +6,9 @@
     <image id="uu6x3" name="monster.jpg" path="/Assets/"/>
     <component id="frdb4" name="MapCom.xml" path="/Components/" exported="true"/>
     <image id="frdb5" name="boss.jpg" path="/Assets/"/>
+    <component id="kp7y6" name="MapBlock1.xml" path="/MapBlock/" exported="true"/>
+    <component id="kp7y7" name="MapNode.xml" path="/Components/" exported="true"/>
+    <component id="kp7y9" name="NodeLine.xml" path="/Components/"/>
   </resources>
   <publish name="Package1" genCode="true"/>
 </packageDescription>

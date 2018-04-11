@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="120,60" extention="Button">
+  <controller name="cType" exported="true" pages="0,battle,1,advanture,2,unknow,3,shop,4,box,5,exit" selected="5"/>
+  <displayList>
+    <graph id="n0_kp7y" name="n0" xy="0,0" size="120,60" type="rect"/>
+    <text id="n1_kp7y" name="n1" xy="33,14" size="53,31" fontSize="24" text="出口">
+      <gearText controller="cType" pages="1,2,3,4,5" values="奇遇|未知|坊市|宝箱|出口" default="战斗"/>
+      <relation target="" sidePair="center-center"/>
+    </text>
+  </displayList>
+  <Button downEffect="dark" downEffectValue="0.80"/>
+</component>
