@@ -7,7 +7,7 @@ namespace UI.Map
 {
 	public partial class MapFrame : GComponent
 	{
-		public MapCom comMap;
+		public GGraph imgBg;
 
 		public const string URL = "ui://9zqi84syuu6x0";
 
@@ -24,7 +24,7 @@ namespace UI.Map
 		{
 			base.ConstructFromXML(xml);
 
-			comMap = (MapCom)this.GetChild("comMap");
+			imgBg = (GGraph)this.GetChild("imgBg");
 		}
 	}
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI.Map;
 using UnityEngine;
 
 /// <summary>
@@ -24,6 +25,8 @@ public class MapModel : ModelBase
     private List<List<MapNodeBase>> _lstOfLstMapNode = new List<List<MapNodeBase>>();
     private int _currentLayerIndex = 0; //当前地图层次的索引
 
+    private List<Type> _lstBlock;
+
     /// <summary>
     /// 初始化
     /// </summary>
@@ -37,6 +40,21 @@ public class MapModel : ModelBase
             lstMapNode.Add(new EnemyNode(1, 700, BOSS_HEIGHT + i * SINGLE_HEIGHT + UnityEngine.Random.Range(0, SINGLE_HEIGHT)));   //todo 随机敌人ID 随机x坐标
         }
         _lstOfLstMapNode.Add(lstMapNode);
+
+        InitBlock();
+    }
+
+    private void InitBlock()
+    {
+        _lstBlock = new List<Type>
+        {
+            typeof(MapBlock1)
+        };
+    }
+
+    public List<Type> GetBlocks()
+    {
+        return _lstBlock;
     }
 
     /// <summary>
