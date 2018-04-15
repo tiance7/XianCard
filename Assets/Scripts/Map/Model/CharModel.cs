@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharModel
+public class CharModel : ModelBase
 {
 
     #region
@@ -11,6 +11,8 @@ public class CharModel
     public static CharModel Inst { get { return _inst; } }
     #endregion
 
+    private int _gold;  //灵石
+
     private List<CardInstance> _lstCollectCard = new List<CardInstance>(); //收集的卡牌
     private List<RelicBase> _lstCollectRelic = new List<RelicBase>(); //收集的遗物
 
@@ -18,6 +20,19 @@ public class CharModel
     {
         InitCollectCard();
         InitCollectRelic();
+    }
+
+    /// <summary>
+    /// 灵石
+    /// </summary>
+    public int gold
+    {
+        get { return _gold; }
+        set
+        {
+            _gold = value;
+            SendEvent(CharEvent.GOLD_CHANGE);
+        }
     }
 
     public List<CardInstance> GetCollectCardList()

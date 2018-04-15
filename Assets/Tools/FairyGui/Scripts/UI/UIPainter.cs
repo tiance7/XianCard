@@ -86,17 +86,16 @@ namespace FairyGUI
 				EMRenderSupport.Remove(this);
 		}
 
-#if FAIRYGUI_DLL || UNITY_WEBPLAYER || UNITY_WEBGL || UNITY_STANDALONE_WIN || UNITY_STANDALONE_OSX || UNITY_EDITOR
 		void OnGUI()
 		{
 			if (!Application.isPlaying)
 				EM_BeforeUpdate();
 		}
-#endif
-
 
 		void Start()
 		{
+			useGUILayout = false;
+
 			if (!_created && Application.isPlaying)
 				CreateUI();
 		}
@@ -186,7 +185,7 @@ namespace FairyGUI
 				this.container.AddChild(_ui.displayObject);
 				((MeshColliderHitTest)this.container.hitArea).SetArea(0, 0, _ui.width, _ui.height);
 				this.container.size = _ui.size;
-				_texture = CaptureCamera.CreateRenderTexture(Mathf.RoundToInt(_ui.width), Mathf.RoundToInt(_ui.height), false);
+				_texture = CaptureCamera.CreateRenderTexture(Mathf.RoundToInt(_ui.width), Mathf.RoundToInt(_ui.height), UIConfig.depthSupportForPaintingMode);
 				_renderer = this.GetComponent<Renderer>();
 				if (_renderer != null)
 				{

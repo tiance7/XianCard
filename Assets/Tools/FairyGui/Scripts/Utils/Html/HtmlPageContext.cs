@@ -33,17 +33,24 @@ namespace FairyGUI.Utils
 		virtual public IHtmlObject CreateObject(RichTextField owner, HtmlElement element)
 		{
 			IHtmlObject ret = null;
+			bool fromPool = false;
 			if (element.type == HtmlElementType.Image)
 			{
-				if (_imagePool.Count > 0)
+				if (_imagePool.Count > 0 && _poolManager != null)
+				{
 					ret = _imagePool.Pop();
+					fromPool = true;
+				}
 				else
 					ret = new HtmlImage();
 			}
 			else if (element.type == HtmlElementType.Link)
 			{
-				if (_linkPool.Count > 0)
+				if (_linkPool.Count > 0 && _poolManager != null)
+				{
 					ret = _linkPool.Pop();
+					fromPool = true;
+				}
 				else
 					ret = new HtmlLink();
 			}
@@ -54,29 +61,46 @@ namespace FairyGUI.Utils
 					type = type.ToLower();
 				if (type == "button" || type == "submit")
 				{
-					if (_buttonPool.Count > 0)
+					if (_buttonPool.Count > 0 && _poolManager != null)
+					{
 						ret = _buttonPool.Pop();
+						fromPool = true;
+					}
 					else
 						ret = new HtmlButton();
 				}
 				else
 				{
-					if (_inputPool.Count > 0)
+					if (_inputPool.Count > 0 && _poolManager != null)
+					{
 						ret = _inputPool.Pop();
+						fromPool = true;
+					}
 					else
 						ret = new HtmlInput();
 				}
 			}
 			else if (element.type == HtmlElementType.Select)
 			{
-				if (_selectPool.Count > 0)
+				if (_selectPool.Count > 0 && _poolManager != null)
+				{
 					ret = _selectPool.Pop();
+					fromPool = true;
+				}
 				else
 					ret = new HtmlSelect();
 			}
 
+			//Debug.Log("from=" + fromPool);
 			if (ret != null)
 			{
+				//可能已经被GameObject tree deleted了，不再使用
+				if (fromPool && ret.displayObject != null && ret.displayObject.isDisposed)
+				{
+					ret.Dispose();
+					return CreateObject(owner, element);
+
+				}
 				ret.Create(owner, element);
 				if (ret.displayObject != null)
 					ret.displayObject.home = owner.cachedTransform;

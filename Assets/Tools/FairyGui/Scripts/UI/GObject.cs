@@ -109,12 +109,12 @@ namespace FairyGUI
 		public EventListener onTouchEnd { get; private set; }
 
 		/// <summary>
-		/// Only available for mouse input: the cursor hovers over an object.
+		/// The cursor or finger hovers over an object.
 		/// </summary>
 		public EventListener onRollOver { get; private set; }
 
 		/// <summary>
-		/// Only available for mouse input: the cursor leave an object.
+		/// The cursor or finger leave an object.
 		/// </summary>
 		public EventListener onRollOut { get; private set; }
 
@@ -173,6 +173,11 @@ namespace FairyGUI
 		/// </summary>
 		public static GObject draggingObject { get; private set; }
 
+		/// <summary>
+		/// 
+		/// </summary>
+		public PackageItem packageItem;
+
 		float _x;
 		float _y;
 		float _z;
@@ -202,7 +207,6 @@ namespace FairyGUI
 		//Size的实现方式，有两种，0-GObject的w/h等于DisplayObject的w/h。1-GObject的sourceWidth/sourceHeight等于DisplayObject的w/h，剩余部分由scale实现
 		protected int _sizeImplType;
 
-		internal PackageItem packageItem;
 		internal protected bool underConstruct;
 		internal float _width;
 		internal float _height;

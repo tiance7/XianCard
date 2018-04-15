@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<component size="1440,900" overflow="scroll">
+<component size="1440,900">
   <displayList>
-    <component id="n4_frdb" name="comMap" src="frdb4" xy="0,0"/>
+    <graph id="n5_xk6h" name="imgBg" xy="0,0" size="1440,900" type="rect" fillColor="#ff666666"/>
   </displayList>
 </component>

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI.Common;
 using UI.Map;
 using UI.Start;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class GameInit : MonoBehaviour
 
     private void BindUI()
     {
+        CommonBinder.BindAll();
         StartBinder.BindAll();
         MapBinder.BindAll();
     }

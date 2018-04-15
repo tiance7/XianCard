@@ -1349,7 +1349,7 @@ namespace FairyGUI
 							paintingTexture.Dispose(true);
 						if (textureWidth > 0 && textureHeight > 0)
 						{
-							paintingTexture = new NTexture(CaptureCamera.CreateRenderTexture(textureWidth, textureHeight, false));
+							paintingTexture = new NTexture(CaptureCamera.CreateRenderTexture(textureWidth, textureHeight, UIConfig.depthSupportForPaintingMode));
 							Stage.inst.MonitorTexture(paintingTexture);
 						}
 						else
@@ -1359,9 +1359,10 @@ namespace FairyGUI
 
 					if (paintingTexture != null)
 					{
-						paintingGraphics.SetOneQuadMesh(
+						paintingGraphics.DrawRect(
 							new Rect(-_paintingMargin.left, -_paintingMargin.top, paintingTexture.width, paintingTexture.height),
 							new Rect(0, 0, 1, 1), Color.white);
+						paintingGraphics.UpdateMesh();
 					}
 					else
 						paintingGraphics.ClearMesh();
