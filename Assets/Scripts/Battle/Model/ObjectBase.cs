@@ -10,7 +10,7 @@ public class ObjectType
     public const int ENEMY = 2;                        //µ–»À
 }
 
-public class ObjectBase
+public class ObjectBase: ICloneable
 {
     public int objType { get; private set; }
     public int instId { get; private set; }
@@ -26,6 +26,11 @@ public class ObjectBase
         curHp = 0;
         maxHp = 0;
         armor = 0;
+    }
+
+    public object Clone()
+    {
+        return this.MemberwiseClone();
     }
 
     public bool HasBuff(uint buffType)

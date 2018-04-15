@@ -27,6 +27,18 @@ public class RelicHuZangHuFu : RelicBase
 
     public override void OnCharBoutEnd(object obj)
     {
+        FighterData charData = obj as FighterData;
+        if (0 == charData.armor)
+        {
+            //获得护甲
+            BattleModel battleModel = BattleModel.Inst;
+            RelicTemplate relicTplt = RelicTemplateData.GetData(this.tplId);
+            if (relicTplt != null)
+            {
+                battleModel.AddArmor(battleModel.selfData, relicTplt.nVal);
+            }
+        }
+
         return;
     }
 }

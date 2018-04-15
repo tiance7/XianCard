@@ -109,7 +109,8 @@ public class BattleManager : IDisposable
     //自身回合结束处理
     private IEnumerator SelfBoutEndHandle()
     {
-        Message.Send(MsgType.SELF_BOUT_END);
+        FighterData boutEndFighterData = (FighterData)_battleModel.selfData.Clone();
+        Message.Send(MsgType.SELF_BOUT_END, boutEndFighterData);
 
         //虚无卡牌，在回合结束时消耗
         var handListCopy = new List<CardInstance>(_battleModel.GetHandList());
