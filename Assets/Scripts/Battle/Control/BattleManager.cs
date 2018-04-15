@@ -109,6 +109,8 @@ public class BattleManager : IDisposable
     //自身回合结束处理
     private IEnumerator SelfBoutEndHandle()
     {
+        Message.Send(MsgType.SELF_BOUT_END);
+
         //虚无卡牌，在回合结束时消耗
         var handListCopy = new List<CardInstance>(_battleModel.GetHandList());
         foreach (var handCard in handListCopy)
@@ -254,7 +256,7 @@ public class BattleManager : IDisposable
     {
         //结算对自身的伤害
         AttackStruct attackStruct = obj as AttackStruct;
-        attackStruct.boutAction.iValue = AdjustAttackVal(attackStruct.casterInst, _battleModel.selfData, attackStruct.boutAction.iValue);
+        attackStruct.boutAction.iValue = BattleTool.AdjustAttackVal(attackStruct.casterInst, _battleModel.selfData, attackStruct.boutAction.iValue);
 
         int orignArmor = _battleModel.selfData.armor;
         int leftArmor = orignArmor - attackStruct.boutAction.iValue;
@@ -498,7 +500,7 @@ public class BattleManager : IDisposable
         if (enemyInstance == null)
             return;
 
-        iEffectValue = AdjustAttackVal(_battleModel.selfData, enemyInstance, iEffectValue);
+        iEffectValue = BattleTool.AdjustAttackVal(_battleModel.selfData, enemyInstance, iEffectValue);
 
         if (false == ignoreArmor)
         {
@@ -527,28 +529,5 @@ public class BattleManager : IDisposable
             OnObjectHitted(_battleModel.selfData, enemyInstance, iEffectValue, 0);
         }
         SoundTool.inst.PlaySoundEffect(ResPath.SFX_SPEAR);  //todo 根据模板表 以及是否格挡 播放不同的音效
-    }
-
-    private int AdjustAttackVal(ObjectBase caster, ObjectBase target, int iVal)
-    {
-        // 如果目标身上有易伤，增加伤害
-        BuffInst vulnerableBuff = target.GetBuffInstByType(BuffType.VULNERABLE);
-        if (vulnerableBuff != null)
-        {
-            iVal = (iVal * (100 + vulnerableBuff.effectVal) / 100);
-        }
-
-        // 攻击者身上有虚弱BUFF，减少伤害
-        BuffInst weakBuff = caster.GetBuffInstByType(BuffType.WEAK);
-        if (weakBuff != null)
-        {
-            iVal = (iVal * (100 - weakBuff.effectVal) / 100);
-            if (iVal < 0)
-            {
-                iVal = 0;
-            }
-        }
-
-        return iVal;
     }
 }

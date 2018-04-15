@@ -147,4 +147,33 @@ public class BattleTool
         };
         return tipStruct;
     }
+
+    internal static int AdjustAttackVal(ObjectBase caster, ObjectBase target, int iVal)
+    {
+        // 如果目标身上有易伤，增加伤害
+        if (target != null)
+        {
+            BuffInst vulnerableBuff = target.GetBuffInstByType(BuffType.VULNERABLE);
+            if (vulnerableBuff != null)
+            {
+                iVal = (iVal * (100 + vulnerableBuff.effectVal) / 100);
+            }
+        }
+
+        // 攻击者身上有虚弱BUFF，减少伤害
+        if (caster != null)
+        {
+            BuffInst weakBuff = caster.GetBuffInstByType(BuffType.WEAK);
+            if (weakBuff != null)
+            {
+                iVal = (iVal * (100 - weakBuff.effectVal) / 100);
+                if (iVal < 0)
+                {
+                    iVal = 0;
+                }
+            }
+        }
+
+        return iVal;
+    }
 }

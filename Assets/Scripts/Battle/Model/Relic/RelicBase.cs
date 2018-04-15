@@ -8,9 +8,11 @@ using UnityEngine;
 /// </summary>
 public class RelicBase
 {
+    public bool enable = true;
     public uint instId { get; private set; }    //实例ID
     public uint tplId { get; private set; }     //模板ID
-    public uint effectVal { get; private set; } //法宝数值
+    public uint effectVal = 0;                  //法宝数值
+
 
     public RelicBase(uint tplId)
     {
@@ -18,9 +20,11 @@ public class RelicBase
         this.tplId = tplId;
     }
     
-    public virtual void OnGetRelic() { return; }
+    public virtual void OnPutIntoRelicList() { return; }
 
-    public virtual void OnCharBoutEnd() { return; }
+    public virtual void OnDisable() { return; }
+
+    public virtual void OnCharBoutEnd(object obj) { return; }
 
     public virtual void OnEnemyBoutEnd() { return; }
 
