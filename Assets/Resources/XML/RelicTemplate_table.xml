@@ -5,24 +5,29 @@
 			<entry>
 				<nId>1</nId>
 				<nType>1</nType>
+				<nVal>6</nVal>
 				<szName>护脏符印</szName>
 				<szDesc>如果回合结束没有护甲，获得6点护甲</szDesc>
 			</entry>
 			<entry>
 				<nId>2</nId>
 				<nType>2</nType>
+				<nVal>5</nVal>
+				<nVal2>7</nVal2>
 				<szName>五火七禽扇</szName>
 				<szDesc>一回合内出5张攻击牌 额外造成7点群体伤害</szDesc>
 			</entry>
 			<entry>
 				<nId>3</nId>
 				<nType>1</nType>
+				<nVal>6</nVal>
 				<szName>五金壶</szName>
 				<szDesc>使你的血上限+6</szDesc>
 			</entry>
 			<entry>
 				<nId>4</nId>
 				<nType>3</nType>
+				<nVal>10</nVal>
 				<szName>血精石</szName>
 				<szDesc>使你的血上限+10</szDesc>
 			</entry>

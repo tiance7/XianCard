@@ -5,8 +5,10 @@ using System.Xml;
 
 public sealed class RelicTemplate
 {
-	public uint nId;	//法宝ID
-	public uint nType;	//法宝类型
+	public uint nId;	//法宝ID enum RelicId
+	public uint nType;	//法宝类型 enum RelicType
+	public int nVal;	//效果值
+	public int nVal2;	//效果值2
 	public string szName;	//名字
 	public string szDesc;	//描述
 	public string szImg;	//图片名
@@ -22,8 +24,10 @@ public sealed class RelicTemplateData
 		foreach (XmlElement element in xml.ChildNodes)
 		{
 			RelicTemplate template = new RelicTemplate();
-			template.nId = element["nId"] != null ? uint.Parse(element["nId"].InnerText) : 0;	//法宝ID
-			template.nType = element["nType"] != null ? uint.Parse(element["nType"].InnerText) : 0;	//法宝类型
+			template.nId = element["nId"] != null ? uint.Parse(element["nId"].InnerText) : 0;	//法宝ID enum RelicId
+			template.nType = element["nType"] != null ? uint.Parse(element["nType"].InnerText) : 0;	//法宝类型 enum RelicType
+			template.nVal = element["nVal"] != null ? int.Parse(element["nVal"].InnerText) : 0;	//效果值
+			template.nVal2 = element["nVal2"] != null ? int.Parse(element["nVal2"].InnerText) : 0;	//效果值2
 			template.szName = element["szName"] != null ? element["szName"].InnerText : "";	//名字
 			template.szDesc = element["szDesc"] != null ? element["szDesc"].InnerText : "";	//描述
 			template.szImg = element["szImg"] != null ? element["szImg"].InnerText : "";	//图片名

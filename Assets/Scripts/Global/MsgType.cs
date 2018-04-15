@@ -9,5 +9,7 @@ public enum MsgType
     SHOW_HIT_EFFECT, //显示受击特效
     BATTLE_WIN,  //战斗胜利
     FIGHTER_ROLL_OVER,   //鼠标移入战斗者
-    FIGHTER_ROLL_OUT    //鼠标移出战斗者
+    FIGHTER_ROLL_OUT,    //鼠标移出战斗者
+
+    SELF_BOUT_END,  //玩家回合结束
 }

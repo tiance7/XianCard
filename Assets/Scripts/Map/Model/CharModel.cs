@@ -14,10 +14,12 @@ public class CharModel : ModelBase
     private int _gold;  //灵石
 
     private List<CardInstance> _lstCollectCard = new List<CardInstance>(); //收集的卡牌
+    private List<RelicBase> _lstCollectRelic = new List<RelicBase>(); //收集的遗物
 
     private CharModel()
     {
         InitCollectCard();
+        InitCollectRelic();
     }
 
     /// <summary>
@@ -62,4 +64,19 @@ public class CharModel : ModelBase
         _lstCollectCard.Add(cardInst);
     }
 
+    private void InitCollectRelic()
+    {
+        AddCollectRelic(RelicId.HUZANG_HUFU);
+    }
+
+    public void AddCollectRelic(uint iRelicId)
+    {
+        RelicBase newRelic = RelicFactory.CreateNewRelic(iRelicId);
+        if (newRelic != null)
+        {
+            _lstCollectRelic.Add(newRelic);
+            //todo:放在逻辑层执行以下事件逻辑
+            newRelic.OnPutIntoRelicList();
+        }
+    }
 }
