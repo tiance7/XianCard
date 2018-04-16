@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="50,50">
+  <displayList>
+    <loader id="n7_n38l" name="imgRelic" xy="0,0" size="50,50" align="center" vAlign="middle" fill="scale"/>
+  </displayList>
+</component>

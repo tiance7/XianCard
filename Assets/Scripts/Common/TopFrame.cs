@@ -1,12 +1,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using FairyGUI;
 using UnityEngine;
 
 namespace UI.Common
 {
     public partial class TopFrame
     {
+        //model
+        private List<RelicBase> _lstRelic;
+
         public override void ConstructFromResource()
         {
             base.ConstructFromResource();
@@ -24,6 +28,7 @@ namespace UI.Common
         {
             RefreshHp();
             RefreshGold();
+            InitRelic();
         }
 
         private void RefreshHp()
@@ -35,6 +40,24 @@ namespace UI.Common
         private void RefreshGold()
         {
             txtGold.text = CharModel.Inst.gold.ToString();
+        }
+
+        private void InitRelic()
+        {
+            lstRelic.itemRenderer = OnRelicRender;
+            RefreshRelic();
+        }
+
+        private void RefreshRelic()
+        {
+            _lstRelic = CharModel.Inst.GetRelicList();
+            lstRelic.numItems = _lstRelic.Count;
+        }
+
+        private void OnRelicRender(int index, GObject item)
+        {
+            RelicRender render = item as RelicRender;
+            render.SetData(_lstRelic[index]); 
         }
 
         private void InitControl()

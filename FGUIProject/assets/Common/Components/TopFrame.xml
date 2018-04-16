@@ -9,5 +9,12 @@
     <text id="n3_f2xp" name="txtHp" xy="255,8" size="81,39" fontSize="30" color="#33ff00" strokeColor="#000000" text="80/80"/>
     <text id="n4_f2xp" name="n4" xy="353,9" size="65,39" fontSize="30" text="灵石"/>
     <text id="n5_f2xp" name="txtGold" xy="431,8" size="22,39" fontSize="30" color="#ffff00" strokeColor="#000000" text="0"/>
+    <list id="n8_n38l" name="lstRelic" xy="7,50" size="200,50" layout="row" selectionMode="none" defaultItem="ui://kwo75vkrn38l2" autoClearItems="true">
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+      <item/>
+    </list>
   </displayList>
 </component>

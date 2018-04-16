@@ -9,6 +9,7 @@ namespace UI.Common
 	{
 		public GTextField txtHp;
 		public GTextField txtGold;
+		public GList lstRelic;
 
 		public const string URL = "ui://kwo75vkrf2xp0";
 
@@ -27,6 +28,7 @@ namespace UI.Common
 
 			txtHp = (GTextField)this.GetChild("txtHp");
 			txtGold = (GTextField)this.GetChild("txtGold");
+			lstRelic = (GList)this.GetChild("lstRelic");
 		}
 	}
 }

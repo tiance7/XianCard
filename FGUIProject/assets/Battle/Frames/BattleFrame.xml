@@ -9,12 +9,13 @@
     <text id="n7_odk6" name="txtCost" xy="27,740" size="47,39" fontSize="30" color="#ffcc00" strokeColor="#000000" text="3/3"/>
     <component id="n2_s4o7" name="frmHand" src="s4o75" xy="320,694"/>
     <component id="n8_mq4y" name="comBout" src="mq4yk" xy="0,335" touchable="false"/>
+    <component id="n9_n38l" name="n9" src="f2xp0" pkg="kwo75vkr" xy="0,0"/>
   </displayList>
   <transition name="tBattleEnd">
-    <item time="0" type="Visible" target="n0_s4o7" value="false"/>
+    <item time="0" type="Visible" target="n6_s0y6" value="false"/>
     <item time="0" type="Visible" target="n7_odk6" value="false"/>
     <item time="0" type="Visible" target="n1_s4o7" value="false"/>
-    <item time="0" type="Visible" target="n6_s0y6" value="false"/>
+    <item time="0" type="Visible" target="n0_s4o7" value="false"/>
     <item time="0" type="XY" target="n2_s4o7" tween="true" startValue="320,694" endValue="320,921" duration="12"/>
     <item time="13" type="Visible" target="n2_s4o7" value="false"/>
   </transition>

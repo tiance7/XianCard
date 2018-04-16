@@ -4,5 +4,8 @@ using UnityEngine;
 
 public enum CharEvent
 {
-    GOLD_CHANGE
+    GOLD_CHANGE,
+
+    //法宝
+    RELIC_ADD   //获得法宝
 }

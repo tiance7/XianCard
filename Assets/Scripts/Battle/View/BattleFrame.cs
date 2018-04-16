@@ -3,6 +3,7 @@ using FairyGUI;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI.Common;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -119,7 +120,7 @@ namespace UI.Battle
             if (enemyInst != null)
             {
                 ftEnemy.SetBuffInstList(enemyInst.lstBuffInst);
-            }  
+            }
         }
 
         private void InitControl()
@@ -142,8 +143,8 @@ namespace UI.Battle
             _battleModel.AddListener(BattleEvent.ENEMY_ACTION_UPDATE, OnActionUpdate);
             _battleModel.AddListener(BattleEvent.ENEMY_ARMOR_CHANGE, OnEnemyArmorChange);
             _battleModel.AddListener(BattleEvent.ENEMY_BUFF_ADD, OnEnemyBuffAdd);
-            _battleModel.AddListener(BattleEvent.ENEMY_BUFF_UPDATE,OnEnemyBuffUpdate);
-            _battleModel.AddListener(BattleEvent.ENEMY_BUFF_REMOVE,OnEnemyBuffRemove);
+            _battleModel.AddListener(BattleEvent.ENEMY_BUFF_UPDATE, OnEnemyBuffUpdate);
+            _battleModel.AddListener(BattleEvent.ENEMY_BUFF_REMOVE, OnEnemyBuffRemove);
             _battleModel.AddListener(BattleEvent.BOUT_UPDATE, OnBoutUpdate);
             _battleModel.AddListener(BattleEvent.SELF_HP_UPDATE, OnSelfHpUpdate);
             _battleModel.AddListener(BattleEvent.SELF_BUFF_ADD, OnSelfBuffAdd);
@@ -361,7 +362,7 @@ namespace UI.Battle
             _lstHandCard.Remove(cardCom);
 
             //todo 卡牌消耗动画
-            cardCom.TweenFade(0, 1.0f).OnComplete(() => 
+            cardCom.TweenFade(0, 1.0f).OnComplete(() =>
             {
                 cardCom.Dispose();
                 UpdateAllHandCardPos();
@@ -616,7 +617,7 @@ namespace UI.Battle
 
         private void ReleaseTipList()
         {
-            if(_comTipList != null)
+            if (_comTipList != null)
             {
                 _comTipList.Dispose();
                 _comTipList = null;

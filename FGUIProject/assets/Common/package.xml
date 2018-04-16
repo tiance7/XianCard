@@ -3,6 +3,8 @@
   <resources>
     <component id="f2xp0" name="TopFrame.xml" path="/Components/" exported="true"/>
     <component id="f2xp1" name="ProgressBar.xml" path="/Components/" exported="true"/>
+    <component id="n38l2" name="RelicRender.xml" path="/Components/" exported="true"/>
+    <component id="n38l3" name="RelicTip.xml" path="/Components/" exported="true"/>
   </resources>
   <publish name="Common" genCode="true"/>
 </packageDescription>

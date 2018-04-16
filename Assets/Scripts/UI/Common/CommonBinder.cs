@@ -9,6 +9,8 @@ namespace UI.Common
 		public static void BindAll()
 		{
 			UIObjectFactory.SetPackageItemExtension(TopFrame.URL, typeof(TopFrame));
+			UIObjectFactory.SetPackageItemExtension(RelicRender.URL, typeof(RelicRender));
+			UIObjectFactory.SetPackageItemExtension(RelicTip.URL, typeof(RelicTip));
 		}
 	}
 }

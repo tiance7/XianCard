@@ -69,6 +69,15 @@ public class CharModel : ModelBase
         AddCollectRelic(RelicId.HUZANG_HUFU);
     }
 
+    /// <summary>
+    /// 获取法宝列表
+    /// </summary>
+    /// <returns></returns>
+    public List<RelicBase> GetRelicList()
+    {
+        return _lstCollectRelic;
+    }
+
     public void AddCollectRelic(uint iRelicId)
     {
         RelicBase newRelic = RelicFactory.CreateNewRelic(iRelicId);
@@ -77,6 +86,7 @@ public class CharModel : ModelBase
             _lstCollectRelic.Add(newRelic);
             //todo:放在逻辑层执行以下事件逻辑
             newRelic.OnPutIntoRelicList();
+            SendEvent(CharEvent.RELIC_ADD, newRelic);
         }
     }
 }

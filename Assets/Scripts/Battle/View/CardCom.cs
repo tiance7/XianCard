@@ -24,6 +24,12 @@ namespace UI.Battle
         private Tweener _tweenScale;
         private Tweener _tweenMove;
 
+        public override void ConstructFromResource()
+        {
+            base.ConstructFromResource();
+            InitControl();
+        }
+
         public override void Dispose()
         {
             ReleaseControl();
@@ -46,20 +52,33 @@ namespace UI.Battle
                 txtCost.text = _template.iCost.ToString();
             txtName.text = _template.szName;
             txtType.text = GetTypeDesc(_template.nType);
-            txtDesc.text = GetCardDesc(_template.szDesc);
+            RefreshDesc();
             UpdateUsable(checkUse);
+        }
+
+        //刷新描述
+        private void RefreshDesc()
+        {
+            txtDesc.text = GetCardDesc(_template.szDesc);
         }
 
         //获取卡牌描述
         private string GetCardDesc(string orignDesc)
         {
             //处理攻击
+            FighterData selfData = BattleModel.Inst.selfData;
             foreach (Match match in Regex.Matches(orignDesc, PAT_ATTACK))
             {
                 int damage;
                 int.TryParse(Regex.Match(match.Value, @"\d+").Value, out damage);
-                //damage = BattleTool.CalCardDamage(damage);    //todo 根据工具类进行计算
-                orignDesc = orignDesc.Replace(match.Value, string.Format(GameText.CARD_DAMAGE, damage));
+                int newDamage = BattleTool.AdjustAttackVal(selfData, null, damage);
+                string colorDamage = newDamage.ToString();
+                if (newDamage > damage)
+                    colorDamage = TextTool.FormatUBBColor(colorDamage, "#00FF00");
+                else if(newDamage < damage)
+                    colorDamage = TextTool.FormatUBBColor(colorDamage, "#FF0000");
+
+                orignDesc = orignDesc.Replace(match.Value, string.Format(GameText.CARD_DAMAGE, colorDamage));
             }
 
             //处理防御
@@ -190,8 +209,19 @@ namespace UI.Battle
             }
         }
 
+        private void InitControl()
+        {
+            BattleModel.Inst.AddListener(BattleEvent.SELF_BUFF_ADD, OnBuffUpdate);
+            BattleModel.Inst.AddListener(BattleEvent.SELF_BUFF_REMOVE, OnBuffUpdate);
+            BattleModel.Inst.AddListener(BattleEvent.SELF_BUFF_UPDATE, OnBuffUpdate);
+        }
+
         private void ReleaseControl()
         {
+            BattleModel.Inst.RemoveListener(BattleEvent.SELF_BUFF_ADD, OnBuffUpdate);
+            BattleModel.Inst.RemoveListener(BattleEvent.SELF_BUFF_REMOVE, OnBuffUpdate);
+            BattleModel.Inst.RemoveListener(BattleEvent.SELF_BUFF_UPDATE, OnBuffUpdate);
+
             ReleaseTweenScale();
             ReleaseTweenMove();
         }
@@ -202,6 +232,11 @@ namespace UI.Battle
             Tweener moveTween = UpdatePos(usedCardPos.x, usedCardPos.y, BattleDefine.CARD_DECK_SCALE, AnimationTime.HAND_TO_USED);
             moveTween.OnComplete(() => this.Dispose());
             tFlyToUsed.Play();
+        }
+
+        private void OnBuffUpdate(object obj)
+        {
+            RefreshDesc();
         }
 
         enum StateControl

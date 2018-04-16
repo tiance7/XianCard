@@ -50,7 +50,7 @@ namespace UI.Map
             Type typeBlock = lstBlock[index];
             var method = typeBlock.GetMethod("CreateInstance", BindingFlags.Public | BindingFlags.Static);
             GComponent mapBlock = method.Invoke(null, null) as GComponent;
-            AddChild(mapBlock);
+            AddChildAt(mapBlock, 1);    //要在TopFrame下面
             //todo 根据数据初始化不同的地图块
             string data = mapBlock.packageItem.componentData.GetAttribute("customData");
             var lstRoad = data.Split('\r');

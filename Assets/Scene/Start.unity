@@ -261,6 +261,7 @@ MonoBehaviour:
   Items: []
   PreloadPackages:
   - UI/Common
+  - UI/Relic
 --- !u!1 &727579814
 GameObject:
   m_ObjectHideFlags: 0

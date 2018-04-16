@@ -8,6 +8,7 @@
 				<nVal>6</nVal>
 				<szName>护脏符印</szName>
 				<szDesc>如果回合结束没有护甲，获得6点护甲</szDesc>
+				<szImg>huzangfuyin</szImg>
 			</entry>
 			<entry>
 				<nId>2</nId>

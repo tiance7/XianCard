@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="zy3u6yr8" jpegQuality="80" compressPNG="true">
+  <resources>
+    <image id="n38l0" name="huzangfuyin.jpg" path="/Assets/" exported="true"/>
+  </resources>
+  <publish name="Relic" genCode="true"/>
+</packageDescription>

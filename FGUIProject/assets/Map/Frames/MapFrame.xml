@@ -2,5 +2,6 @@
 <component size="1440,900">
   <displayList>
     <graph id="n5_xk6h" name="imgBg" xy="0,0" size="1440,900" type="rect" fillColor="#ff666666"/>
+    <component id="n6_n38l" name="n6" src="f2xp0" pkg="kwo75vkr" xy="0,0"/>
   </displayList>
 </component>
