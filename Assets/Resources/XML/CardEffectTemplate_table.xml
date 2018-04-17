@@ -411,6 +411,73 @@
 				<iEffectValue>10</iEffectValue>
 				<iEffectCount>1</iEffectCount>
 			</entry>
+			<entry>
+				<nId>49</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>8</nType>
+				<iEffectValue>4</iEffectValue>
+				<nLinkId>50</nLinkId>
+			</entry>
+			<entry>
+				<nId>50</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>4</nType>
+				<iEffectValue>2</iEffectValue>
+				<nLinkId>51</nLinkId>
+			</entry>
+			<entry>
+				<nId>51</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>2</nType>
+				<iEffectValue>4</iEffectValue>
+				<nLinkId>52</nLinkId>
+			</entry>
+			<entry>
+				<nId>52</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>5</nType>
+				<iEffectValue>2</iEffectValue>
+			</entry>
+			<entry>
+				<nId>53</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>8</nType>
+				<iEffectValue>4</iEffectValue>
+				<nLinkId>54</nLinkId>
+			</entry>
+			<entry>
+				<nId>54</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>4</nType>
+				<iEffectValue>3</iEffectValue>
+				<nLinkId>55</nLinkId>
+			</entry>
+			<entry>
+				<nId>55</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>2</nType>
+				<iEffectValue>6</iEffectValue>
+				<nLinkId>56</nLinkId>
+			</entry>
+			<entry>
+				<nId>56</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>5</nType>
+				<iEffectValue>2</iEffectValue>
+			</entry>
+			<entry>
+				<nId>57</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+			</entry>
 		</g_CardEffectTemplate>
 	</LocalData>
 </LocalDatas>

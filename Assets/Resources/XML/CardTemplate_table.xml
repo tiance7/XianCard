@@ -477,6 +477,57 @@
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>46</nEffectId>
 			</entry>
+			<entry>
+				<nId>39</nId>
+				<nJob>1</nJob>
+				<szName>术宗·定心术</szName>
+				<iCost>0</iCost>
+				<szDesc>失去4点生命，抽2张牌，获得4点护甲，获得2费，消耗</szDesc>
+				<nType>2</nType>
+				<nTargetType>4</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>49</nEffectId>
+				<bExhaust>1</bExhaust>
+			</entry>
+			<entry>
+				<nId>40</nId>
+				<nJob>1</nJob>
+				<szName>术宗·定心术+</szName>
+				<iCost>0</iCost>
+				<szDesc>失去4点生命，抽3张牌，获得6点护甲，获得2费，消耗</szDesc>
+				<nType>2</nType>
+				<nTargetType>4</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>53</nEffectId>
+				<bExhaust>1</bExhaust>
+			</entry>
+			<entry>
+				<nId>41</nId>
+				<nJob>1</nJob>
+				<szName>万剑归宗</szName>
+				<iCost>1</iCost>
+				<szDesc>抽牌，直到抽到的牌不是攻击牌,消耗</szDesc>
+				<nType>2</nType>
+				<nTargetType>4</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>57</nEffectId>
+				<bExhaust>1</bExhaust>
+			</entry>
+			<entry>
+				<nId>42</nId>
+				<nJob>1</nJob>
+				<szName>万剑归宗+</szName>
+				<iCost>1</iCost>
+				<szDesc>抽牌，直到抽到的牌不是攻击牌</szDesc>
+				<nType>2</nType>
+				<nTargetType>4</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>57</nEffectId>
+			</entry>
 		</g_CardTemplate>
 	</LocalData>
 </LocalDatas>
