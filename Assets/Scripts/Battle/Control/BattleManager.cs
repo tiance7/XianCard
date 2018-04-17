@@ -390,11 +390,7 @@ public class BattleManager : IDisposable
 
                     // 如果有脆弱，减少增加的护甲值
                     int iAddArmor = effectTemplate.iEffectValue;
-                    BuffInst frailBuff = _battleModel.selfData.GetBuffInstByType(BuffType.FRAIL);
-                    if (frailBuff != null)
-                    {
-                        iAddArmor = iAddArmor * (100 - frailBuff.effectVal) / 100;
-                    }
+                    iAddArmor = BattleTool.AdjustArmorVal(_battleModel.selfData, iAddArmor);
 
                     _battleModel.AddArmor(_battleModel.selfData, iAddArmor);
                     break;
@@ -419,6 +415,9 @@ public class BattleManager : IDisposable
                 case CardEffectType.DRAW_CARD:
                     SelfDrawCard(effectTemplate.iEffectValue);
                     break;
+                case CardEffectType.DRAW_CARD_UNTIL_NOTATTACK:
+                    //todo:
+                    break;
                 case CardEffectType.GIVE_COST:
                     _battleModel.ReduceCost(-effectTemplate.iEffectValue);
                     _battleModel.effectStat.getCostCount += (uint)effectTemplate.iEffectValue;
@@ -433,6 +432,9 @@ public class BattleManager : IDisposable
                         _battleModel.RemoveBuff(_battleModel.selfData, rmBuff);
                         _battleModel.AddBuff(_battleModel.selfData, _battleModel.selfData, (uint)effectTemplate.iEffectValue_2,rmBuff.effectVal);
                     }
+                    break;
+                case CardEffectType.DAMAGE_SELF:
+                    _battleModel.ReduceSelfHp(effectTemplate.iEffectValue);
                     break;
                 default:
                     Debug.LogError("unhandle card effect type:" + effectTemplate.nType);

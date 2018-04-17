@@ -176,4 +176,14 @@ public class BattleTool
 
         return iVal;
     }
+
+    internal static int AdjustArmorVal(ObjectBase obj, int iVal)
+    {
+        BuffInst frailBuff = obj.GetBuffInstByType(BuffType.FRAIL);
+        if (frailBuff != null)
+        {
+            iVal = iVal * (100 - frailBuff.effectVal) / 100;
+        }
+        return iVal;
+    }
 }

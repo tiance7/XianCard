@@ -11,4 +11,6 @@ public class CardEffectType
     public const uint GIVE_COST = 5;                    //获得能量
     public const uint CONSUME_BUFF_GET_BUFF = 6;        //消耗指定BUFF，获得对应效果值得另一个BUFF
     public const uint ONE_DAMAGE_IGNORE_ARMOR = 7;      //无视护甲，造成1次伤害
+    public const uint DAMAGE_SELF = 8;                  //对自身造成伤害
+    public const uint DRAW_CARD_UNTIL_NOTATTACK = 9;    //抽牌，直到抽到的牌不是攻击牌
 }
