@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<component size="1440,900" remark="1,2,3,4,5,6&#xD;3,7,5,6&#xD;4,8,9">
+  <displayList>
+    <component id="n17_kp7y" name="n17" src="kp7y9" xy="688,450" rotation="90"/>
+    <component id="n18_kp7y" name="n18" src="kp7y9" xy="511,454" rotation="90"/>
+    <component id="n21_kp7y" name="n21" src="kp7y9" xy="854,475" rotation="45"/>
+    <component id="n22_kp7y" name="n22" src="kp7y9" xy="781,366" rotation="-45"/>
+    <component id="n13_kp7y" name="n13" src="kp7y9" xy="726,558"/>
+    <component id="n14_kp7y" name="n14" src="kp7y9" xy="729,469"/>
+    <component id="n15_kp7y" name="n15" src="kp7y9" xy="725,362"/>
+    <component id="n16_kp7y" name="n16" src="kp7y9" xy="725,269"/>
+    <component id="n12_kp7y" name="n12" src="kp7y9" xy="730,671"/>
+    <component id="n0_kp7y" name="node1" src="kp7y7" xy="674,741" controller="cType,0,cPass,0"/>
+    <component id="n2_kp7y" name="node2" src="kp7y7" xy="674,637" controller="cType,0,cPass,0"/>
+    <component id="n3_kp7y" name="node3" src="kp7y7" xy="673,528" controller="cType,0,cPass,0"/>
+    <component id="n4_kp7y" name="node4" src="kp7y7" xy="674,425" controller="cType,0,cPass,0"/>
+    <component id="n5_kp7y" name="node5" src="kp7y7" xy="671,313" controller="cType,0,cPass,0"/>
+    <component id="n6_kp7y" name="node6" src="kp7y7" xy="670,223" controller="cType,0,cPass,0"/>
+    <component id="n7_kp7y" name="node7" src="kp7y7" xy="831,425" controller="cType,0,cPass,0"/>
+    <component id="n8_kp7y" name="node8" src="kp7y7" xy="488,427" controller="cType,0,cPass,0"/>
+    <component id="n9_kp7y" name="node9" src="kp7y7" xy="308,427" controller="cType,0,cPass,0"/>
+  </displayList>
+</component>

@@ -16,7 +16,7 @@ public class MapModel : ModelBase
     #endregion
 
     //define
-    public const int NODE_NUM = 16; //每层地图除了BOSS以外的节点数量
+    public const int NODE_NUM = 50; //每个地图5个节点 10张随机地图
     private const int SINGLE_HEIGHT = 120; //单个对象占据的高度
     private const int BOSS_HEIGHT = 500; //BOSS占据的高度
 
@@ -32,23 +32,79 @@ public class MapModel : ModelBase
     /// </summary>
     public void Init()
     {
-        //todo 根据职业初始化
+        InitMapNode();
+        InitBlock();
+    }
+
+    //初始化地图节点
+    private void InitMapNode()
+    {
+        List<MapNodeType> lstNodeType = new List<MapNodeType>() { MapNodeType.NORMAL_ENEMY };    //第一个节点是普通怪
+        lstNodeType.AddRange(GetRandomNodeTypeList(4, new List<MapNodeType>() { MapNodeType.NORMAL_ENEMY, MapNodeType.ADVANTURE }));  //生成第2-5个节点
+
+        //生成第6-50个节点 todo 处理限制
+        List<MapNodeType> lstAfterNodeType = GetRandomNodeTypeList(NODE_NUM - 5,
+            new List<MapNodeType>() { MapNodeType.NORMAL_ENEMY, MapNodeType.ADVANTURE, MapNodeType.BOX, MapNodeType.ELITE, MapNodeType.SHOP });
+        lstNodeType.AddRange(lstAfterNodeType);
+
         List<MapNodeBase> lstMapNode = new List<MapNodeBase>();
         //todo 加入不同的节点类型
         for (int i = 0; i < NODE_NUM; i++)
         {
-            lstMapNode.Add(new EnemyNode(1, 700, BOSS_HEIGHT + i * SINGLE_HEIGHT + UnityEngine.Random.Range(0, SINGLE_HEIGHT)));   //todo 随机敌人ID 随机x坐标
+            //todo 随机节点类型
+            MapNodeType nodeType = lstNodeType[i];
+            lstMapNode.Add(GetMapNode(nodeType));
+            //lstMapNode.Add(new NormalEnemyNode(1/*, 700, BOSS_HEIGHT + i * SINGLE_HEIGHT + UnityEngine.Random.Range(0, SINGLE_HEIGHT)*/));   //todo 随机敌人ID
         }
         _lstOfLstMapNode.Add(lstMapNode);
-
-        InitBlock();
     }
 
+    //获取随机节点
+    private List<MapNodeType> GetRandomNodeTypeList(int nodeNum, List<MapNodeType> lstAvailableType)
+    {
+        List<MapNodeType> lstNode = new List<MapNodeType>();
+        for (int i = 0; i < nodeNum; i++)
+        {
+            lstNode.Add(GetRandomNodeType(lstAvailableType));
+        }
+        return lstNode;
+    }
+
+    //获得一个随机节点类型
+    private MapNodeType GetRandomNodeType(List<MapNodeType> lstNodeType)
+    {
+        int index = UnityEngine.Random.Range(0, lstNodeType.Count);
+        return lstNodeType[index];
+    }
+
+    //获取地图节点
+    private MapNodeBase GetMapNode(MapNodeType nodeType)
+    {
+        switch (nodeType)
+        {
+            case MapNodeType.NORMAL_ENEMY:
+                return new NormalEnemyNode(1);  //todo 随机普通怪ID
+            case MapNodeType.ELITE:
+                return new EliteNode(1);  //todo 随机精英怪ID
+            case MapNodeType.ADVANTURE:
+                return new AdvantureNode();
+            case MapNodeType.SHOP:
+                return new ShopNode();
+            case MapNodeType.BOX:
+                return new BoxNode();
+            default:
+                Debug.LogError("unhandle map node:" + nodeType);
+                break;
+        }
+        return null;
+    }
+
+    //初始化地图列表
     private void InitBlock()
     {
         _lstBlock = new List<Type>
         {
-            typeof(MapBlock1)
+            typeof(MapBlock1),typeof(MapBlock2)
         };
     }
 

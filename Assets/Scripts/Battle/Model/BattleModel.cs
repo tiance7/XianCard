@@ -180,7 +180,7 @@ public class BattleModel : ModelBase
     private void InitEnemy()
     {
         _dicEnemy.Clear();
-        EnemyNode enemyNode = MapModel.Inst.enterNode as EnemyNode;
+        NormalEnemyNode enemyNode = MapModel.Inst.enterNode as NormalEnemyNode;
         var enemyInst = new EnemyInstance(enemyNode.tplId);
         _dicEnemy[enemyInst.instId] = enemyInst;
         SendEvent(BattleEvent.ENEMY_INIT);

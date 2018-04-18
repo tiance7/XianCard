@@ -79,7 +79,7 @@ namespace UI.Map
         //根据节点类型创建不同的显示对象
         private IMapNode GetNodeCom(MapNodeBase node)
         {
-            if (node is EnemyNode)
+            if (node is NormalEnemyNode)
                 return EnemyCom.CreateInstance();
             Debug.LogError("unhandle node:" + node.GetType());
             return null;

@@ -13,6 +13,7 @@ namespace UI.Map
 			UIObjectFactory.SetPackageItemExtension(MapNode.URL, typeof(MapNode));
 			UIObjectFactory.SetPackageItemExtension(MapFrame.URL, typeof(MapFrame));
 			UIObjectFactory.SetPackageItemExtension(EnemyCom.URL, typeof(EnemyCom));
+			UIObjectFactory.SetPackageItemExtension(MapBlock2.URL, typeof(MapBlock2));
 		}
 	}
 }

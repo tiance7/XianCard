@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="120,60" extention="Button">
-  <controller name="cType" exported="true" pages="0,battle,1,advanture,2,unknow,3,shop,4,box,5,exit" selected="0"/>
+  <controller name="cType" exported="true" pages="0,normalEnemy,1,advanture,2,unknow,3,shop,4,box,5,exit,6,elite" selected="6"/>
   <controller name="cPass" exported="true" pages="0,noPass,1,pass" selected="0"/>
   <displayList>
     <graph id="n0_kp7y" name="n0" xy="0,0" size="120,60" type="rect">
       <gearColor controller="cPass" pages="0" values="#ffffff" default="#999999"/>
     </graph>
-    <text id="n1_kp7y" name="n1" xy="33,14" size="53,31" fontSize="24" text="战斗">
-      <gearText controller="cType" pages="1,2,3,4,5" values="奇遇|未知|坊市|宝箱|出口" default="战斗"/>
+    <text id="n1_kp7y" name="n1" xy="21,14" size="77,31" fontSize="24" text="精英怪">
+      <gearText controller="cType" pages="0,1,2,3,4,5,6" values="普通怪|奇遇|未知|坊市|宝箱|出口|精英怪"/>
       <relation target="" sidePair="center-center"/>
     </text>
   </displayList>

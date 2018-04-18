@@ -86,8 +86,13 @@ namespace UI.Battle
             {
                 int defence;
                 int.TryParse(Regex.Match(match.Value, @"\d+").Value, out defence);
-                //defence = BattleTool.CalCardDefence(defence);    //todo 根据工具类进行计算
-                orignDesc = orignDesc.Replace(match.Value, string.Format(GameText.CARD_DEFENCE, defence));
+                int newDefence = BattleTool.AdjustArmorVal(selfData, defence);
+                string colorDefence = newDefence.ToString();
+                if (newDefence > defence)
+                    colorDefence = TextTool.FormatUBBColor(colorDefence, "#00FF00");
+                else if (newDefence < defence)
+                    colorDefence = TextTool.FormatUBBColor(colorDefence, "#FF0000");
+                orignDesc = orignDesc.Replace(match.Value, string.Format(GameText.CARD_DEFENCE, colorDefence));
             }
 
             return orignDesc;

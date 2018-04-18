@@ -7,13 +7,11 @@ using UnityEngine;
 /// </summary>
 public class MapNodeBase
 {
-    public float posX { get; private set; }    //坐标
-    public float posY { get; private set; }    //坐标
     public bool isPass = false; //是否通过
+    public MapNodeType nodeType;
 
-    public MapNodeBase(float posX, float posY)
+    public MapNodeBase(MapNodeType nodeType)
     {
-        this.posX = posX;
-        this.posY = posY;
+        this.nodeType = nodeType;
     }
 }

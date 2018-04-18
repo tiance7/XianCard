@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <component size="8,100">
   <displayList>
-    <graph id="n0_kp7y" name="n0" xy="0,0" size="8,100" type="rect" lineColor="#ff666666" fillColor="#ff666666">
+    <graph id="n0_kp7y" name="n0" xy="0,0" size="8,100" type="rect" lineColor="#ff009999" fillColor="#ff009999">
       <relation target="" sidePair="width-width,height-height"/>
     </graph>
   </displayList>

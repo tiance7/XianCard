@@ -6,7 +6,7 @@ namespace UI.Map
 {
     public partial class EnemyCom : IMapNode
     {
-        private EnemyNode _enemyNode;
+        private NormalEnemyNode _enemyNode;
 
         public MapNodeBase GetNode()
         {
@@ -15,7 +15,7 @@ namespace UI.Map
 
         public void SetNode(MapNodeBase mapNode)
         {
-            _enemyNode = mapNode as EnemyNode;
+            _enemyNode = mapNode as NormalEnemyNode;
         }
     }
 }
