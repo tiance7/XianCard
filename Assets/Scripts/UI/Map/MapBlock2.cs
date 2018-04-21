@@ -7,15 +7,15 @@ namespace UI.Map
 {
 	public partial class MapBlock2 : GComponent
 	{
-		public MapNode node1;
-		public MapNode node2;
-		public MapNode node3;
-		public MapNode node4;
-		public MapNode node5;
-		public MapNode node6;
-		public MapNode node7;
-		public MapNode node8;
-		public MapNode node9;
+		public MapNodeCom node1;
+		public MapNodeCom node2;
+		public MapNodeCom node3;
+		public MapNodeCom node4;
+		public MapNodeCom node5;
+		public MapNodeCom node6;
+		public MapNodeCom node7;
+		public MapNodeCom node8;
+		public MapNodeCom node9;
 
 		public const string URL = "ui://9zqi84syy8afa";
 
@@ -32,15 +32,15 @@ namespace UI.Map
 		{
 			base.ConstructFromXML(xml);
 
-			node1 = (MapNode)this.GetChild("node1");
-			node2 = (MapNode)this.GetChild("node2");
-			node3 = (MapNode)this.GetChild("node3");
-			node4 = (MapNode)this.GetChild("node4");
-			node5 = (MapNode)this.GetChild("node5");
-			node6 = (MapNode)this.GetChild("node6");
-			node7 = (MapNode)this.GetChild("node7");
-			node8 = (MapNode)this.GetChild("node8");
-			node9 = (MapNode)this.GetChild("node9");
+			node1 = (MapNodeCom)this.GetChild("node1");
+			node2 = (MapNodeCom)this.GetChild("node2");
+			node3 = (MapNodeCom)this.GetChild("node3");
+			node4 = (MapNodeCom)this.GetChild("node4");
+			node5 = (MapNodeCom)this.GetChild("node5");
+			node6 = (MapNodeCom)this.GetChild("node6");
+			node7 = (MapNodeCom)this.GetChild("node7");
+			node8 = (MapNodeCom)this.GetChild("node8");
+			node9 = (MapNodeCom)this.GetChild("node9");
 		}
 	}
 }

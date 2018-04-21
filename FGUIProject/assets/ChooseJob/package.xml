@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<packageDescription id="t8jxoy6m" jpegQuality="80" compressPNG="true">
+  <resources>
+    <component id="h8c30" name="ChooseJobFrame.xml" path="/Frames/" exported="true"/>
+    <component id="h8c31" name="BtnStart.xml" path="/Components/"/>
+  </resources>
+  <publish name="ChooseJob" genCode="true"/>
+</packageDescription>

@@ -7,7 +7,7 @@
     <component id="frdb4" name="MapCom.xml" path="/Components/" exported="true"/>
     <image id="frdb5" name="boss.jpg" path="/Assets/"/>
     <component id="kp7y6" name="MapBlock1.xml" path="/MapBlock/" exported="true"/>
-    <component id="kp7y7" name="MapNode.xml" path="/Components/" exported="true"/>
+    <component id="kp7y7" name="MapNodeCom.xml" path="/Components/" exported="true"/>
     <component id="kp7y9" name="NodeLine.xml" path="/Components/"/>
     <component id="y8afa" name="MapBlock2.xml" path="/MapBlock/" exported="true"/>
   </resources>

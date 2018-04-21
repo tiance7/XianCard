@@ -5,19 +5,19 @@ using FairyGUI.Utils;
 
 namespace UI.Map
 {
-	public partial class MapNode : GButton
+	public partial class MapNodeCom : GButton
 	{
 		public Controller cType;
 		public Controller cPass;
 
 		public const string URL = "ui://9zqi84sykp7y7";
 
-		public static MapNode CreateInstance()
+		public static MapNodeCom CreateInstance()
 		{
-			return (MapNode)UIPackage.CreateObject("Map","MapNode");
+			return (MapNodeCom)UIPackage.CreateObject("Map","MapNodeCom");
 		}
 
-		public MapNode()
+		public MapNodeCom()
 		{
 		}
 

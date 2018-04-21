@@ -5,9 +5,9 @@ using FairyGUI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace UI.Start
+namespace UI.ChooseJob
 {
-    public partial class StartFrame
+    public partial class ChooseJobFrame
     {
         public override void ConstructFromResource()
         {
@@ -22,7 +22,7 @@ namespace UI.Start
 
         private void OnStartClick(EventContext context)
         {
-            SceneManager.LoadSceneAsync(SceneName.CHOOSE_JOB);
+            SceneManager.LoadSceneAsync(SceneName.MAP);
         }
     }
 }

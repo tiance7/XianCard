@@ -10,7 +10,7 @@ namespace UI.Map
     public partial class MapFrame
     {
         private List<GComponent> _lstMapNodeCom = new List<GComponent>();
-        private Dictionary<string, MapNode> _dicMapNode = new Dictionary<string, MapNode>();
+        private Dictionary<string, MapNodeCom> _dicMapNode = new Dictionary<string, MapNodeCom>();
 
         public override void ConstructFromResource()
         {
@@ -54,6 +54,7 @@ namespace UI.Map
             //todo 根据数据初始化不同的地图块
             string data = mapBlock.packageItem.componentData.GetAttribute("customData");
             var lstRoad = data.Split('\r');
+            var lstMapNodes = MapModel.Inst.GetCurrentLayerMapNodes();
             foreach (var strRoad in lstRoad)
             {
                 var lstPointIndex = strRoad.Split(',');
@@ -61,19 +62,31 @@ namespace UI.Map
                 {
                     if (_dicMapNode.ContainsKey(pointIndex))
                         continue;
-                    MapNode mapNode = mapBlock.GetChild("node" + pointIndex) as MapNode;
-                    //todo 不同节点的node做不同的随机处理 和 赋值
-                    mapNode.onClick.Add(OnNodeClick);
-                    _dicMapNode.Add(pointIndex, mapNode);
+                    int iPointIndex;
+                    int.TryParse(pointIndex, out iPointIndex);
+                    //todo 这里parse点索引的方式不正确，还需要再修改地图数据的生成方式
+                    MapNodeBase nodeBase = lstMapNodes[iPointIndex];
+                    MapNodeCom mapNodeCom = mapBlock.GetChild("node" + pointIndex) as MapNodeCom;
+                    mapNodeCom.SetNodeData(nodeBase);
+                    mapNodeCom.onClick.Add(OnNodeClick);
+                    _dicMapNode.Add(pointIndex, mapNodeCom);
                 }
             }
         }
 
         private void OnNodeClick(EventContext context)
         {
-            //todo 不同节点类型不同处理方式
-            MapModel.Inst.SetEnterNode(MapModel.Inst.GetCurrentLayerMapNodes()[0]);
-            SceneManager.LoadScene(SceneName.BATTLE);
+            MapNodeCom nodeCom = context.sender as MapNodeCom;
+            MapModel.Inst.SetEnterNode(nodeCom.nodeData);
+            switch(nodeCom.nodeData.nodeType)
+            {
+                case MapNodeType.NORMAL_ENEMY:
+                    SceneManager.LoadScene(SceneName.BATTLE);
+                    break;
+                default:
+                    Debug.LogError("unhandle node type:" + nodeCom.nodeData.nodeType);
+                    break;
+            }
         }
 
         //根据节点类型创建不同的显示对象

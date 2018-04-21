@@ -10,7 +10,7 @@ namespace UI.Map
 		{
 			UIObjectFactory.SetPackageItemExtension(MapCom.URL, typeof(MapCom));
 			UIObjectFactory.SetPackageItemExtension(MapBlock1.URL, typeof(MapBlock1));
-			UIObjectFactory.SetPackageItemExtension(MapNode.URL, typeof(MapNode));
+			UIObjectFactory.SetPackageItemExtension(MapNodeCom.URL, typeof(MapNodeCom));
 			UIObjectFactory.SetPackageItemExtension(MapFrame.URL, typeof(MapFrame));
 			UIObjectFactory.SetPackageItemExtension(EnemyCom.URL, typeof(EnemyCom));
 			UIObjectFactory.SetPackageItemExtension(MapBlock2.URL, typeof(MapBlock2));

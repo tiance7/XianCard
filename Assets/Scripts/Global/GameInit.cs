@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UI.ChooseJob;
 using UI.Common;
 using UI.Map;
 using UI.Start;
@@ -30,6 +31,7 @@ public class GameInit : MonoBehaviour
     {
         CommonBinder.BindAll();
         StartBinder.BindAll();
+        ChooseJobBinder.BindAll();
         MapBinder.BindAll();
     }
 
