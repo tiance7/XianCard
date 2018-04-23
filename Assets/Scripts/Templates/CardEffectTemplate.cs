@@ -7,6 +7,7 @@ public sealed class CardEffectTemplate
 {
 	public uint nId;	//id
 	public uint iEffectTrigType;	//效果触发类型 enum CardEffectTrigType
+	public uint iTrigVal;	//触发值
 	public uint nTarget;	//目标类型 enum CardEffectTargetType
 	public uint nType;	//效果类型 enum CardEffectType
 	public int iEffectValue;	//效果值
@@ -28,6 +29,7 @@ public sealed class CardEffectTemplateData
 			CardEffectTemplate template = new CardEffectTemplate();
 			template.nId = element["nId"] != null ? uint.Parse(element["nId"].InnerText) : 0;	//id
 			template.iEffectTrigType = element["iEffectTrigType"] != null ? uint.Parse(element["iEffectTrigType"].InnerText) : 0;	//效果触发类型 enum CardEffectTrigType
+			template.iTrigVal = element["iTrigVal"] != null ? uint.Parse(element["iTrigVal"].InnerText) : 0;	//触发值
 			template.nTarget = element["nTarget"] != null ? uint.Parse(element["nTarget"].InnerText) : 0;	//目标类型 enum CardEffectTargetType
 			template.nType = element["nType"] != null ? uint.Parse(element["nType"].InnerText) : 0;	//效果类型 enum CardEffectType
 			template.iEffectValue = element["iEffectValue"] != null ? int.Parse(element["iEffectValue"].InnerText) : 0;	//效果值
