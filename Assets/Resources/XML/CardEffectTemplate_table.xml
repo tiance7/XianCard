@@ -508,7 +508,7 @@
 			<entry>
 				<nId>61</nId>
 				<iEffectTrigType>17</iEffectTrigType>
-				<iTrigVal>6</iTrigVal>
+				<iTrigVal>101</iTrigVal>
 				<nTarget>4</nTarget>
 				<nType>4</nType>
 				<iEffectValue>1</iEffectValue>
@@ -525,7 +525,7 @@
 			<entry>
 				<nId>63</nId>
 				<iEffectTrigType>17</iEffectTrigType>
-				<iTrigVal>6</iTrigVal>
+				<iTrigVal>101</iTrigVal>
 				<nTarget>4</nTarget>
 				<nType>4</nType>
 				<iEffectValue>1</iEffectValue>

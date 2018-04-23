@@ -402,7 +402,7 @@ public class BattleModel : ModelBase
                 // 无法抽卡只有1层
                 if (templet.nType != BuffType.CAN_NOT_DRAW_CARD)
                 {
-                    buffInst.leftBout += templet.iBout;
+                    buffInst.leftBout += templet.iBout*count;
                 }
             }
             else
@@ -422,10 +422,25 @@ public class BattleModel : ModelBase
         }
 
         //加入新BUFF
+        int iBout = -1;
+        int iEffectVal = templet.iEffectA;
+        if (templet.iBout != -1)
+        {
+            // 无法抽卡只有1层
+            iBout = 1;
+            if (templet.nType != BuffType.CAN_NOT_DRAW_CARD)
+            {
+                iBout = templet.iBout*count;
+            }
+        }
+        else
+        {
+            iEffectVal = templet.iEffectA * count;
+        }
         BuffInst newBuffInst = new BuffInst(targetObject.instId) {
             tplId = buffId,
-            leftBout = templet.iBout,
-            effectVal = templet.iEffectA * count,
+            leftBout = iBout,
+            effectVal = iEffectVal,
             selfAddDebuffThisBout = (BuffInst.IsDebuff(templet.nType)&&casterObject==targetObject)
         };
 
