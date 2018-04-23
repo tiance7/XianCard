@@ -482,7 +482,7 @@
 				<nJob>1</nJob>
 				<szName>术宗·定心术</szName>
 				<iCost>0</iCost>
-				<szDesc>失去4点生命，抽2张牌，获得#s4#，获得2费，消耗</szDesc>
+				<szDesc>失去4点生命，抽2张牌，获得#d4#，获得2费，消耗</szDesc>
 				<nType>2</nType>
 				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -496,7 +496,7 @@
 				<nJob>1</nJob>
 				<szName>术宗·定心术+</szName>
 				<iCost>0</iCost>
-				<szDesc>失去4点生命，抽3张牌，获得#s6#，获得2费，消耗</szDesc>
+				<szDesc>失去4点生命，抽3张牌，获得#d6#，获得2费，消耗</szDesc>
 				<nType>2</nType>
 				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
