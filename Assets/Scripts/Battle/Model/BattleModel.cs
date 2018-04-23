@@ -134,6 +134,18 @@ public class BattleModel : ModelBase
     public void RecoverCost()
     {
         curCost = maxCost;
+
+        foreach (var buffInst in selfData.lstBuffInst)
+        {
+            BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
+            if (template == null)
+                continue;
+            if (template.nType == BuffType.GET_ENERGY)
+            {
+                curCost += buffInst.effectVal;
+            }
+        }
+
         CostChangeHandle();
     }
 

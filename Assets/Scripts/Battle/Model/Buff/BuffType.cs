@@ -15,7 +15,7 @@ public class BuffType
     public const uint WEAK = 6;                         //虚弱（攻击伤害减少）
     public const uint VULNERABLE = 7;                   //易伤（受到伤害增加）
     public const uint FRAIL = 8;                        //脆弱（护甲增加值减少）
-
+    public const uint GET_ENERGY = 9;                   //获得能量
     //剑修相关
     public const uint MAGIC_SWORD = 101;                //幻剑
 }

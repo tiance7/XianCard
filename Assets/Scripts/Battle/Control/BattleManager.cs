@@ -89,12 +89,7 @@ public class BattleManager : IDisposable
         switch (_battleModel.bout)
         {
             case Bout.SELF:
-                SelfDrawCard(5);
-                _battleModel.RecoverCost();
-                if (!_battleModel.selfData.HasBuff(BuffType.KEEP_ARMOR))
-                    _battleModel.UpdateArmor(_battleModel.selfData, 0);
-                UpdateEnemyAction();
-                _battleModel.InitRoundStatistics();
+                SelfBoutStartHandle();
                 break;
             case Bout.ENEMY:
                 Core.Inst.StartCoroutine(SelfBoutEndHandle());
@@ -104,6 +99,18 @@ public class BattleManager : IDisposable
                 Debug.LogError("unhandle bout:" + _battleModel.bout);
                 break;
         }
+    }
+
+    private void SelfBoutStartHandle()
+    {
+        SelfDrawCard(5);
+        _battleModel.RecoverCost();
+        if (!_battleModel.selfData.HasBuff(BuffType.KEEP_ARMOR))
+            _battleModel.UpdateArmor(_battleModel.selfData, 0);
+        UpdateEnemyAction();
+        _battleModel.InitRoundStatistics();
+
+        SettleBuffOnBoutStart(_battleModel.selfData);
     }
 
     //自身回合结束处理
@@ -138,9 +145,30 @@ public class BattleManager : IDisposable
         yield return new WaitForSeconds(AnimationTime.HAND_TO_USED);
     }
 
+    private void SettleBuffOnBoutStart(ObjectBase targetObj)
+    {
+        List<BuffInst> lstBuffInst = new List<BuffInst>(targetObj.lstBuffInst);
+        foreach (var buffInst in lstBuffInst)
+        {
+            BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
+            if (template == null)
+                continue;
+
+            if (buffInst.leftBout != -1)
+            {
+                //Debug.LogError("DecBuffLeftBout" + buffInst.leftBout);
+                if (template.nTrigger == BuffTriggerType.BOUT_START)
+                {
+                    _battleModel.DecBuffLeftBout(targetObj, buffInst, 1);
+                }
+            }
+        }
+    }
+
     private void SettleBuffOnBoutEnd(ObjectBase targetObj)
     {
-        foreach (var buffInst in targetObj.lstBuffInst)
+        List<BuffInst> lstBuffInst = new List<BuffInst>(targetObj.lstBuffInst);
+        foreach (var buffInst in lstBuffInst)
         {
             BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
             if (template == null)
@@ -157,9 +185,8 @@ public class BattleManager : IDisposable
             }
         }
 
-        for (int i = targetObj.lstBuffInst.Count - 1; i >= 0; --i)
+        foreach (var buffInst in lstBuffInst)
         {
-            BuffInst buffInst = targetObj.lstBuffInst[i];
             BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
             if (template == null)
                 continue;
@@ -172,7 +199,10 @@ public class BattleManager : IDisposable
             else if (buffInst.leftBout != -1)
             {
                 //Debug.LogError("DecBuffLeftBout" + buffInst.leftBout);
-                _battleModel.DecBuffLeftBout(targetObj, buffInst, 1);
+                if (template.nTrigger != BuffTriggerType.BOUT_START)
+                {
+                    _battleModel.DecBuffLeftBout(targetObj, buffInst, 1);
+                }
             }
         }
     }
@@ -484,6 +514,8 @@ public class BattleManager : IDisposable
                 if (_battleModel.effectStat.damageLife > 0)
                     return true;
                 return false;
+            case CardEffectTrigType.SELF_HAS_BUFF_TYPE:
+                return _battleModel.selfData.HasBuff(effectTemplate.iTrigVal);
             default:
                 Debug.LogError("unhandle card EffectTrigType:" + effectTemplate.iEffectTrigType);
                 break;

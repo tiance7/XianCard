@@ -482,12 +482,13 @@
 				<nJob>1</nJob>
 				<szName>术宗·定心术</szName>
 				<iCost>0</iCost>
-				<szDesc>失去4点生命，抽2张牌，获得4点护甲，获得2费，消耗</szDesc>
+				<szDesc>失去4点生命，抽2张牌，获得#s4#，获得2费，消耗</szDesc>
 				<nType>2</nType>
 				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>49</nEffectId>
+				<nUpgradeId>40</nUpgradeId>
 				<bExhaust>1</bExhaust>
 			</entry>
 			<entry>
@@ -495,7 +496,7 @@
 				<nJob>1</nJob>
 				<szName>术宗·定心术+</szName>
 				<iCost>0</iCost>
-				<szDesc>失去4点生命，抽3张牌，获得6点护甲，获得2费，消耗</szDesc>
+				<szDesc>失去4点生命，抽3张牌，获得#s6#，获得2费，消耗</szDesc>
 				<nType>2</nType>
 				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -514,6 +515,7 @@
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>57</nEffectId>
+				<nUpgradeId>42</nUpgradeId>
 				<bExhaust>1</bExhaust>
 			</entry>
 			<entry>
@@ -527,6 +529,58 @@
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>57</nEffectId>
+			</entry>
+			<entry>
+				<nId>43</nId>
+				<nJob>1</nJob>
+				<szName>炼气凝神</szName>
+				<iCost>1</iCost>
+				<szDesc>后续3回合，每回合额外获得1费，消耗</szDesc>
+				<nType>2</nType>
+				<nTargetType>4</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>58</nEffectId>
+				<nUpgradeId>44</nUpgradeId>
+				<bExhaust>1</bExhaust>
+			</entry>
+			<entry>
+				<nId>44</nId>
+				<nJob>1</nJob>
+				<szName>炼气凝神+</szName>
+				<iCost>1</iCost>
+				<szDesc>后续5回合，每回合额外获得1费，消耗</szDesc>
+				<nType>2</nType>
+				<nTargetType>4</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>59</nEffectId>
+				<bExhaust>1</bExhaust>
+			</entry>
+			<entry>
+				<nId>45</nId>
+				<nJob>1</nJob>
+				<szName>虚空凝剑术</szName>
+				<iCost>1</iCost>
+				<szDesc>造成#a8#，如果身上有幻剑，抽一张牌</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>60</nEffectId>
+				<nUpgradeId>46</nUpgradeId>
+			</entry>
+			<entry>
+				<nId>46</nId>
+				<nJob>1</nJob>
+				<szName>虚空凝剑术+</szName>
+				<iCost>1</iCost>
+				<szDesc>造成#a10#，如果身上有幻剑，抽一张牌</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>62</nEffectId>
 			</entry>
 		</g_CardTemplate>
 	</LocalData>

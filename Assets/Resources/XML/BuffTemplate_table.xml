@@ -101,6 +101,15 @@
 				<iBout>1</iBout>
 				<szImg>buff_cuiruo</szImg>
 			</entry>
+			<entry>
+				<nId>11</nId>
+				<szName>充能</szName>
+				<szDesc>回合开始时，获得1费</szDesc>
+				<nType>9</nType>
+				<nTrigger>3</nTrigger>
+				<iEffectA>1</iEffectA>
+				<iBout>1</iBout>
+			</entry>
 		</g_BuffTemplate>
 	</LocalData>
 </LocalDatas>
