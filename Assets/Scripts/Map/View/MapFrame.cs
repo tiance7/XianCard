@@ -10,7 +10,7 @@ namespace UI.Map
     public partial class MapFrame
     {
         private List<GComponent> _lstMapNodeCom = new List<GComponent>();
-        private Dictionary<string, MapNodeCom> _dicMapNode = new Dictionary<string, MapNodeCom>();
+        //private Dictionary<string, MapNodeCom> _dicMapNode = new Dictionary<string, MapNodeCom>();
 
         public override void ConstructFromResource()
         {
@@ -45,33 +45,53 @@ namespace UI.Map
 
         private void GenerateRandomBlock()
         {
-            var lstBlock = MapModel.Inst.GetBlocks();
-            int index = UnityEngine.Random.Range(0, lstBlock.Count);
-            Type typeBlock = lstBlock[index];
-            var method = typeBlock.GetMethod("CreateInstance", BindingFlags.Public | BindingFlags.Static);
-            GComponent mapBlock = method.Invoke(null, null) as GComponent;
+            //var lstBlock = MapModel.Inst.GetBlockCom();
+            //int index = UnityEngine.Random.Range(0, lstBlock.Count);
+            //Type typeBlock = lstBlock[index];
+            //var method = typeBlock.GetMethod("CreateInstance", BindingFlags.Public | BindingFlags.Static);
+            //GComponent mapBlock = method.Invoke(null, null) as GComponent;
+
+            MapModel mapModel = MapModel.Inst;
+            GComponent mapBlock = mapModel.GetCurrentBlockCom();
             AddChildAt(mapBlock, 1);    //要在TopFrame下面
-            //todo 根据数据初始化不同的地图块
-            string data = mapBlock.packageItem.componentData.GetAttribute("customData");
-            var lstRoad = data.Split('\r');
-            var lstMapNodes = MapModel.Inst.GetCurrentLayerMapNodes();
-            foreach (var strRoad in lstRoad)
+            
+            //根据数据初始化不同的地图块
+            foreach (var child in mapBlock.GetChildren())
             {
-                var lstPointIndex = strRoad.Split(',');
-                foreach (string pointIndex in lstPointIndex)
+                MapNodeCom childNode = child as MapNodeCom;
+                if (childNode == null)
+                    continue;
+                string strIndex = childNode.name.Replace("node", "");
+                MapNodeBase nodeData = mapModel.GetCurrentLayerMapNodeData(strIndex);
+                if(nodeData == null)
                 {
-                    if (_dicMapNode.ContainsKey(pointIndex))
-                        continue;
-                    int iPointIndex;
-                    int.TryParse(pointIndex, out iPointIndex);
-                    //todo 这里parse点索引的方式不正确，还需要再修改地图数据的生成方式
-                    MapNodeBase nodeBase = lstMapNodes[iPointIndex];
-                    MapNodeCom mapNodeCom = mapBlock.GetChild("node" + pointIndex) as MapNodeCom;
-                    mapNodeCom.SetNodeData(nodeBase);
-                    mapNodeCom.onClick.Add(OnNodeClick);
-                    _dicMapNode.Add(pointIndex, mapNodeCom);
+                    Debug.LogError("no node data:" + strIndex);
+                    continue;
                 }
+                childNode.SetNodeData(nodeData);
+                childNode.onClick.Add(OnNodeClick);
             }
+
+            //string data = mapBlock.packageItem.componentData.GetAttribute("customData");
+            //var lstRoad = data.Split('\r');
+            //var lstMapNodes = MapModel.Inst.GetCurrentLayerMapNodes();
+            //foreach (var strRoad in lstRoad)
+            //{
+            //    var lstPointIndex = strRoad.Split(',');
+            //    foreach (string pointIndex in lstPointIndex)
+            //    {
+            //        if (_dicMapNode.ContainsKey(pointIndex))
+            //            continue;
+            //        int iPointIndex;
+            //        int.TryParse(pointIndex, out iPointIndex);
+            //        //todo 这里parse点索引的方式不正确，还需要再修改地图数据的生成方式
+            //        MapNodeBase nodeBase = lstMapNodes[iPointIndex];
+            //        MapNodeCom mapNodeCom = mapBlock.GetChild("node" + pointIndex) as MapNodeCom;
+            //        mapNodeCom.SetNodeData(nodeBase);
+            //        mapNodeCom.onClick.Add(OnNodeClick);
+            //        _dicMapNode.Add(pointIndex, mapNodeCom);
+            //    }
+            //}
         }
 
         private void OnNodeClick(EventContext context)
