@@ -36,6 +36,7 @@
     <image id="10oj5nx" name="buff_cuiruo.jpg" path="/Assets/Buff/" exported="true"/>
     <image id="10oj5ny" name="buff_xuruo.jpg" path="/Assets/Buff/" exported="true"/>
     <image id="10oj5nz" name="buff_yishang.jpg" path="/Assets/Buff/" exported="true"/>
+    <image id="txcp5o0" name="buff_lianqi.jpg" path="/Assets/Buff/" exported="true"/>
   </resources>
   <publish name="Battle" genCode="true"/>
 </packageDescription>
