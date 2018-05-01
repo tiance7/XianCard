@@ -47,7 +47,7 @@ public class BattleManager : IDisposable
     }
 
     //自己抽牌
-    private void SelfDrawCard(int drawNum)
+    public void SelfDrawCard(int drawNum)
     {
         if (_battleModel.selfData.HasBuff(BuffType.CAN_NOT_DRAW_CARD))
             return;
@@ -394,89 +394,20 @@ public class BattleManager : IDisposable
         if (effectTemplate == null)
             return;
 
-        Func<CardEffectTemplate, int> fnGetEffectCount = delegate(CardEffectTemplate effectTpl)
+        CardEffectBase cardEffect = CardEffectFactory.GetCardEffect(effectTemplate.nType);
+        if (cardEffect == null)
+            return;
+
+        if (cardEffect.CanTriggerCardEffect(effectTemplate))
         {
-            return effectTpl.iCostEffectTimes * (int)_battleModel.effectStat.consumeCost + effectTpl.iEffectCount;
-        };
-
-        if (CanTriggerCardEffect(effectId, targetInstId))
-        {
-            switch (effectTemplate.nType)
-            {
-                case CardEffectType.ONE_DAMAGE:
-                case CardEffectType.ONE_DAMAGE_IGNORE_ARMOR:
-                    if(effectTemplate.nTarget == CardEffectTargetType.ONE_ENEMY)
-                    {
-                        int iDmgCount = fnGetEffectCount(effectTemplate);
-                        Core.Inst.StartCoroutine(DamageEnemyCoroutine(iDmgCount, targetInstId, effectTemplate));
-                    }
-                    else if (effectTemplate.nTarget == CardEffectTargetType.ALL_ENEMY)
-                    {
-                        int iDmgCount = fnGetEffectCount(effectTemplate);
-                        Core.Inst.StartCoroutine(DamageAllEnemyCoroutine(iDmgCount, effectTemplate));
-                    }
-                    break;
-                case CardEffectType.GET_ARMOR:
-
-                    // 如果有脆弱，减少增加的护甲值
-                    int iAddArmor = effectTemplate.iEffectValue;
-                    iAddArmor = BattleTool.AdjustArmorVal(_battleModel.selfData, iAddArmor);
-
-                    _battleModel.AddArmor(_battleModel.selfData, iAddArmor);
-                    break;
-                case CardEffectType.GIVE_BUFF:
-                    int iCount = fnGetEffectCount(effectTemplate);
-                    if (effectTemplate.nTarget == CardEffectTargetType.ONE_ENEMY)
-                    {
-                        _battleModel.AddBuff(_battleModel.selfData, _battleModel.GetEnemy(targetInstId), (uint)effectTemplate.iEffectValue, iCount);
-                    }
-                    else if (effectTemplate.nTarget == CardEffectTargetType.ALL_ENEMY)
-                    {
-                        foreach(KeyValuePair<int, EnemyInstance> pair in _battleModel.GetEnemys())
-                        {
-                            _battleModel.AddBuff(_battleModel.selfData, pair.Value, (uint)effectTemplate.iEffectValue, iCount);        
-                        }
-                    }
-                    else if (effectTemplate.nTarget == CardEffectTargetType.SELF)
-                    {
-                        _battleModel.AddBuff(_battleModel.selfData, _battleModel.selfData, (uint)effectTemplate.iEffectValue, iCount);
-                    }
-                    break;
-                case CardEffectType.DRAW_CARD:
-                    SelfDrawCard(effectTemplate.iEffectValue);
-                    break;
-                case CardEffectType.DRAW_CARD_UNTIL_NOTATTACK:
-                    //todo:
-                    break;
-                case CardEffectType.GIVE_COST:
-                    _battleModel.ReduceCost(-effectTemplate.iEffectValue);
-                    _battleModel.effectStat.getCostCount += (uint)effectTemplate.iEffectValue;
-                    _battleModel.roundStat.getCostCount += (uint)effectTemplate.iEffectValue;
-                    _battleModel.battleStat.getCostCount += (uint)effectTemplate.iEffectValue;
-                    break;
-                case CardEffectType.CONSUME_BUFF_GET_BUFF:
-
-                    BuffInst rmBuff = _battleModel.selfData.GetBuffInst((uint)effectTemplate.iEffectValue);
-                    if (rmBuff != null)
-                    {
-                        _battleModel.RemoveBuff(_battleModel.selfData, rmBuff);
-                        _battleModel.AddBuff(_battleModel.selfData, _battleModel.selfData, (uint)effectTemplate.iEffectValue_2,rmBuff.effectVal);
-                    }
-                    break;
-                case CardEffectType.DAMAGE_SELF:
-                    _battleModel.ReduceSelfHp(effectTemplate.iEffectValue);
-                    break;
-                default:
-                    Debug.LogError("unhandle card effect type:" + effectTemplate.nType);
-                    break;
-            }
+            cardEffect.DoEffect(this, cardInstance, effectTemplate, targetInstId);
         }
 
         if (effectTemplate.nLinkId != 0)
             HandleCardEffect(cardInstance, effectTemplate.nLinkId, targetInstId);
     }
 
-    private IEnumerator DamageEnemyCoroutine(int iDmgCount, int targetInstId, CardEffectTemplate effectTemplate)
+    public IEnumerator DamageEnemyCoroutine(int iDmgCount, int targetInstId, CardEffectTemplate effectTemplate)
     {
         bool bIgnoreArmor = (effectTemplate.nType == CardEffectType.ONE_DAMAGE_IGNORE_ARMOR);
         for (int i = 0; i < iDmgCount; ++i)
@@ -486,7 +417,7 @@ public class BattleManager : IDisposable
         }
     }
 
-    private IEnumerator DamageAllEnemyCoroutine(int iDmgCount, CardEffectTemplate effectTemplate)
+    public IEnumerator DamageAllEnemyCoroutine(int iDmgCount, CardEffectTemplate effectTemplate)
     {
         bool bIgnoreArmor = (effectTemplate.nType == CardEffectType.ONE_DAMAGE_IGNORE_ARMOR);
         for (int i = 0; i < iDmgCount; ++i)

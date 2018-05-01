@@ -7,7 +7,7 @@ public class BattleModel : ModelBase
 {
     #region
     private readonly static BattleModel _inst = new BattleModel();
-    static BattleModel() { }
+    static BattleModel() { CardEffectFactory.Init(); }
     public static BattleModel Inst { get { return _inst; } }
     #endregion
 
