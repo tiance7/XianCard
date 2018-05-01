@@ -148,6 +148,11 @@ public class BattleTool
         return tipStruct;
     }
 
+    internal static int GetCardEffectCount(CardEffectTemplate effectTpl)
+    {
+        return effectTpl.iCostEffectTimes * (int)BattleModel.Inst.effectStat.consumeCost + effectTpl.iEffectCount;
+    }
+
     internal static int AdjustAttackVal(ObjectBase caster, ObjectBase target, int iVal)
     {
         // 如果目标身上有易伤，增加伤害
