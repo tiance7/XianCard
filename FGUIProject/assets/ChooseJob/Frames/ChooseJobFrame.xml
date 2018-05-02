@@ -3,6 +3,8 @@
   <controller name="cJob" exported="true" pages="0,sword,1," selected="0"/>
   <displayList>
     <text id="n0_h8c3" name="n0" xy="33,30" size="85,49" fontSize="40" text="剑修"/>
-    <component id="n1_h8c3" name="btnStart" src="h8c31" xy="635,704"/>
+    <component id="n1_h8c3" name="btnStart" src="h8c31" xy="635,704">
+      <relation target="" sidePair="center-center"/>
+    </component>
   </displayList>
 </component>
