@@ -4,6 +4,8 @@ using UnityEngine;
 
 public enum MsgType
 {
+    COMMON_MESSAGE_BEGIN = 0,  // 通用事件枚举值起始
+
     DO_ATTACK,  //进行攻击
     ATTACK_HIT,  //攻击命中
     SHOW_HIT_EFFECT, //显示受击特效

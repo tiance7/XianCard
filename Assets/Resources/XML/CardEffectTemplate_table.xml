@@ -530,6 +530,18 @@
 				<nType>4</nType>
 				<iEffectValue>1</iEffectValue>
 			</entry>
+			<entry>
+				<nId>64</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>9</nType>
+			</entry>
+			<entry>
+				<nId>65</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>9</nType>
+			</entry>
 		</g_CardEffectTemplate>
 	</LocalData>
 </LocalDatas>

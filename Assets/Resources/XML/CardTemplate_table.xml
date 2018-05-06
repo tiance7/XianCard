@@ -582,6 +582,32 @@
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>62</nEffectId>
 			</entry>
+			<entry>
+				<nId>47</nId>
+				<nJob>1</nJob>
+				<szName>巨大的剑袋</szName>
+				<iCost>1</iCost>
+				<szDesc>抽一张牌，如果抽到的是攻击牌，再次执行该效果</szDesc>
+				<nType>2</nType>
+				<nTargetType>4</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>64</nEffectId>
+				<nUpgradeId>48</nUpgradeId>
+				<bExhaust>1</bExhaust>
+			</entry>
+			<entry>
+				<nId>48</nId>
+				<nJob>1</nJob>
+				<szName>巨大的剑袋+</szName>
+				<iCost>1</iCost>
+				<szDesc>抽一张牌，如果抽到的是攻击牌，再次执行该效果</szDesc>
+				<nType>2</nType>
+				<nTargetType>4</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>65</nEffectId>
+			</entry>
 		</g_CardTemplate>
 	</LocalData>
 </LocalDatas>

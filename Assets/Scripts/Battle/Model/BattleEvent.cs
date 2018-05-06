@@ -4,6 +4,8 @@ using UnityEngine;
 
 public enum BattleEvent
 {
+    BATTLE_EVENT_BEGIN = 5000,  //战斗事件枚举起始值
+
     //卡牌
     DRAW_ONE_CARD,   //抽一张卡
     DECK_NUM_UPDATE,    //抽牌堆数量更新
