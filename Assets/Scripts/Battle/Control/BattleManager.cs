@@ -61,18 +61,56 @@ public class BattleManager : IDisposable
         {
             if (!BattleTool.IsDeckHasCard()) //如果没卡了
             {
+                if  (!BattleTool.IsUsedHasCard())
+                {
+                    yield break;
+                }
+
                 float shuffleTime = BattleTool.ShuffleDeckFromUsed();
                 yield return new WaitForSeconds(shuffleTime);
             }
-            DrawOneCard();
+            _battleModel.DrawOneCard();
             yield return new WaitForSeconds(0.2f);
         }
     }
 
-    //抽一张牌
-    private void DrawOneCard()
+    //抽牌直到抽到一张非攻击牌
+    public void SelfDrawCardUntilNotAttack()
     {
-        _battleModel.DrawOneCard();
+        if (_battleModel.selfData.HasBuff(BuffType.CAN_NOT_DRAW_CARD))
+            return;
+
+        Core.Inst.StartCoroutine(DrawCardUntilNotAttack());
+    }
+
+    private IEnumerator DrawCardUntilNotAttack()
+    {
+        CardInstance drawCardInst = null;
+        while(true)
+        {
+            if (!BattleTool.IsDeckHasCard()) //如果没卡了
+            {
+                if (!BattleTool.IsUsedHasCard())
+                {
+                    yield break;
+                }
+
+                float shuffleTime = BattleTool.ShuffleDeckFromUsed();
+                yield return new WaitForSeconds(shuffleTime);
+            }
+
+            if (BattleTool.IsHandCardFull())// 如果手牌满了
+            {
+                yield break;
+            }
+
+            drawCardInst = _battleModel.DrawOneCard();
+            if (null == drawCardInst || drawCardInst.cardType != CardType.ATTACK)
+            {
+                yield break;
+            }
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     private void OnEnemyInit(object obj)

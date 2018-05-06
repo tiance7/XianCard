@@ -17,6 +17,16 @@ public class BattleTool
         return BattleModel.Inst.GetDeckList().Count > 0;
     }
 
+    public static bool IsUsedHasCard()
+    {
+        return BattleModel.Inst.GetUsedList().Count > 0; 
+    }
+
+    public static bool IsHandCardFull()
+    {
+        return BattleModel.Inst.GetHandList().Count > BattleDefine.MAX_HAND_CARD;
+    }
+
     internal static int GetObjectInstId()
     {
         ++_objInstId;

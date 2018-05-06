@@ -58,6 +58,7 @@ public class CharModel : ModelBase
         lstInitCardId.Add(45);
         lstInitCardId.Add(17);
         lstInitCardId.Add(19);
+        lstInitCardId.Add(48);
 
         foreach (uint cardId in lstInitCardId)
         {

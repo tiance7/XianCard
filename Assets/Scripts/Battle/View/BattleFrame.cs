@@ -11,6 +11,7 @@ namespace UI.Battle
 {
     public partial class BattleFrame
     {
+        private const int UPDATE_TIME = 1; //1秒处理一次消息
         private const int CARD_WIDTH = 250; //卡牌宽度 比实际稍小 让卡牌部分重叠显示
         private const int CARD_HEIGHT = 429; //卡牌高度
         private const int TIP_RENDER_WIDTH = 268;
@@ -29,6 +30,7 @@ namespace UI.Battle
 
         //control
         private BattleManager _manager;
+        private List<KeyValuePair<int, object>> _lstMessagePool = new List<KeyValuePair<int, object>>();
 
         public override void ConstructFromResource()
         {
@@ -61,18 +63,17 @@ namespace UI.Battle
         private void InitView()
         {
             InitSelf();
-            RefreshCost();
+            RefreshCost(_battleModel.curCost, _battleModel.maxCost);
         }
 
         private void InitSelf()
         {
             ftSelf.InitFromSelf();
-            RefreshSelfArmor();
+            RefreshSelfArmor(_battleModel.selfData.armor);
         }
 
-        private void RefreshSelfArmor()
+        private void RefreshSelfArmor(int armor)
         {
-            int armor = _battleModel.selfData.armor;
             HpArmorControl armorControl = armor > 0 ? HpArmorControl.HAS : HpArmorControl.NO;
             ftSelf.pgsHp.ctrlArmor.SetSelectedIndex((int)armorControl);
             ftSelf.pgsHp.txtArmor.text = armor.ToString();
@@ -100,9 +101,9 @@ namespace UI.Battle
                 ftEnemy.pgsHp.tGetArmor.Play();
         }
 
-        private void RefreshCost()
+        private void RefreshCost(int iCurCost, int iMaxCost)
         {
-            txtCost.text = string.Format("{0}/{1}", _battleModel.curCost, _battleModel.maxCost);
+            txtCost.text = string.Format("{0}/{1}", iCurCost, iMaxCost);
             foreach (CardCom cardCom in _lstHandCard)
             {
                 cardCom.UpdateUsable();
@@ -130,6 +131,9 @@ namespace UI.Battle
             Stage.inst.onTouchMove.Add(OnTouchMove);
 
             btnEndTurn.onClick.Add(OnEndTurnClick);
+
+            _lstMessagePool.Clear();
+            TimeManager.Add(UPDATE_TIME, OnBattleUpdate, true);
 
             _battleModel.AddListener(BattleEvent.DRAW_ONE_CARD, OnDrawOneCard);
             _battleModel.AddListener(BattleEvent.MOVE_HAND_TO_USED, OnMoveHandToUsed);
@@ -194,6 +198,9 @@ namespace UI.Battle
             Message.RemoveListener(MsgType.BATTLE_WIN, OnBattleWin);
             Message.RemoveListener(MsgType.FIGHTER_ROLL_OVER, OnFighterRollOver);
             Message.RemoveListener(MsgType.FIGHTER_ROLL_OUT, OnFighterRollOut);
+
+            TimeManager.Remove(OnBattleUpdate);
+            _lstMessagePool.Clear();
         }
 
         private void AddCardEvent(CardCom cardCom)
@@ -228,6 +235,11 @@ namespace UI.Battle
             CardCom cardCom = context.sender as CardCom;
             Vector2 localPos = cardCom.parent.GlobalToLocal(Stage.inst.touchPosition);
             cardCom.SetXY(localPos.x - cardCom.width / 2, localPos.y - cardCom.height / 2);
+        }
+
+        private void OnBattleUpdate()
+        {
+
         }
 
         //尝试使用卡牌
@@ -371,12 +383,14 @@ namespace UI.Battle
 
         private void OnArmorChange(object obj)
         {
-            RefreshSelfArmor();
+            int armor = (int)obj;
+            RefreshSelfArmor(armor);
         }
 
         private void OnCostChange(object obj)
         {
-            RefreshCost();
+            CostUpdateStruct cost = obj as CostUpdateStruct;
+            RefreshCost(cost.curCost, cost.maxCost);
         }
 
         private void OnEnemyInit(object obj)
@@ -394,13 +408,10 @@ namespace UI.Battle
         private void OnEnemyHpUpdate(object obj)
         {
             HpUpdateStruct hpUpdate = obj as HpUpdateStruct;
-            EnemyInstance enemyInstance = _battleModel.GetEnemy(hpUpdate.instId);
-            if (enemyInstance == null)
-                return;
             Fighter fighter = GetFighter(hpUpdate.instId);
             if (fighter == null)
                 return;
-            fighter.UpdateHp(enemyInstance.curHp);
+            fighter.UpdateHp(hpUpdate.curHp);
             if (hpUpdate.changeValue < 0)
             {
                 fighter.ShowHitEffect();
@@ -453,9 +464,9 @@ namespace UI.Battle
 
         private void OnSelfHpUpdate(object obj)
         {
-            int reduceValue = (int)obj;
-            ftSelf.UpdateHp(_battleModel.selfData.curHp);
-            ShowFlyHpText(reduceValue, ftSelf.xy);
+            HpUpdateStruct hpStruct = obj as HpUpdateStruct;
+            ftSelf.UpdateHp(hpStruct.curHp);
+            ShowFlyHpText(hpStruct.changeValue, ftSelf.xy);
         }
 
         //显示飘血动画

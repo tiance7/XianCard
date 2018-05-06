@@ -74,7 +74,7 @@ public class BattleModel : ModelBase
     public void ReduceSelfHp(int value)
     {
         selfData.ReduceHp(value);
-        SendEvent(BattleEvent.SELF_HP_UPDATE, value);
+        SendEvent(BattleEvent.SELF_HP_UPDATE, new HpUpdateStruct(selfData.instId, value, selfData.curHp));
         if (selfData.curHp <= 0)
             SendEvent(BattleEvent.SELF_DEAD);
     }
@@ -107,7 +107,7 @@ public class BattleModel : ModelBase
 
     private void ArmorChangeHandle()
     {
-        SendEvent(BattleEvent.ARMOR_CHANGE);
+        SendEvent(BattleEvent.ARMOR_CHANGE, selfData.armor);
     }
 
     private void InitCost()
@@ -151,7 +151,7 @@ public class BattleModel : ModelBase
 
     private void CostChangeHandle()
     {
-        SendEvent(BattleEvent.COST_CHANGE);
+        SendEvent(BattleEvent.COST_CHANGE, new CostUpdateStruct(curCost, maxCost));
     }
 
     //-------------------------统计数据-------------------------
@@ -241,7 +241,7 @@ public class BattleModel : ModelBase
 
         if (enemyInstance.curHp <= 0)
             enemyInstance.curHp = 0;
-        SendEvent(BattleEvent.ENEMY_HP_UPDATE, new HpUpdateStruct(instId, -iEffectValue));
+        SendEvent(BattleEvent.ENEMY_HP_UPDATE, new HpUpdateStruct(instId, -iEffectValue, enemyInstance.curHp));
         if (enemyInstance.curHp == 0)
             SendEvent(BattleEvent.ENEMY_DEAD, instId);
     }
@@ -310,18 +310,19 @@ public class BattleModel : ModelBase
     /// <summary>
     /// 抽一张牌
     /// </summary>
-    internal void DrawOneCard()
+    internal CardInstance DrawOneCard()
     {
         CardInstance drawCard = _lstDeck[0];
         if (drawCard == null)
         {
             Debug.LogError("no card for draw!");
-            return;
+            return null;
         }
         _lstDeck.RemoveAt(0);
         SendEvent(BattleEvent.DECK_NUM_UPDATE);
         _lstHand.Add(drawCard);
         SendEvent(BattleEvent.DRAW_ONE_CARD, drawCard);
+        return drawCard;
     }
 
     /// <summary>

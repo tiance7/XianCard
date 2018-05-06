@@ -24,6 +24,7 @@ public class CardEffectFactory
         lstCardEffectBases[(int)CardEffectType.CONSUME_BUFF_GET_BUFF] = new CardEffectConsumeBuffGetBuff();
         lstCardEffectBases[(int)CardEffectType.ONE_DAMAGE_IGNORE_ARMOR] = lstCardEffectBases[(int)CardEffectType.ONE_DAMAGE];
         lstCardEffectBases[(int)CardEffectType.DAMAGE_SELF] = new CardEffectDamageSelf();
+        lstCardEffectBases[(int)CardEffectType.DRAW_CARD_UNTIL_NOTATTACK] = new CardEffectDrawCardUntilNotAttack();
 
         bInit = true;
     }
@@ -154,6 +155,16 @@ public class CardEffectDrawCard : CardEffectBase
     public override void DoEffect(BattleManager battlemgr, CardInstance cardInstance, CardEffectTemplate effectTplt, int targetInstId)
     {
         battlemgr.SelfDrawCard(effectTplt.iEffectValue);
+    }
+}
+
+public class CardEffectDrawCardUntilNotAttack : CardEffectBase
+{
+    public CardEffectDrawCardUntilNotAttack() : base() { }
+
+    public override void DoEffect(BattleManager battlemgr, CardInstance cardInstance, CardEffectTemplate effectTplt, int targetInstId)
+    {
+        battlemgr.SelfDrawCardUntilNotAttack();
     }
 }
 

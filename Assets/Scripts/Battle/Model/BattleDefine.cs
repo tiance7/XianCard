@@ -6,6 +6,7 @@ public class BattleDefine
 {
     public const float CARD_DECK_SCALE = 0.15f;   //卡牌在牌堆位置的缩放比例
     public const float CARD_SCALE = 0.7f;   //卡牌缩放比例
+    public const int MAX_HAND_CARD = 10;    //初始手牌上限
 }
 
 public enum Bout
@@ -59,11 +60,28 @@ public class HpUpdateStruct
 {
     public int instId;
     public int changeValue; //变化值 加血为正，扣血为负
+    public int curHp;       //变化后血量
 
-    public HpUpdateStruct(int instId, int changeValue)
+    public HpUpdateStruct(int instId, int changeValue, int curHp)
     {
         this.instId = instId;
         this.changeValue = changeValue;
+        this.curHp = curHp;
+    }
+}
+
+/// <summary>
+/// 费用改变结构体
+/// </summary>
+public class CostUpdateStruct
+{
+    public int curCost;
+    public int maxCost;
+
+    public CostUpdateStruct(int curCost, int maxCost)
+    {
+        this.curCost = curCost;
+        this.maxCost = maxCost;
     }
 }
 
