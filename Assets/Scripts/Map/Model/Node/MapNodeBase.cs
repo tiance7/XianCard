@@ -9,9 +9,11 @@ public class MapNodeBase
 {
     public bool isPass = false; //ÊÇ·ñÍ¨¹ý
     public MapNodeType nodeType;
+    public int nodeIndex { get; private set; }
 
-    public MapNodeBase(MapNodeType nodeType)
+    public MapNodeBase(MapNodeType nodeType, int nodeIndex)
     {
         this.nodeType = nodeType;
+        this.nodeIndex = nodeIndex;
     }
 }

@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class ShopNode : MapNodeBase
 {
-    public ShopNode() : base(MapNodeType.SHOP)
+    public ShopNode(int nodeIndex) : base(MapNodeType.SHOP, nodeIndex)
     {
     }
 }

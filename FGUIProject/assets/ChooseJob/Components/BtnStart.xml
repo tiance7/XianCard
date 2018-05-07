@@ -2,7 +2,7 @@
 <component size="169,68" extention="Button">
   <displayList>
     <graph id="n1_h8c3" name="n1" xy="0,0" size="169,68" type="rect"/>
-    <text id="n0_h8c3" name="n0" xy="52,14" size="65,39" fontSize="30" text="开始">
+    <text id="n0_h8c3" name="n0" xy="52,14" size="65,39" fontSize="30" text="选择">
       <relation target="" sidePair="center-center"/>
     </text>
   </displayList>

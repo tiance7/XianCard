@@ -7,12 +7,27 @@ namespace UI.Map
 {
     public partial class MapNodeCom
     {
+
         public MapNodeBase nodeData { get; private set; }
+        private bool _canEnter; //节点是否可以进入
 
         internal void SetNodeData(MapNodeBase nodeData)
         {
             this.nodeData = nodeData;
             InitView();
+        }
+
+        /// <summary>
+        /// 设置节点是否可以进入
+        /// </summary>
+        /// <param name="canEnter"></param>
+        public void SetCanEnter(bool canEnter)
+        {
+            _canEnter = canEnter;
+            if (_canEnter)
+                tCanEnter.Play();
+            else
+                tCanEnter.Stop();
         }
 
         private void InitView()

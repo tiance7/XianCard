@@ -9,8 +9,7 @@ namespace UI.Map
 {
     public partial class MapFrame
     {
-        private List<GComponent> _lstMapNodeCom = new List<GComponent>();
-        //private Dictionary<string, MapNodeCom> _dicMapNode = new Dictionary<string, MapNodeCom>();
+        private Dictionary<string, MapNodeCom> _dicNodeCom = new Dictionary<string, MapNodeCom>();
 
         public override void ConstructFromResource()
         {
@@ -20,37 +19,21 @@ namespace UI.Map
             InitControl();
         }
 
+        public override void Dispose()
+        {
+            ReleaseControl();
+            base.Dispose();
+        }
+
         private void InitView()
         {
-            //todo 随机生成多条路径
-            //var lstNode = MapModel.Inst.GetCurrentLayerMapNodes();
-            //for (int i = 0; i < MapModel.NODE_NUM; i++)
-            //{
-            //    var node = lstNode[i];
-            //    IMapNode comNode = GetNodeCom(node);
-            //    if (comNode == null)
-            //        continue;
-            //    comNode.SetNode(node);
-            //    GComponent gcNode = comNode as GComponent;
-            //    gcNode.SetXY(node.posX, node.posY);
-            //    comMap.AddChild(gcNode);
-            //    _lstMapNodeCom.Add(gcNode);
-            //}
-
             //随机生成地图块
             GenerateRandomBlock();
-
-            //todo 划线连接
+            UpdateCanEnterNode();
         }
 
         private void GenerateRandomBlock()
         {
-            //var lstBlock = MapModel.Inst.GetBlockCom();
-            //int index = UnityEngine.Random.Range(0, lstBlock.Count);
-            //Type typeBlock = lstBlock[index];
-            //var method = typeBlock.GetMethod("CreateInstance", BindingFlags.Public | BindingFlags.Static);
-            //GComponent mapBlock = method.Invoke(null, null) as GComponent;
-
             MapModel mapModel = MapModel.Inst;
             GComponent mapBlock = mapModel.GetCurrentBlockCom();
             AddChildAt(mapBlock, 1);    //要在TopFrame下面
@@ -70,28 +53,18 @@ namespace UI.Map
                 }
                 childNode.SetNodeData(nodeData);
                 childNode.onClick.Add(OnNodeClick);
-            }
 
-            //string data = mapBlock.packageItem.componentData.GetAttribute("customData");
-            //var lstRoad = data.Split('\r');
-            //var lstMapNodes = MapModel.Inst.GetCurrentLayerMapNodes();
-            //foreach (var strRoad in lstRoad)
-            //{
-            //    var lstPointIndex = strRoad.Split(',');
-            //    foreach (string pointIndex in lstPointIndex)
-            //    {
-            //        if (_dicMapNode.ContainsKey(pointIndex))
-            //            continue;
-            //        int iPointIndex;
-            //        int.TryParse(pointIndex, out iPointIndex);
-            //        //todo 这里parse点索引的方式不正确，还需要再修改地图数据的生成方式
-            //        MapNodeBase nodeBase = lstMapNodes[iPointIndex];
-            //        MapNodeCom mapNodeCom = mapBlock.GetChild("node" + pointIndex) as MapNodeCom;
-            //        mapNodeCom.SetNodeData(nodeBase);
-            //        mapNodeCom.onClick.Add(OnNodeClick);
-            //        _dicMapNode.Add(pointIndex, mapNodeCom);
-            //    }
-            //}
+                _dicNodeCom.Add(strIndex, childNode);
+            }
+        }
+
+        //根据索引获取节点控件
+        private MapNodeCom GetNodeCom(int nodeIndex)
+        {
+            string strIndex = nodeIndex.ToString();
+            if (_dicNodeCom.ContainsKey(strIndex))
+                return _dicNodeCom[strIndex];
+            return null;
         }
 
         private void OnNodeClick(EventContext context)
@@ -110,7 +83,7 @@ namespace UI.Map
         }
 
         //根据节点类型创建不同的显示对象
-        private IMapNode GetNodeCom(MapNodeBase node)
+        private IMapNode CreateNodeCom(MapNodeBase node)
         {
             if (node is NormalEnemyNode)
                 return EnemyCom.CreateInstance();
@@ -118,24 +91,73 @@ namespace UI.Map
             return null;
         }
 
-        private void InitControl()
+        //更新可进入的节点
+        private void UpdateCanEnterNode()
         {
-            //foreach (var nodeCom in _lstMapNodeCom)
-            //{
-            //    nodeCom.onClick.Add(OnMapNodeClick);
-            //}
+            MapNodeBase lastEnterNode = MapModel.Inst.enterNode;
+            List<int> lstCanEnterIndex;
+            if (lastEnterNode == null)   //如果还没有进入过节点
+                lstCanEnterIndex = new List<int>() { 1 };
+            else
+                lstCanEnterIndex = GetNextCanEnterIndexList(lastEnterNode.nodeIndex);
+
+            SetAllNodeNotEnter();
+            foreach (int canEnterIndex in lstCanEnterIndex)
+            {
+                MapNodeCom nodeCom = GetNodeCom(canEnterIndex);
+                if (nodeCom == null)
+                {
+                    Debug.LogError("can't find note:" + canEnterIndex);
+                    continue;
+                }
+                nodeCom.SetCanEnter(true);
+            }
         }
 
-        //private void OnMapNodeClick(EventContext context)
-        //{
-        //    //todo 不同节点类型不同处理方式
-        //    IMapNode mapNode = context.sender as IMapNode;
-        //    var clickNode = mapNode.GetNode();
-        //    MapModel.Inst.SetEnterNode(clickNode);
-        //    if (clickNode is EnemyNode)
-        //        SceneManager.LoadScene(SceneName.BATTLE);
-        //    else
-        //        Debug.LogError("unhandle click node:" + clickNode.GetType());
-        //}
+        //获取可进入的下个节点的列表
+        private List<int> GetNextCanEnterIndexList(int nodeIndex)
+        {
+            List<int> lstNextEnterIndex = new List<int>();
+            foreach (List<int> lstBlockRoad in MapModel.Inst.lstOfLstBlockRoad)
+            {
+                int roadLength = lstBlockRoad.Count;
+                for (int i = 0; i < roadLength - 1; i++)
+                {
+                    if (lstBlockRoad[i] != nodeIndex)
+                        continue;
+                    lstNextEnterIndex.Add(nodeIndex);
+                    break;
+                }
+            }
+            return lstNextEnterIndex;
+        }
+
+        //设置所有节点为不可进入状态
+        private void SetAllNodeNotEnter()
+        {
+            GComponent mapBlock = MapModel.Inst.GetCurrentBlockCom();
+            foreach (var child in mapBlock.GetChildren())
+            {
+                MapNodeCom childNode = child as MapNodeCom;
+                if (childNode != null)
+                    childNode.SetCanEnter(false);
+            }
+        }
+
+
+        private void InitControl()
+        {
+            MapModel.Inst.AddListener(MapEvent.ENTER_NODE_UPDATE, OnEnterNodeUpdate);
+        }
+
+        private void ReleaseControl()
+        {
+            MapModel.Inst.RemoveListener(MapEvent.ENTER_NODE_UPDATE, OnEnterNodeUpdate);
+        }
+
+        private void OnEnterNodeUpdate(object obj)
+        {
+            UpdateCanEnterNode();
+        }
     }
 }

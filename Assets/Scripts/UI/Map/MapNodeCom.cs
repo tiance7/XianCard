@@ -9,6 +9,7 @@ namespace UI.Map
 	{
 		public Controller cType;
 		public Controller cPass;
+		public Transition tCanEnter;
 
 		public const string URL = "ui://9zqi84sykp7y7";
 
@@ -27,6 +28,7 @@ namespace UI.Map
 
 			cType = this.GetController("cType");
 			cPass = this.GetController("cPass");
+			tCanEnter = this.GetTransition("tCanEnter");
 		}
 	}
 }

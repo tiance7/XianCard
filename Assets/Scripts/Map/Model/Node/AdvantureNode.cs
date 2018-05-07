@@ -7,7 +7,7 @@ using UnityEngine;
 /// </summary>
 public class AdvantureNode : MapNodeBase
 {
-    public AdvantureNode() : base(MapNodeType.ADVANTURE)
+    public AdvantureNode(int nodeIndex) : base(MapNodeType.ADVANTURE, nodeIndex)
     {
     }
 }

@@ -31,6 +31,7 @@ public class MapModel : ModelBase
 
     private List<Type> _lstBlockType;
     private List<GComponent> _lstBlockCom;
+    public List<List<int>> lstOfLstBlockRoad = new List<List<int>>();   //地图块的路线列表
     private Dictionary<string, MapNodeBase> _dicMapNode = new Dictionary<string, MapNodeBase>();
     private int _leftBoxNum;    //剩余可生成节点的数量
     private int _leftShopNum;
@@ -59,6 +60,7 @@ public class MapModel : ModelBase
         _leftBoxNum = 6;
         _leftShopNum = 6;
         _leftElitNum = 12;
+        lstOfLstBlockRoad.Clear();
 
         //生成具体数据
         _lstBlockCom = new List<GComponent>();
@@ -78,6 +80,7 @@ public class MapModel : ModelBase
             {
                 string[] lstPointIndex = strRoad.Split(',');
                 int roadCount = lstPointIndex.Length;
+                List<int> lstBlockRoad = new List<int>();
                 for (int blockStep = 0; blockStep < roadCount; blockStep++)
                 {
                     string strPointIndex = lstPointIndex[blockStep];
@@ -85,9 +88,13 @@ public class MapModel : ModelBase
                     if (_dicMapNode.ContainsKey(nodeKey))
                         continue;
                     int step = i * STEP_PER_BLOCK + blockStep + 1;
-                    MapNodeBase nodeBase = GetRandomNode(step);
+                    int nodeIndex;
+                    int.TryParse(strPointIndex, out nodeIndex);
+                    lstBlockRoad.Add(nodeIndex);
+                    MapNodeBase nodeBase = GetRandomNode(step, nodeIndex);
                     _dicMapNode.Add(nodeKey, nodeBase);
                 }
+                lstOfLstBlockRoad.Add(lstBlockRoad);
             }
         }
     }
@@ -111,10 +118,10 @@ public class MapModel : ModelBase
     }
 
     //根据步数随机生成节点
-    private MapNodeBase GetRandomNode(int step)
+    private MapNodeBase GetRandomNode(int step, int nodeIndex)
     {
         if (step == 1)  //第一个节点是普通怪
-            return GetMapNode(MapNodeType.NORMAL_ENEMY);
+            return GetMapNode(MapNodeType.NORMAL_ENEMY, nodeIndex);
 
         List<MapNodeType> lstNodeType;
         if (step <= 5)  //前5个节点只会是普通怪或者奇遇
@@ -130,7 +137,7 @@ public class MapModel : ModelBase
         }
 
         MapNodeType nodeType = GetRandomNodeType(lstNodeType);
-        return GetMapNode(nodeType);
+        return GetMapNode(nodeType, nodeIndex);
     }
 
     //尝试加入节点类型
@@ -221,20 +228,20 @@ public class MapModel : ModelBase
     }
 
     //获取地图节点
-    private MapNodeBase GetMapNode(MapNodeType nodeType)
+    private MapNodeBase GetMapNode(MapNodeType nodeType, int nodeIndex)
     {
         switch (nodeType)
         {
             case MapNodeType.NORMAL_ENEMY:
-                return new NormalEnemyNode(1);  //todo 随机普通怪ID
+                return new NormalEnemyNode(nodeIndex, 1);  //todo 随机普通怪ID
             case MapNodeType.ELITE:
-                return new EliteNode(1);  //todo 随机精英怪ID
+                return new EliteNode(nodeIndex, 1);  //todo 随机精英怪ID
             case MapNodeType.ADVANTURE:
-                return new AdvantureNode();
+                return new AdvantureNode(nodeIndex);
             case MapNodeType.SHOP:
-                return new ShopNode();
+                return new ShopNode(nodeIndex);
             case MapNodeType.BOX:
-                return new BoxNode();
+                return new BoxNode(nodeIndex);
             default:
                 Debug.LogError("unhandle map node:" + nodeType);
                 break;
@@ -243,21 +250,12 @@ public class MapModel : ModelBase
     }
 
     /// <summary>
-    /// 获取当前层次的地图节点列表
-    /// </summary>
-    /// <param name="layerIndex"></param>
-    /// <returns></returns>
-    //public List<MapNodeBase> GetCurrentLayerMapNodes()
-    //{
-    //    return _lstOfLstMapNode[_currentLayerIndex];
-    //}
-
-    /// <summary>
     /// 设置进入的节点
     /// </summary>
     /// <param name="enterNode"></param>
     internal void SetEnterNode(MapNodeBase enterNode)
     {
         this.enterNode = enterNode;
+        SendEvent(MapEvent.ENTER_NODE_UPDATE);
     }
 }
