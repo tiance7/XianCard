@@ -66,6 +66,13 @@ public class CardEffectBase
                 return false;
             case CardEffectTrigType.SELF_HAS_BUFF_TYPE:
                 return battleModel.selfData.HasBuff(effectTplt.iTrigVal);
+            case CardEffectTrigType.PRE_EFFECT_DRAW_CARD_TYPE_ATTACK:
+                List<CardInstance> lstDrawCard = battleModel.effectStat.lstDrawCard;
+                if (lstDrawCard.Count > 0 && lstDrawCard[lstDrawCard.Count-1].cardType == CardType.ATTACK)
+                {
+                    return true;
+                }
+                return false;
             default:
                 Debug.LogError("unhandle card EffectTrigType:" + effectTplt.iEffectTrigType);
                 break;
@@ -154,7 +161,7 @@ public class CardEffectDrawCard : CardEffectBase
 
     public override void DoEffect(BattleManager battlemgr, CardInstance cardInstance, CardEffectTemplate effectTplt, int targetInstId)
     {
-        battlemgr.SelfDrawCard(effectTplt.iEffectValue);
+        battlemgr.SelfDrawCard(effectTplt.iEffectValue, false);
     }
 }
 
