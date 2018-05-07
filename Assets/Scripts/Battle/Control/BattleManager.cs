@@ -47,15 +47,15 @@ public class BattleManager : IDisposable
     }
 
     //自己抽牌
-    public void SelfDrawCard(int drawNum)
+    public void SelfDrawCard(int drawNum, bool bRoundStarDraw)
     {
         if (_battleModel.selfData.HasBuff(BuffType.CAN_NOT_DRAW_CARD))
             return;
-        Core.Inst.StartCoroutine(DrawCard(drawNum));
+        Core.Inst.StartCoroutine(DrawCard(drawNum, bRoundStarDraw));
     }
 
     //抽多张牌
-    private IEnumerator DrawCard(int drawNum)
+    private IEnumerator DrawCard(int drawNum, bool bRoundStartDraw)
     {
         for (int i = 0; i < drawNum; i++)
         {
@@ -69,7 +69,7 @@ public class BattleManager : IDisposable
                 float shuffleTime = BattleTool.ShuffleDeckFromUsed();
                 yield return new WaitForSeconds(shuffleTime);
             }
-            _battleModel.DrawOneCard();
+            _battleModel.DrawOneCard(bRoundStartDraw);
             yield return new WaitForSeconds(0.2f);
         }
     }
@@ -104,7 +104,7 @@ public class BattleManager : IDisposable
                 yield break;
             }
 
-            drawCardInst = _battleModel.DrawOneCard();
+            drawCardInst = _battleModel.DrawOneCard(false);
             if (null == drawCardInst || drawCardInst.cardType != CardType.ATTACK)
             {
                 yield break;
@@ -141,7 +141,7 @@ public class BattleManager : IDisposable
 
     private void SelfBoutStartHandle()
     {
-        SelfDrawCard(5);
+        SelfDrawCard(5, true);
         _battleModel.RecoverCost();
         if (!_battleModel.selfData.HasBuff(BuffType.KEEP_ARMOR))
             _battleModel.UpdateArmor(_battleModel.selfData, 0);
@@ -398,7 +398,7 @@ public class BattleManager : IDisposable
 
         HandleCardEffect(cardInstance, template.nEffectId, targetInstId);
 
-        _battleModel.roundStat.lstUsedCardId.Add(cardInstance.tplId);
+        _battleModel.roundStat.lstUsedCard.Add(cardInstance.Clone());
         _battleModel.battleStat.useCardCount += 1;
 
         //处理卡牌去向

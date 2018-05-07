@@ -8,8 +8,8 @@ using UnityEngine;
 /// </summary>
 public class EffectStatistics
 {
-    public List<uint> lstExhaustCardId = new List<uint>();      //被消耗的卡牌列表
-    public List<uint> lstDrawCardId = new List<uint>();         //被抽到的卡牌列表
+    public List<CardInstance> lstExhaustCard = new List<CardInstance>();      //被消耗的卡牌列表
+    public List<CardInstance> lstDrawCard = new List<CardInstance>();         //被抽到的卡牌列表
     public uint damageLife;                                     //(对敌方)伤害生命值
     public uint damageArmor;                                    //(对敌方)消耗护甲值
     public uint getCostCount;                                   //获得能量数
@@ -36,9 +36,9 @@ public class RoundStatistics
     public uint consumeCost;                                    //消耗的能量
     public uint damageLife;                                     //(对敌方)伤害生命值
     public uint damageArmor;                                    //(对敌方)消耗护甲值
-    public List<uint> lstUsedCardId = new List<uint>();         //打出的卡牌列表
-    public List<uint> lstExhaustCardId = new List<uint>();      //被消耗的卡牌列表
-    public List<uint> lstDrawCardId = new List<uint>();         //被抽到的卡牌列表
+    public List<CardInstance> lstUsedCard = new List<CardInstance>();     //打出的卡牌列表
+    public List<CardInstance> lstExhaustCard = new List<CardInstance>();  //被消耗的卡牌列表
+    public List<CardInstance> lstDrawCard = new List<CardInstance>();     //被抽到的卡牌列表
 
     public RoundStatistics()
     {

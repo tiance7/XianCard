@@ -505,32 +505,6 @@
 				<bExhaust>1</bExhaust>
 			</entry>
 			<entry>
-				<nId>41</nId>
-				<nJob>1</nJob>
-				<szName>万剑归宗</szName>
-				<iCost>1</iCost>
-				<szDesc>抽牌，直到抽到的牌不是攻击牌,消耗</szDesc>
-				<nType>2</nType>
-				<nTargetType>4</nTargetType>
-				<nCardUseType>0</nCardUseType>
-				<nUseTypeParam>0</nUseTypeParam>
-				<nEffectId>57</nEffectId>
-				<nUpgradeId>42</nUpgradeId>
-				<bExhaust>1</bExhaust>
-			</entry>
-			<entry>
-				<nId>42</nId>
-				<nJob>1</nJob>
-				<szName>万剑归宗+</szName>
-				<iCost>1</iCost>
-				<szDesc>抽牌，直到抽到的牌不是攻击牌</szDesc>
-				<nType>2</nType>
-				<nTargetType>4</nTargetType>
-				<nCardUseType>0</nCardUseType>
-				<nUseTypeParam>0</nUseTypeParam>
-				<nEffectId>57</nEffectId>
-			</entry>
-			<entry>
 				<nId>43</nId>
 				<nJob>1</nJob>
 				<szName>炼气凝神</szName>
@@ -607,6 +581,31 @@
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>65</nEffectId>
+			</entry>
+			<entry>
+				<nId>49</nId>
+				<nJob>1</nJob>
+				<szName>快剑诀</szName>
+				<iCost>1</iCost>
+				<szDesc>造成4点伤害，抽一张牌，如果抽到的是攻击牌，获得1费</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>66</nEffectId>
+				<nUpgradeId>50</nUpgradeId>
+			</entry>
+			<entry>
+				<nId>50</nId>
+				<nJob>1</nJob>
+				<szName>快剑诀+</szName>
+				<iCost>1</iCost>
+				<szDesc>造成7点伤害，抽一张牌，如果抽到的是攻击牌，获得1费</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>69</nEffectId>
 			</entry>
 		</g_CardTemplate>
 	</LocalData>

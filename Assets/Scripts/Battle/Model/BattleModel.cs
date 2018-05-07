@@ -310,7 +310,7 @@ public class BattleModel : ModelBase
     /// <summary>
     /// 抽一张牌
     /// </summary>
-    internal CardInstance DrawOneCard()
+    internal CardInstance DrawOneCard(bool bRoundStartDraw)
     {
         CardInstance drawCard = _lstDeck[0];
         if (drawCard == null)
@@ -322,6 +322,14 @@ public class BattleModel : ModelBase
         SendEvent(BattleEvent.DECK_NUM_UPDATE);
         _lstHand.Add(drawCard);
         SendEvent(BattleEvent.DRAW_ONE_CARD, drawCard);
+
+        if (!bRoundStartDraw)
+        {
+            CardInstance cloneCard = drawCard.Clone();
+            effectStat.lstDrawCard.Add(cloneCard);
+            roundStat.lstDrawCard.Add(cloneCard);
+        }
+
         return drawCard;
     }
 
