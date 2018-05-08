@@ -192,6 +192,11 @@ public class BattleManager : IDisposable
             if (template == null)
                 continue;
 
+            if (template.nType == BuffType.GET_BUFF_ROUND_START)
+            {
+                _battleModel.AddBuff(targetObj, targetObj, (uint)template.iEffectB, buffInst.effectVal);
+            }
+
             if (buffInst.leftBout != -1)
             {
                 //Debug.LogError("DecBuffLeftBout" + buffInst.leftBout);
