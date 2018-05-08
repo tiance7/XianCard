@@ -52,15 +52,16 @@ public class CharModel : ModelBase
         lstInitCardId.Add(35);   //todo 测试用
         lstInitCardId.Add(37);   //todo 测试用
         lstInitCardId.Add(40);
-        lstInitCardId.Add(43);
-        lstInitCardId.Add(44);
-        lstInitCardId.Add(46);
+        lstInitCardId.Add(41);
+        lstInitCardId.Add(41);
+        lstInitCardId.Add(41);
         lstInitCardId.Add(45);
         lstInitCardId.Add(17);
         lstInitCardId.Add(19);
         lstInitCardId.Add(48);
         lstInitCardId.Add(49);
         lstInitCardId.Add(50);
+        lstInitCardId.Add(41);
 
         foreach (uint cardId in lstInitCardId)
         {

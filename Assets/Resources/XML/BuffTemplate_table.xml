@@ -111,6 +111,16 @@
 				<iBout>1</iBout>
 				<szImg>buff_lianqi</szImg>
 			</entry>
+			<entry>
+				<nId>12</nId>
+				<szName>幻剑天引</szName>
+				<szDesc>回合开始时，获得1把幻剑</szDesc>
+				<nType>10</nType>
+				<nTrigger>3</nTrigger>
+				<iEffectA>1</iEffectA>
+				<iEffectB>6</iEffectB>
+				<iBout>-1</iBout>
+			</entry>
 		</g_BuffTemplate>
 	</LocalData>
 </LocalDatas>

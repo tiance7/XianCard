@@ -140,7 +140,7 @@ public class BattleModel : ModelBase
             BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
             if (template == null)
                 continue;
-            if (template.nType == BuffType.GET_ENERGY)
+            if (template.nType == BuffType.GET_ENERGY_ROUND_START)
             {
                 curCost += buffInst.effectVal;
             }

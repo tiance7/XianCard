@@ -474,6 +474,14 @@
 				<iEffectValue>2</iEffectValue>
 			</entry>
 			<entry>
+				<nId>57</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>3</nType>
+				<iEffectValue>12</iEffectValue>
+				<iEffectCount>2</iEffectCount>
+			</entry>
+			<entry>
 				<nId>58</nId>
 				<iEffectTrigType>0</iEffectTrigType>
 				<nTarget>4</nTarget>
