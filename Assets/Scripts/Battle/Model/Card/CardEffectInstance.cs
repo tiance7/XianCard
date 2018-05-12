@@ -25,6 +25,9 @@ public class CardEffectFactory
         lstCardEffectBases[(int)CardEffectType.ONE_DAMAGE_IGNORE_ARMOR] = lstCardEffectBases[(int)CardEffectType.ONE_DAMAGE];
         lstCardEffectBases[(int)CardEffectType.DAMAGE_SELF] = new CardEffectDamageSelf();
         lstCardEffectBases[(int)CardEffectType.DRAW_CARD_UNTIL_NOTATTACK] = new CardEffectDrawCardUntilNotAttack();
+        lstCardEffectBases[(int)CardEffectType.ARMOR_DAMAGE] = new CardEffectArmorDamage();
+        lstCardEffectBases[(int)CardEffectType.CLEAR_SELF_ARMOR] = new CardEffectClearSelfArmor();
+        lstCardEffectBases[(int)CardEffectType.RECOVER_HP_BY_DAMAGE] = new CardEffectRecoverHpByDamage();
 
         bInit = true;
     }
@@ -73,6 +76,12 @@ public class CardEffectBase
                     return true;
                 }
                 return false;
+            case CardEffectTrigType.PRE_EFFECT_KILL_ENEMY:
+                if (battleModel.effectStat.killEnemy)
+                {
+                    return true;
+                }
+                return false;
             default:
                 Debug.LogError("unhandle card EffectTrigType:" + effectTplt.iEffectTrigType);
                 break;
@@ -93,6 +102,28 @@ public class CardEffectBase
 public class CardEffectOneDamage : CardEffectBase
 {
     public CardEffectOneDamage() : base(){}
+
+    public override void DoEffect(BattleManager battlemgr, CardInstance cardInstance, CardEffectTemplate effectTplt, int targetInstId)
+    {
+        BattleModel battleModel = BattleModel.Inst;
+
+        if (effectTplt.nTarget == CardEffectTargetType.ONE_ENEMY)
+        {
+            int iDmgCount = BattleTool.GetCardEffectCount(effectTplt);
+            Core.Inst.StartCoroutine(battlemgr.DamageEnemyCoroutine(iDmgCount, targetInstId, effectTplt));
+        }
+        else if (effectTplt.nTarget == CardEffectTargetType.ALL_ENEMY)
+        {
+            int iDmgCount = BattleTool.GetCardEffectCount(effectTplt);
+            Core.Inst.StartCoroutine(battlemgr.DamageAllEnemyCoroutine(iDmgCount, effectTplt));
+        }
+        return;
+    }
+}
+
+public class CardEffectArmorDamage : CardEffectBase
+{
+    public CardEffectArmorDamage() : base() { }
 
     public override void DoEffect(BattleManager battlemgr, CardInstance cardInstance, CardEffectTemplate effectTplt, int targetInstId)
     {
@@ -214,5 +245,32 @@ public class CardEffectDamageSelf : CardEffectBase
     {
         BattleModel battleModel = BattleModel.Inst;
         battleModel.ReduceSelfHp(effectTplt.iEffectValue);
+    }
+}
+
+public class CardEffectClearSelfArmor : CardEffectBase
+{
+    public CardEffectClearSelfArmor() : base() { }
+
+    public override void DoEffect(BattleManager battlemgr, CardInstance cardInstance, CardEffectTemplate effectTplt, int targetInstId)
+    {
+        BattleModel battleModel = BattleModel.Inst;
+        battleModel.UpdateArmor(battleModel.selfData, 0);
+    }
+}
+
+public class CardEffectRecoverHpByDamage : CardEffectBase
+{
+    public CardEffectRecoverHpByDamage() : base() { }
+
+    public override void DoEffect(BattleManager battlemgr, CardInstance cardInstance, CardEffectTemplate effectTplt, int targetInstId)
+    {
+        BattleModel battleModel = BattleModel.Inst;
+
+        int iEffectDamage = (int)battleModel.effectStat.damageLife + (int)battleModel.effectStat.damageArmor;
+        if (iEffectDamage > 0)
+        {
+            battleModel.AddSelfHp(iEffectDamage);
+        }
     }
 }

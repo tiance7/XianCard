@@ -10,6 +10,7 @@ public class EffectStatistics
 {
     public List<CardInstance> lstExhaustCard = new List<CardInstance>();      //被消耗的卡牌列表
     public List<CardInstance> lstDrawCard = new List<CardInstance>();         //被抽到的卡牌列表
+    public bool killEnemy;                                      //是否击杀敌方
     public uint damageLife;                                     //(对敌方)伤害生命值
     public uint damageArmor;                                    //(对敌方)消耗护甲值
     public uint getCostCount;                                   //获得能量数

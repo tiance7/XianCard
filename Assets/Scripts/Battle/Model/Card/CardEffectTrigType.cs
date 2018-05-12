@@ -7,6 +7,7 @@ public class CardEffectTrigType
     public const uint NONE = 0;                                             //没有触发条件
     public const uint PRE_EFFECT_CONSUME_CARD_TYPE = 1;                     //前置效果中消耗了指定类型的卡牌
     public const uint PRE_EFFECT_DRAW_CARD_TYPE_ATTACK = 2;                 //前置效果中抽到攻击卡牌
+    public const uint PRE_EFFECT_KILL_ENEMY = 3;                            //前置效果击杀了目标
 
     public const uint DROP_CARD_IN_ROUND = 8;                               //当前回合内有过弃牌
     public const uint EXHAUST_CARD_IN_ROUND = 9;                            //当前回合内有消耗牌

@@ -14,5 +14,8 @@ public class CardEffectType
     public const uint ONE_DAMAGE_IGNORE_ARMOR = 7;      //无视护甲，造成1次伤害
     public const uint DAMAGE_SELF = 8;                  //对自身造成伤害
     public const uint DRAW_CARD_UNTIL_NOTATTACK = 9;    //抽牌，直到抽到的牌不是攻击牌
-    public const uint CARD_EFFECT_MAX = 10;
+    public const uint ARMOR_DAMAGE = 10;                //造成与护甲值相同的伤害
+    public const uint CLEAR_SELF_ARMOR = 11;            //清除自身所有护甲
+    public const uint RECOVER_HP_BY_DAMAGE = 12;        //根据伤害值回复血量
+    public const uint CARD_EFFECT_MAX = 13;
 }

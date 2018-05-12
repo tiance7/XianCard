@@ -586,7 +586,7 @@
 				<nJob>1</nJob>
 				<szName>巨大的剑袋</szName>
 				<iCost>1</iCost>
-				<szDesc>抽一张牌，如果抽到的是攻击牌，再次执行该效果</szDesc>
+				<szDesc>抽一张牌，如果抽到的是攻击牌，再次执行该效果，消耗</szDesc>
 				<nType>2</nType>
 				<nTargetType>4</nTargetType>
 				<nCardUseType>0</nCardUseType>
@@ -631,6 +631,58 @@
 				<nCardUseType>0</nCardUseType>
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>69</nEffectId>
+			</entry>
+			<entry>
+				<nId>51</nId>
+				<nJob>1</nJob>
+				<szName>千方残光剑</szName>
+				<iCost>1</iCost>
+				<szDesc>造成与护甲值相同的伤害，并清所有护甲</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>72</nEffectId>
+				<nUpgradeId>52</nUpgradeId>
+			</entry>
+			<entry>
+				<nId>52</nId>
+				<nJob>1</nJob>
+				<szName>千方残光剑+</szName>
+				<iCost>0</iCost>
+				<szDesc>造成与护甲值相同的伤害，并清所有护甲</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>72</nEffectId>
+			</entry>
+			<entry>
+				<nId>53</nId>
+				<nJob>1</nJob>
+				<szName>戾血剑</szName>
+				<iCost>1</iCost>
+				<szDesc>造成7点伤害，如果敌方被击杀，回复造成伤害值的生命，消耗</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>74</nEffectId>
+				<nUpgradeId>54</nUpgradeId>
+				<bExhaust>1</bExhaust>
+			</entry>
+			<entry>
+				<nId>54</nId>
+				<nJob>1</nJob>
+				<szName>戾血剑+</szName>
+				<iCost>1</iCost>
+				<szDesc>造成9点伤害，如果敌方被击杀，回复造成伤害值的生命，消耗</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>76</nEffectId>
+				<bExhaust>1</bExhaust>
 			</entry>
 		</g_CardTemplate>
 	</LocalData>
