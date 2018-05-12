@@ -74,9 +74,19 @@ public class BattleModel : ModelBase
     public void ReduceSelfHp(int value)
     {
         selfData.ReduceHp(value);
-        SendEvent(BattleEvent.SELF_HP_UPDATE, new HpUpdateStruct(selfData.instId, value, selfData.curHp));
+        SendEvent(BattleEvent.SELF_HP_UPDATE, new HpUpdateStruct(selfData.instId, -value, selfData.curHp));
         if (selfData.curHp <= 0)
             SendEvent(BattleEvent.SELF_DEAD);
+    }
+
+    /// <summary>
+    /// 增加自身血量
+    /// </summary>
+    /// <param name="value"></param>
+    public void AddSelfHp(int value)
+    {
+        selfData.ReduceHp(-value);
+        SendEvent(BattleEvent.SELF_HP_UPDATE, new HpUpdateStruct(selfData.instId, value, selfData.curHp));
     }
 
     /// <summary>
@@ -240,10 +250,15 @@ public class BattleModel : ModelBase
         roundStat.damageLife += (uint)iEffectValue;
 
         if (enemyInstance.curHp <= 0)
+        {
             enemyInstance.curHp = 0;
+        }
         SendEvent(BattleEvent.ENEMY_HP_UPDATE, new HpUpdateStruct(instId, -iEffectValue, enemyInstance.curHp));
         if (enemyInstance.curHp == 0)
+        {
+            effectStat.killEnemy = true;
             SendEvent(BattleEvent.ENEMY_DEAD, instId);
+        }
     }
 
     /// <summary>

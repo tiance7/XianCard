@@ -452,22 +452,34 @@ public class BattleManager : IDisposable
 
     public IEnumerator DamageEnemyCoroutine(int iDmgCount, int targetInstId, CardEffectTemplate effectTemplate)
     {
+        int iEffectVal = effectTemplate.iEffectValue;
+        if (effectTemplate.nType == CardEffectType.ARMOR_DAMAGE)
+        {
+            iEffectVal = _battleModel.selfData.armor; //当前护甲值
+        }
+
         bool bIgnoreArmor = (effectTemplate.nType == CardEffectType.ONE_DAMAGE_IGNORE_ARMOR);
         for (int i = 0; i < iDmgCount; ++i)
         {
-            DamageEnemy(targetInstId, effectTemplate.iEffectValue, bIgnoreArmor);
+            DamageEnemy(targetInstId, iEffectVal, bIgnoreArmor);
             yield return new WaitForSeconds(0.2f);
         }
     }
 
     public IEnumerator DamageAllEnemyCoroutine(int iDmgCount, CardEffectTemplate effectTemplate)
     {
+        int iEffectVal = effectTemplate.iEffectValue;
+        if (effectTemplate.nType == CardEffectType.ARMOR_DAMAGE)
+        {
+            iEffectVal = _battleModel.selfData.armor; //当前护甲值
+        }
+
         bool bIgnoreArmor = (effectTemplate.nType == CardEffectType.ONE_DAMAGE_IGNORE_ARMOR);
         for (int i = 0; i < iDmgCount; ++i)
         {
             foreach (KeyValuePair<int, EnemyInstance> pair in _battleModel.GetEnemys())
             {
-                DamageEnemy(pair.Value.instId, effectTemplate.iEffectValue, bIgnoreArmor);
+                DamageEnemy(pair.Value.instId, iEffectVal, bIgnoreArmor);
             }
             yield return new WaitForSeconds(0.2f);
         }
