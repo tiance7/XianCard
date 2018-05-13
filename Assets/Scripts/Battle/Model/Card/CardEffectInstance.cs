@@ -28,6 +28,7 @@ public class CardEffectFactory
         lstCardEffectBases[(int)CardEffectType.ARMOR_DAMAGE] = new CardEffectArmorDamage();
         lstCardEffectBases[(int)CardEffectType.CLEAR_SELF_ARMOR] = new CardEffectClearSelfArmor();
         lstCardEffectBases[(int)CardEffectType.RECOVER_HP_BY_DAMAGE] = new CardEffectRecoverHpByDamage();
+        lstCardEffectBases[(int)CardEffectType.CONSUME_BUFF_COUNT] = new CardEffectConsumeBuffCount();
 
         bInit = true;
     }
@@ -233,6 +234,21 @@ public class CardEffectConsumeBuffGetBuff : CardEffectBase
         {
             battleModel.RemoveBuff(battleModel.selfData, rmBuff);
             battleModel.AddBuff(battleModel.selfData, battleModel.selfData, (uint)effectTplt.iEffectValue_2, rmBuff.effectVal);
+        }
+    }
+}
+
+public class CardEffectConsumeBuffCount : CardEffectBase
+{
+    public CardEffectConsumeBuffCount() : base() { }
+
+    public override void DoEffect(BattleManager battlemgr, CardInstance cardInstance, CardEffectTemplate effectTplt, int targetInstId)
+    {
+        BattleModel battleModel = BattleModel.Inst;
+        BuffInst decBuff = battleModel.selfData.GetBuffInst((uint)effectTplt.iEffectValue);
+        if (decBuff != null)
+        {
+            battleModel.DecBuffEffectVal(battleModel.selfData, decBuff, effectTplt.iEffectCount);
         }
     }
 }

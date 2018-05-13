@@ -401,7 +401,7 @@ public class BattleModel : ModelBase
     /// <param name="buffId"></param>
     internal void AddBuff(ObjectBase casterObject, ObjectBase targetObject, uint buffId, int count = 1)
     {
-        if (count == 0)
+        if (count == 0 || buffId == 0)
         {
             return;
         }
