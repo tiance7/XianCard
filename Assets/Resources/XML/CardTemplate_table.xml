@@ -684,6 +684,31 @@
 				<nEffectId>76</nEffectId>
 				<bExhaust>1</bExhaust>
 			</entry>
+			<entry>
+				<nId>55</nId>
+				<nJob>1</nJob>
+				<szName>太乙分光剑</szName>
+				<iCost>1</iCost>
+				<szDesc>造成7点伤害，如果有幻剑，消耗一把幻剑，额外造成1点伤害2次</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>78</nEffectId>
+				<nUpgradeId>56</nUpgradeId>
+			</entry>
+			<entry>
+				<nId>56</nId>
+				<nJob>1</nJob>
+				<szName>太乙分光剑+</szName>
+				<iCost>1</iCost>
+				<szDesc>造成9点伤害，如果有幻剑，消耗一把幻剑，额外造成2点伤害2次</szDesc>
+				<nType>1</nType>
+				<nTargetType>1</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>81</nEffectId>
+			</entry>
 		</g_CardTemplate>
 	</LocalData>
 </LocalDatas>

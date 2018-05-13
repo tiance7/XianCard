@@ -51,15 +51,15 @@ public class CharModel : ModelBase
         //lstInitCardId.Add(9);   //todo 测试用 地脉阵
         lstInitCardId.Add(35);   //todo 测试用
         lstInitCardId.Add(37);   //todo 测试用
-        lstInitCardId.Add(40);
+        lstInitCardId.Add(55);
         lstInitCardId.Add(41);
         lstInitCardId.Add(54);
         lstInitCardId.Add(54);
         lstInitCardId.Add(45);
         lstInitCardId.Add(54);
-        lstInitCardId.Add(19);
-        lstInitCardId.Add(48);
-        lstInitCardId.Add(49);
+        lstInitCardId.Add(56);
+        lstInitCardId.Add(55);
+        lstInitCardId.Add(56);
         lstInitCardId.Add(50);
         lstInitCardId.Add(52);
 
