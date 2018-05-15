@@ -689,6 +689,28 @@
 				<iEffectValue>6</iEffectValue>
 				<iEffectCount>1</iEffectCount>
 			</entry>
+			<entry>
+				<nId>84</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>3</nType>
+				<iEffectValue>6</iEffectValue>
+				<iEffectCount>2</iEffectCount>
+			</entry>
+			<entry>
+				<nId>85</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>3</nType>
+				<iEffectValue>6</iEffectValue>
+				<iEffectCount>3</iEffectCount>
+			</entry>
+			<entry>
+				<nId>86</nId>
+				<iEffectTrigType>0</iEffectTrigType>
+				<nTarget>4</nTarget>
+				<nType>14</nType>
+			</entry>
 		</g_CardEffectTemplate>
 	</LocalData>
 </LocalDatas>

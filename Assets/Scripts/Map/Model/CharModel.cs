@@ -49,18 +49,18 @@ public class CharModel : ModelBase
         //lstInitCardId.Add(5);   //todo 测试用 五灵归宗
         //lstInitCardId.Add(7);   //todo 测试用 金甲阵
         //lstInitCardId.Add(9);   //todo 测试用 地脉阵
-        lstInitCardId.Add(35);   //todo 测试用
         lstInitCardId.Add(37);   //todo 测试用
-        lstInitCardId.Add(55);
-        lstInitCardId.Add(41);
+        lstInitCardId.Add(37);   //todo 测试用
+        lstInitCardId.Add(37);
+        lstInitCardId.Add(44);
         lstInitCardId.Add(54);
-        lstInitCardId.Add(54);
+        lstInitCardId.Add(57);
         lstInitCardId.Add(45);
-        lstInitCardId.Add(54);
+        lstInitCardId.Add(60);
         lstInitCardId.Add(56);
-        lstInitCardId.Add(55);
-        lstInitCardId.Add(56);
-        lstInitCardId.Add(50);
+        lstInitCardId.Add(60);
+        lstInitCardId.Add(60);
+        lstInitCardId.Add(44);
         lstInitCardId.Add(52);
 
         foreach (uint cardId in lstInitCardId)

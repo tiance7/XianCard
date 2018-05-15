@@ -18,5 +18,6 @@ public class CardEffectType
     public const uint CLEAR_SELF_ARMOR = 11;            //清除自身所有护甲
     public const uint RECOVER_HP_BY_DAMAGE = 12;        //根据伤害值回复血量
     public const uint CONSUME_BUFF_COUNT = 13;          //消耗指定BUFF，X层
-    public const uint CARD_EFFECT_MAX = 14;
+    public const uint CLEAR_ALL_DEBUFF = 14;            //清除所有DEBUFF
+    public const uint CARD_EFFECT_MAX = 15;
 }
