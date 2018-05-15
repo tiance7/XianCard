@@ -709,6 +709,60 @@
 				<nUseTypeParam>0</nUseTypeParam>
 				<nEffectId>81</nEffectId>
 			</entry>
+			<entry>
+				<nId>57</nId>
+				<nJob>1</nJob>
+				<szName>幻剑三式</szName>
+				<iCost>0</iCost>
+				<szDesc>获得2把幻剑，消耗</szDesc>
+				<nType>2</nType>
+				<nTargetType>4</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>84</nEffectId>
+				<nUpgradeId>58</nUpgradeId>
+				<bExhaust>1</bExhaust>
+			</entry>
+			<entry>
+				<nId>58</nId>
+				<nJob>1</nJob>
+				<szName>幻剑三式+</szName>
+				<iCost>0</iCost>
+				<szDesc>获得3把幻剑，消耗</szDesc>
+				<nType>2</nType>
+				<nTargetType>4</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>85</nEffectId>
+				<bExhaust>1</bExhaust>
+			</entry>
+			<entry>
+				<nId>59</nId>
+				<nJob>1</nJob>
+				<szName>心如止水</szName>
+				<iCost>2</iCost>
+				<szDesc>解除所有负面状态，消耗</szDesc>
+				<nType>2</nType>
+				<nTargetType>4</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>86</nEffectId>
+				<nUpgradeId>60</nUpgradeId>
+				<bExhaust>1</bExhaust>
+			</entry>
+			<entry>
+				<nId>60</nId>
+				<nJob>1</nJob>
+				<szName>心如止水+</szName>
+				<iCost>1</iCost>
+				<szDesc>解除所有负面状态，消耗</szDesc>
+				<nType>2</nType>
+				<nTargetType>4</nTargetType>
+				<nCardUseType>0</nCardUseType>
+				<nUseTypeParam>0</nUseTypeParam>
+				<nEffectId>86</nEffectId>
+				<bExhaust>1</bExhaust>
+			</entry>
 		</g_CardTemplate>
 	</LocalData>
 </LocalDatas>

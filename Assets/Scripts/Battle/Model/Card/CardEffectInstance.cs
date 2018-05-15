@@ -29,6 +29,7 @@ public class CardEffectFactory
         lstCardEffectBases[(int)CardEffectType.CLEAR_SELF_ARMOR] = new CardEffectClearSelfArmor();
         lstCardEffectBases[(int)CardEffectType.RECOVER_HP_BY_DAMAGE] = new CardEffectRecoverHpByDamage();
         lstCardEffectBases[(int)CardEffectType.CONSUME_BUFF_COUNT] = new CardEffectConsumeBuffCount();
+        lstCardEffectBases[(int)CardEffectType.CLEAR_ALL_DEBUFF] = new CardEffectClearAllDebuff();
 
         bInit = true;
     }
@@ -287,6 +288,29 @@ public class CardEffectRecoverHpByDamage : CardEffectBase
         if (iEffectDamage > 0)
         {
             battleModel.AddSelfHp(iEffectDamage);
+        }
+    }
+}
+
+public class CardEffectClearAllDebuff : CardEffectBase
+{
+    public CardEffectClearAllDebuff() : base() { }
+
+    public override void DoEffect(BattleManager battlemgr, CardInstance cardInstance, CardEffectTemplate effectTplt, int targetInstId)
+    {
+        BattleModel battleModel = BattleModel.Inst;
+
+        List<BuffInst> lstBuffInst = new List<BuffInst>(battleModel.selfData.lstBuffInst);
+        foreach (var buffInst in lstBuffInst)
+        {
+            BuffTemplate template = BuffTemplateData.GetData(buffInst.tplId);
+            if (template == null)
+                continue;
+
+            if (template.nType > BuffType.DEBUFF_BEGIN && template.nType < BuffType.DEBUFF_END)
+            {
+                battleModel.RemoveBuff(battleModel.selfData, buffInst);
+            }
         }
     }
 }
